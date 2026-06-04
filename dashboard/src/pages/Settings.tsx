@@ -147,7 +147,7 @@ export default function Settings() {
               { label: "Version", value: "v1.1.0" },
               { label: "Uptime", value: uptime },
               { label: "Total Services", value: "97+" },
-              { label: "Package", value: "@colibri/remittance" },
+              { label: "Source", value: "github.com/agdanish/ETHMexico" },
             ].map((a) => (
               <div key={a.label} className="text-center">
                 <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-0.5">{a.label}</p>

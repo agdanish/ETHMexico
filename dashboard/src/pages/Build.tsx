@@ -4,9 +4,9 @@ import { ExternalLink, Package, Cpu, Zap, Link2, Hexagon, Diamond, CircleDot, Bi
 import { type LucideIcon } from "lucide-react";
 
 const codeBlocks = [
-  { label: "Install", code: "npm install @colibri/remittance" },
-  { label: "Try", code: "npx @colibri/remittance demo" },
-  { label: "Build", code: `import { createColibriAgent } from '@colibri/remittance'\n\nconst agent = createColibriAgent({\n  preset: 'remittanceBot',\n  chains: ['arbitrum', 'base'],\n})` },
+  { label: "Install", code: "git clone https://github.com/agdanish/ETHMexico.git" },
+  { label: "Try", code: "cd ETHMexico && npm run dev" },
+  { label: "Build", code: `curl "localhost:3001/api/remittance/quote?usd=200"` },
 ];
 
 const presets = [
@@ -41,12 +41,12 @@ export default function Build() {
           <p className="text-sm text-muted-foreground mt-1">SDK-first platform — install, import, extend.</p>
         </div>
         <a
-          href="https://www.npmjs.com/package/@colibri/remittance"
+          href="https://github.com/agdanish/ETHMexico"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1.5 text-sm text-primary hover:underline"
         >
-          <Package className="h-4 w-4" />npm package <ExternalLink className="h-3 w-3" />
+          <Package className="h-4 w-4" />GitHub <ExternalLink className="h-3 w-3" />
         </a>
       </div>
 

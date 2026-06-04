@@ -412,10 +412,10 @@ export default function Dashboard() {
             >
               <code>
                 <span className="text-muted-foreground/50">$ </span>
-                <span style={{ color: "#50AF95" }}>npm install @colibri/remittance</span>
+                <span style={{ color: "#50AF95" }}>git clone https://github.com/agdanish/ETHMexico.git</span>
               </code>
               <div className="absolute top-2 right-2">
-                <CopyButton text="npm install @colibri/remittance" />
+                <CopyButton text="git clone https://github.com/agdanish/ETHMexico.git" />
               </div>
             </div>
             <div
@@ -424,10 +424,10 @@ export default function Dashboard() {
             >
               <code>
                 <span className="text-muted-foreground/50">$ </span>
-                <span style={{ color: "#50AF95" }}>npx @colibri/remittance demo</span>
+                <span style={{ color: "#50AF95" }}>cd ETHMexico && npm run dev</span>
               </code>
               <div className="absolute top-2 right-2">
-                <CopyButton text="npx @colibri/remittance demo" />
+                <CopyButton text="cd ETHMexico && npm run dev" />
               </div>
             </div>
           </div>

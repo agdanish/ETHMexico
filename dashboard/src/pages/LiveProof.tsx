@@ -231,7 +231,7 @@ export default function LiveProof() {
                 : "Partial Verification — Some Checks Pending"}
             </h2>
             <p className="text-sm text-muted-foreground mt-1">
-              {integration?.totalInstalled ?? 0}/{integration?.totalExpected ?? 12} Colibrí packages verified
+              {integration?.totalInstalled ?? 0}/{integration?.totalExpected ?? 12} Colibrí modules verified
               {" | "}
               {selfTest?.wallets?.filter((w) => w.connected).length ?? 0}/{selfTest?.wallets?.length ?? 0} wallets connected
               {" | "}
@@ -241,18 +241,18 @@ export default function LiveProof() {
         </div>
       </div>
 
-      {/* Colibrí Package Verification Grid */}
+      {/* Colibrí Module Verification Grid */}
       <div className="rounded-xl border border-border bg-card p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold flex items-center gap-2">
             <Package className="h-5 w-5 text-orange-500" />
-            Colibrí Package Verification
+            Colibrí Module Verification
           </h3>
           <Badge
             variant={allPackagesVerified ? "default" : "secondary"}
             className={allPackagesVerified ? "bg-green-500/20 text-green-400 border-green-500/30" : ""}
           >
-            {allPackagesVerified ? "All 12 Verified ✓" : `${integration?.totalInstalled ?? 0}/12 Verified`}
+            {allPackagesVerified ? "All 12 Modules Verified ✓" : `${integration?.totalInstalled ?? 0}/12 Modules Verified`}
           </Badge>
         </div>
 

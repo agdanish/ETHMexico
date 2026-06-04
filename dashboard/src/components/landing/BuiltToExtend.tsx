@@ -2,9 +2,9 @@ import ScrollReveal from "@/components/shared/ScrollReveal";
 import CopyButton from "@/components/shared/CopyButton";
 
 const codeBlocks = [
-  { label: "Install", code: "npm install @colibri/remittance" },
-  { label: "Try", code: "npx @colibri/remittance demo" },
-  { label: "Build", code: `import { createColibriAgent }\n  from '@colibri/remittance'` },
+  { label: "Install", code: "git clone https://github.com/agdanish/ETHMexico.git" },
+  { label: "Try", code: "cd ETHMexico && npm run dev" },
+  { label: "Build", code: `curl "localhost:3001/api/remittance/quote?usd=200"` },
 ];
 
 export default function BuiltToExtend() {

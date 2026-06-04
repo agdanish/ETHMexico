@@ -39,7 +39,7 @@ export default function Hero() {
   ], []);
 
   const copyInstall = async () => {
-    await navigator.clipboard.writeText("npm install @colibri/remittance");
+    await navigator.clipboard.writeText("git clone https://github.com/agdanish/ETHMexico.git");
     toast.success("Copied to clipboard");
   };
 
@@ -206,7 +206,7 @@ export default function Hero() {
             className="h-12 px-6 text-sm font-mono border-[rgba(255,78,0,0.2)] text-[hsl(240,5%,70%)] hover:border-[rgba(255,78,0,0.4)] hover:bg-[rgba(255,78,0,0.05)] active:scale-[0.97] transition-all bg-transparent"
           >
             <Terminal className="mr-2 h-4 w-4" style={{ color: "#C6B6B1" }} />
-            npm install @colibri/remittance
+            git clone https://github.com/agdanish/ETHMexico.git
           </Button>
         </div>
       </div>

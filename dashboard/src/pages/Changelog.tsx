@@ -6,7 +6,7 @@ const releases = [
     date: "June 4, 2026",
     changes: [
       "107 CLI commands fully operational",
-      "npm package published: @colibri/remittance",
+      "Open-sourced: github.com/agdanish/ETHMexico",
       "SDK with 5 presets for rapid integration",
       "Full dashboard with 39 pages of agent capabilities",
     ],

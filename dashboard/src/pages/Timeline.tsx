@@ -40,7 +40,7 @@ const milestones = [
   {
     day: "Day 6",
     title: "SDK + CLI Published",
-    desc: "npm package @colibri/remittance published. 8-stage CI pipeline, 97+ MCP tools, full TypeScript SDK with remittance presets.",
+    desc: "Open-sourced on GitHub — 8-stage pipeline, full TypeScript SDK, remittance presets.",
     icon: Terminal,
     color: "text-orange-400",
   },
