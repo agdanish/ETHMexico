@@ -22,6 +22,9 @@ const labels: Record<string, string> = {
   defi: "DeFi",
   analytics: "Analytics",
   explorer: "Explorer",
+  "tip-pools": "Group Remittances",
+  "creator-leaderboard": "Top Recipients",
+  "github-tipping": "Contributor Rewards",
 };
 
 export default function Breadcrumbs() {

@@ -7,22 +7,22 @@ import { ArrowLeftRight, Search, ExternalLink, Clock, CheckCircle2, Loader2 } fr
 import { toast } from "sonner";
 
 const recentTxs = [
-  { hash: "0xabc1...def2", type: "tip", amount: "50.0 USDC", chain: "Arbitrum", status: "confirmed", confirmations: 24, time: "2m ago", to: "María López → Bitso/SPEI" },
+  { hash: "0xabc1...def2", type: "transfer", amount: "50.0 USDC", chain: "Arbitrum", status: "confirmed", confirmations: 24, time: "2m ago", to: "María López → Bitso/SPEI" },
   { hash: "0xfed3...ba45", type: "escrow", amount: "120.0 USDC", chain: "Base", status: "confirmed", confirmations: 128, time: "12m ago", to: "Escrow E-0048 (Rosa García)" },
   { hash: "0x123a...789b", type: "swap", amount: "100.0 USDC", chain: "Arbitrum", status: "confirmed", confirmations: 18, time: "18m ago", to: "Uniswap V3" },
-  { hash: "0xcc2d...8f3a", type: "tip", amount: "35.0 USDC", chain: "Base", status: "confirmed", confirmations: 12, time: "25m ago", to: "Luis Torres → Bitso/SPEI" },
+  { hash: "0xcc2d...8f3a", type: "transfer", amount: "35.0 USDC", chain: "Base", status: "confirmed", confirmations: 12, time: "25m ago", to: "Luis Torres → Bitso/SPEI" },
   { hash: "0x456c...012d", type: "yield", amount: "500.0 USDC", chain: "Arbitrum", status: "confirmed", confirmations: 45, time: "35m ago", to: "Aave V3" },
   { hash: "0x789e...345f", type: "bridge", amount: "200.0 USDC", chain: "Base", status: "confirmed", confirmations: 256, time: "1h ago", to: "Base Bridge" },
 ];
 
 const pendingTxs = [
-  { hash: "0xpnd1...abc2", type: "tip", amount: "75.0 USDC", chain: "Arbitrum", status: "pending", time: "10s ago" },
+  { hash: "0xpnd1...abc2", type: "transfer", amount: "75.0 USDC", chain: "Arbitrum", status: "pending", time: "10s ago" },
   { hash: "0xpnd2...def3", type: "dca", amount: "25 USDC", chain: "Base", status: "mempool", time: "30s ago" },
 ];
 
 const typeBadge = (t: string) => {
   const colors: Record<string, string> = {
-    tip: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
+    transfer: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
     escrow: "bg-blue-500/15 text-blue-400 border-blue-500/30",
     swap: "bg-purple-500/15 text-purple-400 border-purple-500/30",
     yield: "bg-yellow-500/15 text-yellow-400 border-yellow-500/30",
