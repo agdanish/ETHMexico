@@ -11,18 +11,18 @@ const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 // ── Colibrí Stack package list ───────────────────────────────────
 const WDK_PACKAGES = [
-  { name: "@colibri/remittance", desc: "Core SDK", critical: true },
-  { name: "@colibri/agent-discovery", desc: "Discovery Agent", critical: true },
-  { name: "@colibri/agent-router", desc: "Router Agent", critical: true },
-  { name: "@colibri/agent-treasury", desc: "Treasury Agent", critical: false },
-  { name: "@colibri/agent-guardian", desc: "Guardian Agent", critical: false },
-  { name: "@colibri/usdc-bridge", desc: "USDC Bridge (Arbitrum)", critical: false },
-  { name: "@colibri/usdc-base", desc: "USDC Bridge (Base)", critical: false },
-  { name: "@colibri/bitso-offramp", desc: "Bitso Off-ramp", critical: false },
-  { name: "@colibri/spei-rail", desc: "SPEI Rail", critical: false },
-  { name: "@colibri/fx-oracle", desc: "USD/MXN Oracle", critical: false },
-  { name: "@colibri/pipeline", desc: "8-Stage Pipeline", critical: false },
-  { name: "@colibri/types", desc: "Type Definitions", critical: false },
+  { name: "remittance", desc: "Core SDK", critical: true },
+  { name: "agent-discovery", desc: "Discovery Agent", critical: true },
+  { name: "agent-router", desc: "Router Agent", critical: true },
+  { name: "agent-treasury", desc: "Treasury Agent", critical: false },
+  { name: "agent-guardian", desc: "Guardian Agent", critical: false },
+  { name: "usdc-bridge", desc: "USDC Bridge (Arbitrum)", critical: false },
+  { name: "usdc-base", desc: "USDC Bridge (Base)", critical: false },
+  { name: "bitso-offramp", desc: "Bitso Off-ramp", critical: false },
+  { name: "spei-rail", desc: "SPEI Rail", critical: false },
+  { name: "fx-oracle", desc: "USD/MXN Oracle", critical: false },
+  { name: "pipeline", desc: "8-Stage Pipeline", critical: false },
+  { name: "types", desc: "Type Definitions", critical: false },
 ];
 
 // ── Chain explorer URLs ─────────────────────────────────────────
