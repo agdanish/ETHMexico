@@ -3,7 +3,7 @@ import { X } from "lucide-react";
 
 export default function AnnouncementBanner() {
   const [dismissed, setDismissed] = useState(() =>
-    localStorage.getItem("aerofyta-banner-dismissed") === "true"
+    localStorage.getItem("colibri-banner-dismissed") === "true"
   );
 
   if (dismissed) return null;
@@ -22,14 +22,14 @@ export default function AnnouncementBanner() {
           style={{ background: "hsl(var(--success))", animation: "status-pulse 2s ease-in-out infinite" }}
         />
         <span className="text-foreground/80">
-          Built for <strong className="font-medium text-foreground">Tether Hackathon Galactica: WDK Edition 1</strong>
+          Built for <strong className="font-medium text-foreground">Ethereum Mexico 2026</strong>
         </span>
       </div>
       <div className="flex items-center gap-3">
-        <span className="text-muted-foreground hidden sm:inline">Powered by Tether WDK</span>
+        <span className="text-muted-foreground hidden sm:inline">USD→MXN · ~90s · ~$1.20</span>
         <button
           onClick={() => {
-            localStorage.setItem("aerofyta-banner-dismissed", "true");
+            localStorage.setItem("colibri-banner-dismissed", "true");
             setDismissed(true);
           }}
           className="text-muted-foreground hover:text-foreground transition-colors active:scale-[0.9]"

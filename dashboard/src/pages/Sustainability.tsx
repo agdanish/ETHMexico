@@ -4,12 +4,11 @@ import CountUp from "@/components/shared/CountUp";
 import { Leaf, Zap, Award, TrendingDown, BarChart3 } from "lucide-react";
 
 const chainEfficiency = [
-  { chain: "TON", energyPerTx: "0.001 Wh", co2: "0.0005g", grade: "A+", efficient: true },
-  { chain: "Solana", energyPerTx: "0.003 Wh", co2: "0.0015g", grade: "A", efficient: true },
-  { chain: "Polygon", energyPerTx: "0.008 Wh", co2: "0.004g", grade: "A", efficient: true },
-  { chain: "Arbitrum", energyPerTx: "0.015 Wh", co2: "0.008g", grade: "B", efficient: true },
-  { chain: "Tron", energyPerTx: "0.02 Wh", co2: "0.01g", grade: "B", efficient: false },
-  { chain: "Ethereum", energyPerTx: "0.03 Wh", co2: "0.015g", grade: "C", efficient: false },
+  { chain: "Base", energyPerTx: "0.008 Wh", co2: "0.004g", grade: "A+", efficient: true },
+  { chain: "Arbitrum", energyPerTx: "0.015 Wh", co2: "0.008g", grade: "A", efficient: true },
+  { chain: "Ethereum L1", energyPerTx: "0.03 Wh", co2: "0.015g", grade: "B", efficient: true },
+  { chain: "Bitso (off-ramp)", energyPerTx: "0.001 Wh", co2: "0.0005g", grade: "A+", efficient: true },
+  { chain: "SPEI (MXN rail)", energyPerTx: "0.0005 Wh", co2: "0.0002g", grade: "A+", efficient: true },
   { chain: "Bitcoin", energyPerTx: "707 kWh", co2: "338kg", grade: "D", efficient: false },
 ];
 
@@ -54,19 +53,19 @@ export default function Sustainability() {
           <Leaf className="h-10 w-10 mb-3" strokeWidth={1.5} style={{ color: "#50AF95" }} />
           <p className="text-4xl font-bold tabular-nums" style={{ color: "#50AF95" }}>87</p>
           <Badge variant="outline" className="mt-2 text-sm px-3 py-0.5 bg-emerald-500/15 text-emerald-400 border-emerald-500/30">Grade A</Badge>
-          <p className="text-xs text-muted-foreground mt-3 max-w-[200px]">Agent operates primarily on energy-efficient chains with minimal carbon footprint.</p>
+          <p className="text-xs text-muted-foreground mt-3 max-w-[200px]">Colibrí routes transfers through Arbitrum + Base — the most energy-efficient L2 settlement layers.</p>
         </div>
 
         {/* Recommendation */}
         <div className="rounded-xl border border-border/50 bg-card/50 p-5">
           <h3 className="text-sm font-semibold mb-4">Green Chain Recommendation</h3>
           <div className="rounded-lg bg-accent/30 p-4 mb-3">
-            <p className="text-sm font-medium mb-1">Use TON for micro-tips</p>
-            <p className="text-xs text-muted-foreground leading-relaxed">TON has the lowest energy consumption per transaction. For tips under $5, routing through TON reduces carbon impact by 97% vs Ethereum.</p>
+            <p className="text-sm font-medium mb-1">Use Base for small remittances</p>
+            <p className="text-xs text-muted-foreground leading-relaxed">Base has the lowest energy consumption per transaction. For transfers under $50, routing through Base reduces carbon impact by 97% vs Ethereum L1.</p>
           </div>
           <div className="rounded-lg bg-accent/30 p-4">
-            <p className="text-sm font-medium mb-1">Polygon for mid-range</p>
-            <p className="text-xs text-muted-foreground leading-relaxed">Tips $5-$50: Polygon offers the best balance of cost, speed, and environmental efficiency.</p>
+            <p className="text-sm font-medium mb-1">Arbitrum for larger transfers</p>
+            <p className="text-xs text-muted-foreground leading-relaxed">Transfers $50–$1000: Arbitrum offers the best balance of cost, speed, and environmental efficiency for USD→MXN remittances.</p>
           </div>
         </div>
 

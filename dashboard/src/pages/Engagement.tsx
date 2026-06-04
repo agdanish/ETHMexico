@@ -7,12 +7,12 @@ import { Sparkles, CheckCircle2, Youtube, Radio, Webhook, Eye, Heart, MessageCir
 import { toast } from "sonner";
 
 const attestations = [
-  { creator: "@sarah_creates", platform: "YouTube", metric: "views", value: "45.2K", timestamp: "2m ago", verified: true },
-  { creator: "@sarah_creates", platform: "YouTube", metric: "likes", value: "3.8K", timestamp: "2m ago", verified: true },
-  { creator: "@dev_marcus", platform: "YouTube", metric: "views", value: "12.1K", timestamp: "5h ago", verified: true },
-  { creator: "@music_maya", platform: "Rumble", metric: "views", value: "8.7K", timestamp: "8h ago", verified: true },
-  { creator: "@crypto_claire", platform: "YouTube", metric: "comments", value: "847", timestamp: "12h ago", verified: true },
-  { creator: "@dev_marcus", platform: "YouTube", metric: "watch_time", value: "4,200h", timestamp: "1d ago", verified: false },
+  { creator: "María García", platform: "Bitso SPEI", metric: "views", value: "45.2K MXN", timestamp: "2m ago", verified: true },
+  { creator: "María García", platform: "Bitso SPEI", metric: "likes", value: "3.8K MXN", timestamp: "2m ago", verified: true },
+  { creator: "Luis Hernández", platform: "Bitso SPEI", metric: "views", value: "12.1K MXN", timestamp: "5h ago", verified: true },
+  { creator: "Rosa Martínez", platform: "Arbitrum", metric: "views", value: "8.7K MXN", timestamp: "8h ago", verified: true },
+  { creator: "Carlos López", platform: "Base", metric: "comments", value: "847 MXN", timestamp: "12h ago", verified: true },
+  { creator: "Luis Hernández", platform: "Bitso SPEI", metric: "watch_time", value: "4,200 MXN", timestamp: "1d ago", verified: false },
 ];
 
 const metricIcons: Record<string, typeof Eye> = {
@@ -24,37 +24,37 @@ const metricIcons: Record<string, typeof Eye> = {
 };
 
 const propagation = [
-  { from: "Agent", to: "@sarah_creates", amount: "2.5 USDT", chain: "Ethereum" },
-  { from: "@sarah_creates", to: "@collab_friend", amount: "0.5 USDT", chain: "Polygon" },
-  { from: "@sarah_creates", to: "@editor_joe", amount: "0.3 USDT", chain: "Polygon" },
+  { from: "Colibrí Agent", to: "María García", amount: "2.5 USDC", chain: "Base" },
+  { from: "María García", to: "Ana Rodríguez", amount: "0.5 USDC", chain: "Arbitrum" },
+  { from: "María García", to: "Carlos López", amount: "0.3 USDC", chain: "Base" },
 ];
 
 const platforms = [
-  { name: "YouTube", status: "connected", events: 847, adapter: "Official API" },
-  { name: "Rumble", status: "connected", events: 234, adapter: "RSS + Scraper" },
-  { name: "Custom Webhook", status: "connected", events: 56, adapter: "HMAC Verified" },
-  { name: "Twitch", status: "disconnected", events: 0, adapter: "Not configured" },
+  { name: "Bitso SPEI", status: "connected", events: 847, adapter: "Official API" },
+  { name: "Arbitrum One", status: "connected", events: 234, adapter: "Alchemy RPC" },
+  { name: "Base Mainnet", status: "connected", events: 56, adapter: "Coinbase RPC" },
+  { name: "Optimism", status: "disconnected", events: 0, adapter: "Not configured" },
 ];
 
 const autoTipRules = [
-  { metric: "views", threshold: "> 10,000", action: "Auto-tip 1 USDT", enabled: true },
-  { metric: "likes", threshold: "> 1,000", action: "Auto-tip 0.5 USDT", enabled: true },
-  { metric: "comments", threshold: "> 500", action: "Auto-tip 0.25 USDT", enabled: true },
-  { metric: "growth_rate", threshold: "> 20% week/week", action: "Bonus tip 2 USDT", enabled: false },
+  { metric: "transfers", threshold: "> 10,000 MXN", action: "Auto-send 1 USDC", enabled: true },
+  { metric: "verifications", threshold: "> 1,000", action: "Auto-send 0.5 USDC", enabled: true },
+  { metric: "settlements", threshold: "> 500", action: "Auto-send 0.25 USDC", enabled: true },
+  { metric: "growth_rate", threshold: "> 20% week/week", action: "Bonus send 2 USDC", enabled: false },
 ];
 
 const recommendations = [
-  { creator: "@tech_sam", score: 89, reason: "High engagement growth, 3 videos/week", platform: "YouTube" },
-  { creator: "@gaming_alex", score: 82, reason: "Consistent viewership, active community", platform: "Rumble" },
-  { creator: "@art_nina", score: 78, reason: "Niche audience, high comment ratio", platform: "YouTube" },
+  { creator: "Elena Peña", score: 89, reason: "High transfer frequency, verified KYC", platform: "Bitso SPEI" },
+  { creator: "Hugo Navarro", score: 82, reason: "Consistent settlements, active corridor", platform: "Arbitrum" },
+  { creator: "Sofía Guerrero", score: 78, reason: "Trusted beneficiary, fast SPEI off-ramp", platform: "Base" },
 ];
 
 export default function Engagement() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight">Proof of Engagement & Content</h1>
-        <p className="text-sm text-muted-foreground mt-1">Verified engagement attestations, tip propagation, and content discovery.</p>
+        <h1 className="text-2xl font-bold tracking-tight">Proof of Transfer & Activity</h1>
+        <p className="text-sm text-muted-foreground mt-1">Verified transfer attestations, remittance propagation, and recipient discovery.</p>
       </div>
 
       {/* Stats */}
@@ -62,8 +62,8 @@ export default function Engagement() {
         {[
           { label: "Total Attestations", value: 2847, icon: Sparkles },
           { label: "Verified", value: 98, suffix: "%", icon: CheckCircle2 },
-          { label: "Platforms", value: 3, icon: Youtube },
-          { label: "Auto-Tips Triggered", value: 156, icon: TrendingUp },
+          { label: "Networks", value: 3, icon: Youtube },
+          { label: "Auto-Transfers Triggered", value: 156, icon: TrendingUp },
         ].map((s) => (
           <div key={s.label} className="rounded-xl border border-border/50 bg-card/50 p-5">
             <div className="flex items-center gap-2 mb-1">
@@ -81,7 +81,7 @@ export default function Engagement() {
         {/* Attestations */}
         <div className="rounded-xl border border-border/50 bg-card/50">
           <div className="px-5 py-3 border-b border-border/40">
-            <h3 className="text-sm font-semibold">Engagement Attestations</h3>
+            <h3 className="text-sm font-semibold">Transfer Attestations</h3>
           </div>
           <ScrollArea className="h-[300px]">
             <div className="divide-y divide-border/20">
@@ -111,7 +111,7 @@ export default function Engagement() {
 
         {/* Tip Propagation */}
         <div className="rounded-xl border border-border/50 bg-card/50 p-5">
-          <h3 className="text-sm font-semibold mb-4">Tip Propagation Wave</h3>
+          <h3 className="text-sm font-semibold mb-4">Remittance Propagation</h3>
           <div className="space-y-3">
             {propagation.map((p, i) => (
               <div key={i} className="flex items-center gap-3">
@@ -126,7 +126,7 @@ export default function Engagement() {
             ))}
           </div>
           <div className="mt-4 rounded-lg bg-accent/20 p-3">
-            <p className="text-[10px] text-muted-foreground leading-relaxed">Tips can propagate downstream when creators share revenue with collaborators. The agent tracks the full tip chain for transparency.</p>
+            <p className="text-[10px] text-muted-foreground leading-relaxed">Remittances can propagate downstream when beneficiaries share funds with family members. The agent tracks the full transfer chain for transparency.</p>
           </div>
         </div>
       </div>
@@ -156,7 +156,7 @@ export default function Engagement() {
         {/* Auto-Tip Rules */}
         <div className="rounded-xl border border-border/50 bg-card/50">
           <div className="px-5 py-3 border-b border-border/40">
-            <h3 className="text-sm font-semibold">Auto-Tip Rules</h3>
+            <h3 className="text-sm font-semibold">Auto-Transfer Rules</h3>
           </div>
           <div className="divide-y divide-border/20">
             {autoTipRules.map((r) => (
@@ -174,7 +174,7 @@ export default function Engagement() {
         {/* Recommendations */}
         <div className="rounded-xl border border-border/50 bg-card/50">
           <div className="px-5 py-3 border-b border-border/40">
-            <h3 className="text-sm font-semibold">Recommended Creators</h3>
+            <h3 className="text-sm font-semibold">Recommended Recipients</h3>
           </div>
           <div className="divide-y divide-border/20">
             {recommendations.map((r) => (

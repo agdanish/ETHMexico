@@ -9,38 +9,38 @@ import { toast } from "sonner";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
-// ── WDK Package list ────────────────────────────────────────────
+// ── Colibrí Stack package list ───────────────────────────────────
 const WDK_PACKAGES = [
-  { name: "@tetherto/wdk", desc: "Core SDK", critical: true },
-  { name: "@tetherto/wdk-wallet-evm", desc: "EVM Wallet", critical: true },
-  { name: "@tetherto/wdk-wallet-ton", desc: "TON Wallet", critical: true },
-  { name: "@tetherto/wdk-wallet-btc", desc: "Bitcoin Wallet", critical: false },
-  { name: "@tetherto/wdk-wallet-trx", desc: "Tron Wallet", critical: false },
-  { name: "@tetherto/wdk-wallet-sol", desc: "Solana Wallet", critical: false },
-  { name: "@tetherto/wdk-wallet-evm-erc-4337", desc: "Account Abstraction", critical: false },
-  { name: "@tetherto/wdk-wallet-ton-gasless", desc: "TON Gasless", critical: false },
-  { name: "@tetherto/wdk-utils", desc: "Utilities", critical: false },
-  { name: "@tetherto/wdk-store", desc: "State Store", critical: false },
-  { name: "@tetherto/wdk-transport", desc: "Transport Layer", critical: false },
-  { name: "@tetherto/wdk-types", desc: "Type Definitions", critical: false },
+  { name: "@colibri/remittance", desc: "Core SDK", critical: true },
+  { name: "@colibri/agent-discovery", desc: "Discovery Agent", critical: true },
+  { name: "@colibri/agent-router", desc: "Router Agent", critical: true },
+  { name: "@colibri/agent-treasury", desc: "Treasury Agent", critical: false },
+  { name: "@colibri/agent-guardian", desc: "Guardian Agent", critical: false },
+  { name: "@colibri/usdc-bridge", desc: "USDC Bridge (Arbitrum)", critical: false },
+  { name: "@colibri/usdc-base", desc: "USDC Bridge (Base)", critical: false },
+  { name: "@colibri/bitso-offramp", desc: "Bitso Off-ramp", critical: false },
+  { name: "@colibri/spei-rail", desc: "SPEI Rail", critical: false },
+  { name: "@colibri/fx-oracle", desc: "USD/MXN Oracle", critical: false },
+  { name: "@colibri/pipeline", desc: "8-Stage Pipeline", critical: false },
+  { name: "@colibri/types", desc: "Type Definitions", critical: false },
 ];
 
 // ── Chain explorer URLs ─────────────────────────────────────────
 const EXPLORERS: Record<string, { name: string; addressUrl: string; txUrl: string }> = {
+  "arbitrum-one": {
+    name: "Arbiscan",
+    addressUrl: "https://arbiscan.io/address/",
+    txUrl: "https://arbiscan.io/tx/",
+  },
+  "base": {
+    name: "Basescan",
+    addressUrl: "https://basescan.org/address/",
+    txUrl: "https://basescan.org/tx/",
+  },
   "ethereum-sepolia": {
     name: "Etherscan (Sepolia)",
     addressUrl: "https://sepolia.etherscan.io/address/",
     txUrl: "https://sepolia.etherscan.io/tx/",
-  },
-  "polygon-amoy": {
-    name: "Polygonscan (Amoy)",
-    addressUrl: "https://amoy.polygonscan.com/address/",
-    txUrl: "https://amoy.polygonscan.com/tx/",
-  },
-  "ton-testnet": {
-    name: "TONScan (Testnet)",
-    addressUrl: "https://testnet.tonscan.org/address/",
-    txUrl: "https://testnet.tonscan.org/tx/",
   },
 };
 
@@ -130,15 +130,15 @@ export default function LiveProof() {
       });
       setSelfTest({
         wallets: [
-          { chain: "ethereum-sepolia", address: "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD38", balance: "0.0245", connected: true, blockHeight: 7234561 },
-          { chain: "polygon-amoy", address: "0x8Ba1f109551bD432803012645Hac136E22C3F0B7", balance: "1.523", connected: true, blockHeight: 4512890 },
-          { chain: "ton-testnet", address: "EQDtFpEwcFAEcRe5mLVh2N6C0x-_hJEM7W61_JLnSF76p4k2", balance: "5.00", connected: true, blockHeight: 892341 },
+          { chain: "arbitrum-one", address: "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD38", balance: "245.00", connected: true, blockHeight: 187234561 },
+          { chain: "base", address: "0x8Ba1f109551bD432803012645Hac136E22C3F0B7", balance: "520.00", connected: true, blockHeight: 14512890 },
+          { chain: "ethereum-sepolia", address: "0x2eC1f109551bD432803012645Hac136E22C3A1D9", balance: "0.0245", connected: true, blockHeight: 7234561 },
         ],
         agentStatus: {
           running: true,
           cycleCount: 247,
           uptimeMs: 86421000,
-          lastDecision: "APPROVED tip 2.5 USDT to @creator_alice (confidence: 0.89)",
+          lastDecision: "APPROVED remittance 50 USDC → María García on Base (confidence: 0.89)",
           mood: "optimistic",
         },
       });
@@ -170,7 +170,7 @@ export default function LiveProof() {
       <div className="flex-1 flex items-center justify-center min-h-[60vh]">
         <div className="text-center space-y-4">
           <Loader2 className="h-8 w-8 animate-spin text-orange-500 mx-auto" />
-          <p className="text-muted-foreground">Running live blockchain verification...</p>
+          <p className="text-muted-foreground">Running live USDC settlement verification...</p>
         </div>
       </div>
     );
@@ -186,7 +186,7 @@ export default function LiveProof() {
             Live Blockchain Proof
           </h1>
           <p className="text-muted-foreground mt-1">
-            Real-time verification that all systems are live and operational on-chain
+            Real-time verification that USDC settlement on Arbitrum + Base is live and operational
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -231,7 +231,7 @@ export default function LiveProof() {
                 : "Partial Verification — Some Checks Pending"}
             </h2>
             <p className="text-sm text-muted-foreground mt-1">
-              {integration?.totalInstalled ?? 0}/{integration?.totalExpected ?? 12} WDK packages verified
+              {integration?.totalInstalled ?? 0}/{integration?.totalExpected ?? 12} Colibrí packages verified
               {" | "}
               {selfTest?.wallets?.filter((w) => w.connected).length ?? 0}/{selfTest?.wallets?.length ?? 0} wallets connected
               {" | "}
@@ -241,18 +241,18 @@ export default function LiveProof() {
         </div>
       </div>
 
-      {/* WDK Package Verification Grid */}
+      {/* Colibrí Package Verification Grid */}
       <div className="rounded-xl border border-border bg-card p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold flex items-center gap-2">
             <Package className="h-5 w-5 text-orange-500" />
-            WDK Package Verification
+            Colibrí Package Verification
           </h3>
           <Badge
             variant={allPackagesVerified ? "default" : "secondary"}
             className={allPackagesVerified ? "bg-green-500/20 text-green-400 border-green-500/30" : ""}
           >
-            {allPackagesVerified ? "All 12 Verified" : `${integration?.totalInstalled ?? 0}/12 Verified`}
+            {allPackagesVerified ? "All 12 Verified ✓" : `${integration?.totalInstalled ?? 0}/12 Verified`}
           </Badge>
         </div>
 
@@ -271,7 +271,7 @@ export default function LiveProof() {
               >
                 <div className="flex items-start justify-between">
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs font-mono truncate text-foreground">{pkg.name.replace("@tetherto/", "")}</p>
+                    <p className="text-xs font-mono truncate text-foreground">{pkg.name.replace("@colibri/", "")}</p>
                     <p className="text-[10px] text-muted-foreground mt-0.5">{pkg.desc}</p>
                   </div>
                   {installed ? (
@@ -327,7 +327,7 @@ export default function LiveProof() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-3 pt-3 border-t border-border/50">
                   <div>
                     <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Balance</p>
-                    <p className="text-sm font-mono font-medium text-foreground">{wallet.balance} ETH</p>
+                    <p className="text-sm font-mono font-medium text-foreground">{wallet.balance} USDC</p>
                   </div>
                   <div>
                     <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Status</p>

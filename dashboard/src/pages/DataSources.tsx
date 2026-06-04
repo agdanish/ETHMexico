@@ -12,10 +12,10 @@ const pipeline = [
 ];
 
 const youtubeChannels = [
-  { name: "@sarah_creates", subscribers: "124K", recentVideo: "Building DeFi Apps in 2025", views: "45.2K", posted: "2h ago" },
-  { name: "@dev_marcus", subscribers: "89K", recentVideo: "Smart Contract Security Guide", views: "12.1K", posted: "5h ago" },
-  { name: "@music_maya", subscribers: "67K", recentVideo: "Web3 Music Monetization", views: "8.7K", posted: "8h ago" },
-  { name: "@crypto_claire", subscribers: "45K", recentVideo: "TON Blockchain Deep Dive", views: "6.3K", posted: "12h ago" },
+  { name: "María González", subscribers: "124K", recentVideo: "Sending USDC via Colibrí in 90 seconds", views: "45.2K", posted: "2h ago" },
+  { name: "Carlos Ramírez", subscribers: "89K", recentVideo: "Arbitrum vs Base for Remittances", views: "12.1K", posted: "5h ago" },
+  { name: "Ana Martínez", subscribers: "67K", recentVideo: "Bitso SPEI Off-Ramp Guide 2025", views: "8.7K", posted: "8h ago" },
+  { name: "Luis Hernández", subscribers: "45K", recentVideo: "Cross-Border Payments Deep Dive", views: "6.3K", posted: "12h ago" },
 ];
 
 const webhooks = [
@@ -30,7 +30,7 @@ const rssFeeds = [
   { source: "Reddit", feeds: 5, items: 234, lastRefresh: "5m ago" },
   { source: "Medium", feeds: 8, items: 156, lastRefresh: "10m ago" },
   { source: "Dev.to", feeds: 4, items: 89, lastRefresh: "15m ago" },
-  { source: "Rumble", feeds: 3, items: 67, lastRefresh: "8m ago" },
+  { source: "Bitso", feeds: 3, items: 67, lastRefresh: "8m ago" },
 ];
 
 export default function DataSources() {

@@ -18,7 +18,7 @@ export default function LandingCTA() {
           </p>
           <Button
             onClick={() => {
-              localStorage.setItem("aerofyta_visited", "true");
+              localStorage.setItem("colibri_visited", "true");
               navigate("/dashboard");
             }}
             className="h-12 px-8 text-sm font-medium bg-primary hover:bg-primary/90 active:scale-[0.97] transition-all"

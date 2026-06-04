@@ -55,10 +55,10 @@ const MOOD_LABELS: Record<BrainMood, string> = {
 };
 
 const MOOD_DESCRIPTIONS: Record<BrainMood, string> = {
-  generous: "Tip aggressively, explore new creators, maximize community impact",
-  strategic: "Selective tipping, fee optimization, favor proven creators",
-  cautious: "Conservation mode, essential tips only, minimize gas spend",
-  survival: "EMERGENCY -- no tips, consolidate funds, alert user",
+  generous: "Send transfers aggressively, explore new beneficiaries, maximize remittance throughput",
+  strategic: "Selective transfers, fee optimization, favor proven recipients",
+  cautious: "Conservation mode, essential transfers only, minimize gas spend",
+  survival: "EMERGENCY -- no transfers, consolidate funds, alert user",
 };
 
 const demoBrainState: BrainState = {
@@ -69,17 +69,17 @@ const demoBrainState: BrainState = {
   velocity: 35,
   riskAppetite: 58,
   maxTipUsdt: 2,
-  policy: "Selective tipping, fee optimization, favor proven creators",
+  policy: "Selective transfers, fee optimization, favor proven recipients",
   timestamp: new Date().toISOString(),
 };
 
 const demoHistory = {
   transitions: [
-    { from: "generous" as BrainMood, to: "strategic" as BrainMood, health: 65, reason: "Liquidity dropped below 70 — switching to selective mode", timestamp: new Date(Date.now() - 3600000).toISOString() },
+    { from: "generous" as BrainMood, to: "strategic" as BrainMood, health: 65, reason: "Liquidity dropped below 70 — switching to selective remittance mode", timestamp: new Date(Date.now() - 3600000).toISOString() },
     { from: "strategic" as BrainMood, to: "cautious" as BrainMood, health: 38, reason: "Health dropped to 38 after large escrow commitment", timestamp: new Date(Date.now() - 7200000).toISOString() },
-    { from: "cautious" as BrainMood, to: "strategic" as BrainMood, health: 55, reason: "Funds replenished from pending tips resolved", timestamp: new Date(Date.now() - 5400000).toISOString() },
-    { from: "strategic" as BrainMood, to: "generous" as BrainMood, health: 85, reason: "Multi-chain diversification improved, health above 80", timestamp: new Date(Date.now() - 1800000).toISOString() },
-    { from: "generous" as BrainMood, to: "strategic" as BrainMood, health: 72, reason: "Velocity spike detected — tempering generosity", timestamp: new Date(Date.now() - 600000).toISOString() },
+    { from: "cautious" as BrainMood, to: "strategic" as BrainMood, health: 55, reason: "Funds replenished from pending transfers resolved", timestamp: new Date(Date.now() - 5400000).toISOString() },
+    { from: "strategic" as BrainMood, to: "generous" as BrainMood, health: 85, reason: "Arbitrum + Base diversification improved, health above 80", timestamp: new Date(Date.now() - 1800000).toISOString() },
+    { from: "generous" as BrainMood, to: "strategic" as BrainMood, health: 72, reason: "Transfer velocity spike detected — tempering throughput", timestamp: new Date(Date.now() - 600000).toISOString() },
   ] as BrainTransition[],
   stateSnapshots: [],
 };
@@ -393,11 +393,11 @@ export default function WalletBrain() {
             {MOOD_DESCRIPTIONS[mood]}
           </p>
 
-          {/* Max tip indicator */}
+          {/* Max transfer indicator */}
           <div className="mt-4 flex items-center gap-2 text-xs">
-            <span className="text-muted-foreground">Max tip:</span>
+            <span className="text-muted-foreground">Max transfer:</span>
             <span className="font-bold tabular-nums" style={{ color: moodColor }}>
-              {brainState.maxTipUsdt === 0 ? "BLOCKED" : `${brainState.maxTipUsdt} USDT`}
+              {brainState.maxTipUsdt === 0 ? "BLOCKED" : `${brainState.maxTipUsdt} USDC`}
             </span>
           </div>
 
@@ -520,7 +520,7 @@ export default function WalletBrain() {
               <span className="h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ background: `${MOOD_COLORS.generous}22`, color: MOOD_COLORS.generous }}>1</span>
               Read Wallets
             </div>
-            <p>Every 60s, the brain reads balances across all 9 chains via WDK.</p>
+            <p>Every 60s, the brain reads balances across Arbitrum and Base via RPC.</p>
           </div>
           <div className="space-y-1">
             <div className="flex items-center gap-2 text-foreground font-medium">
@@ -541,7 +541,7 @@ export default function WalletBrain() {
               <span className="h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ background: `${MOOD_COLORS.survival}22`, color: MOOD_COLORS.survival }}>4</span>
               Drive Behavior
             </div>
-            <p>Mood controls tip limits, creator selection, chain routing, and risk tolerance.</p>
+            <p>Mood controls transfer limits, beneficiary selection, L2 routing, and risk tolerance.</p>
           </div>
         </div>
       </div>

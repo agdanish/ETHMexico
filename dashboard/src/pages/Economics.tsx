@@ -12,18 +12,18 @@ const scoringFactors = [
 ];
 
 const gasComparison = [
-  { chain: "Polygon", gas: "0.003 gwei", cost: "$0.001", recommended: true },
-  { chain: "TON", gas: "0.05 TON", cost: "$0.002", recommended: true },
-  { chain: "Solana", gas: "0.00025 SOL", cost: "$0.004", recommended: false },
-  { chain: "Arbitrum", gas: "0.1 gwei", cost: "$0.008", recommended: false },
-  { chain: "Tron", gas: "1 TRX", cost: "$0.012", recommended: false },
+  { chain: "Base", gas: "0.005 gwei", cost: "$0.01", recommended: true },
+  { chain: "Arbitrum One", gas: "0.1 gwei", cost: "$0.04", recommended: true },
+  { chain: "Base Sepolia", gas: "0.003 gwei", cost: "$0.005", recommended: false },
+  { chain: "Arbitrum Sepolia", gas: "0.08 gwei", cost: "$0.02", recommended: false },
+  { chain: "Optimism", gas: "0.2 gwei", cost: "$0.06", recommended: false },
   { chain: "Ethereum", gas: "12 gwei", cost: "$0.85", recommended: false },
 ];
 
 const smoothingCreators = [
-  { name: "@sarah_creates", enrolled: true, reserve: "$45.20", avgIncome: "$12.50/wk" },
-  { name: "@dev_marcus", enrolled: true, reserve: "$32.10", avgIncome: "$8.30/wk" },
-  { name: "@music_maya", enrolled: false, reserve: "$0", avgIncome: "$6.70/wk" },
+  { name: "María García", enrolled: true, reserve: "$45.20", avgIncome: "$12.50/wk" },
+  { name: "Luis Hernández", enrolled: true, reserve: "$32.10", avgIncome: "$8.30/wk" },
+  { name: "Rosa Martínez", enrolled: false, reserve: "$0", avgIncome: "$6.70/wk" },
 ];
 
 export default function Economics() {
@@ -31,13 +31,13 @@ export default function Economics() {
     <div>
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">Economic Engine</h1>
-        <p className="text-sm text-muted-foreground mt-1">Creator scoring, fee optimization, revenue smoothing, and sustainability.</p>
+        <p className="text-sm text-muted-foreground mt-1">Recipient scoring, fee optimization, revenue smoothing, and sustainability.</p>
       </div>
 
       {/* Stats */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Avg Creator Score", value: 87, suffix: "/100", icon: Calculator },
+          { label: "Avg Trust Score", value: 87, suffix: "/100", icon: Calculator },
           { label: "Fee Savings", value: 94, suffix: "%", icon: Gauge },
           { label: "Revenue Smoothed", value: 77, prefix: "$", icon: BarChart3 },
           { label: "Sustainability", value: 91, suffix: "%", icon: PieChart },
@@ -59,7 +59,7 @@ export default function Economics() {
         <div className="rounded-xl border border-border/50 bg-card/50 p-5">
           <div className="flex items-center gap-2 mb-4">
             <Sliders className="h-4 w-4" strokeWidth={1.5} style={{ color: "#C6B6B1" }} />
-            <h3 className="text-sm font-semibold">Creator Scoring Breakdown</h3>
+            <h3 className="text-sm font-semibold">Recipient Trust Scoring</h3>
           </div>
           <div className="space-y-4">
             {scoringFactors.map((f) => (
@@ -80,7 +80,7 @@ export default function Economics() {
         {/* Fee Optimization */}
         <div className="rounded-xl border border-border/50 bg-card/50">
           <div className="px-5 py-3 border-b border-border/40">
-            <h3 className="text-sm font-semibold">Fee Optimization by Chain</h3>
+            <h3 className="text-sm font-semibold">Fee Optimization by L2 Network</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -119,7 +119,7 @@ export default function Economics() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border/30 text-[11px] text-muted-foreground uppercase tracking-wider">
-                  <th className="text-left px-5 py-2 font-medium">Creator</th>
+                  <th className="text-left px-5 py-2 font-medium">Recipient</th>
                   <th className="text-center px-3 py-2 font-medium">Enrolled</th>
                   <th className="text-right px-3 py-2 font-medium">Reserve</th>
                   <th className="text-right px-5 py-2 font-medium">Avg Income</th>
@@ -148,7 +148,7 @@ export default function Economics() {
           <h3 className="text-sm font-semibold mb-4">Revenue Split</h3>
           <div className="space-y-3">
             {[
-              { label: "Creator", pct: 85, color: "bg-primary" },
+              { label: "Recipient", pct: 85, color: "bg-primary" },
               { label: "Platform", pct: 10, color: "bg-blue-500" },
               { label: "Community", pct: 5, color: "bg-emerald-500" },
             ].map((s) => (

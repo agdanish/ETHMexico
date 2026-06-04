@@ -16,15 +16,8 @@ import { toast } from "sonner";
 // ── Realistic demo data ──────────────────────────────────────────────
 
 const chainAllocations = [
-  { chain: "Ethereum", symbol: "ETH", value: 18420, pct: 28.3, color: "#627EEA" },
-  { chain: "Polygon", symbol: "MATIC", value: 12150, pct: 18.7, color: "#8247E5" },
-  { chain: "TON", symbol: "TON", value: 9870, pct: 15.2, color: "#0098EA" },
-  { chain: "Arbitrum", symbol: "ARB", value: 7340, pct: 11.3, color: "#28A0F0" },
-  { chain: "Optimism", symbol: "OP", value: 5210, pct: 8.0, color: "#FF0420" },
-  { chain: "Tron", symbol: "TRX", value: 4680, pct: 7.2, color: "#FF060A" },
-  { chain: "Avalanche", symbol: "AVAX", value: 3120, pct: 4.8, color: "#E84142" },
-  { chain: "BNB Chain", symbol: "BNB", value: 2540, pct: 3.9, color: "#F3BA2F" },
-  { chain: "Base", symbol: "BASE", value: 1670, pct: 2.6, color: "#0052FF" },
+  { chain: "Arbitrum", symbol: "ARB", value: 38000, pct: 60.0, color: "#28A0F0" },
+  { chain: "Base", symbol: "BASE", value: 25350, pct: 40.0, color: "#0052FF" },
 ];
 
 const totalPortfolioValue = chainAllocations.reduce((s, c) => s + c.value, 0);
@@ -43,26 +36,18 @@ const riskMetrics = [
   { label: "Sharpe Ratio", value: "1.84", status: "good", description: "Risk-adjusted return above 1.5 is excellent" },
   { label: "Max Drawdown", value: "-4.2%", status: "good", description: "Peak-to-trough decline within safe range" },
   { label: "Volatility (7d)", value: "2.1%", status: "good", description: "Annualized: ~11.0% — moderate" },
-  { label: "Beta vs USDT", value: "0.03", status: "good", description: "Near-zero correlation, stable allocation" },
+  { label: "Beta vs USDC", value: "0.03", status: "good", description: "Near-zero correlation, stable allocation" },
   { label: "Value at Risk (95%)", value: "-$1,302", status: "warning", description: "Max daily loss at 95% confidence" },
   { label: "Sortino Ratio", value: "2.47", status: "good", description: "Downside risk-adjusted return is strong" },
 ];
 
 const yieldSummary = [
-  { protocol: "Aave v3 (Polygon)", asset: "USDT", apy: 4.2, deposited: 8400, earned: 29.4 },
-  { protocol: "Aave v3 (Arbitrum)", asset: "USDT", apy: 3.8, deposited: 5200, earned: 16.5 },
-  { protocol: "Aave v3 (Optimism)", asset: "USDT", apy: 5.1, deposited: 3100, earned: 13.2 },
+  { protocol: "Aave v3 (Arbitrum)", asset: "USDC", apy: 3.8, deposited: 5200, earned: 16.5 },
+  { protocol: "Aave v3 (Base)", asset: "USDC", apy: 5.1, deposited: 3100, earned: 13.2 },
 ];
 
 const gasAnalysis = [
-  { chain: "Polygon", totalGas: 0.42, txCount: 187, avgPerTx: 0.002 },
-  { chain: "TON", totalGas: 0.0, txCount: 94, avgPerTx: 0.0 },
   { chain: "Arbitrum", totalGas: 1.84, txCount: 63, avgPerTx: 0.029 },
-  { chain: "Optimism", totalGas: 1.12, txCount: 41, avgPerTx: 0.027 },
-  { chain: "Ethereum", totalGas: 18.60, txCount: 12, avgPerTx: 1.55 },
-  { chain: "BNB Chain", totalGas: 0.87, txCount: 38, avgPerTx: 0.023 },
-  { chain: "Avalanche", totalGas: 0.95, txCount: 22, avgPerTx: 0.043 },
-  { chain: "Tron", totalGas: 0.54, txCount: 45, avgPerTx: 0.012 },
   { chain: "Base", totalGas: 0.38, txCount: 29, avgPerTx: 0.013 },
 ];
 
@@ -70,11 +55,8 @@ const totalGasSpent = gasAnalysis.reduce((s, g) => s + g.totalGas, 0);
 const cheapestChain = gasAnalysis.filter(g => g.txCount > 0).sort((a, b) => a.avgPerTx - b.avgPerTx)[0];
 
 const rebalancingRecs = [
-  { chain: "Ethereum", current: 28.3, target: 20.0, action: "Reduce", delta: -8.3, severity: "high" as const },
-  { chain: "TON", current: 15.2, target: 20.0, action: "Increase", delta: +4.8, severity: "medium" as const },
-  { chain: "Base", current: 2.6, target: 8.0, action: "Increase", delta: +5.4, severity: "medium" as const },
-  { chain: "Avalanche", current: 4.8, target: 8.0, action: "Increase", delta: +3.2, severity: "low" as const },
-  { chain: "Polygon", current: 18.7, target: 15.0, action: "Reduce", delta: -3.7, severity: "low" as const },
+  { chain: "Arbitrum", current: 60.0, target: 55.0, action: "Reduce", delta: -5.0, severity: "medium" as const },
+  { chain: "Base", current: 40.0, target: 45.0, action: "Increase", delta: +5.0, severity: "low" as const },
 ];
 
 // ── Component ────────────────────────────────────────────────────────
@@ -84,7 +66,7 @@ export default function PortfolioAnalytics() {
 
   const handleOptimize = () => {
     setOptimizing(true);
-    toast.info("Running portfolio optimization across 9 chains...");
+    toast.info("Running portfolio optimization across Arbitrum + Base...");
     setTimeout(() => {
       setOptimizing(false);
       toast.success("Portfolio rebalancing plan generated. 3 cross-chain swaps recommended.");
@@ -129,7 +111,7 @@ export default function PortfolioAnalytics() {
           <div className="text-3xl font-bold tabular-nums tracking-tight">
             $<CountUp target={totalPortfolioValue} />
           </div>
-          <p className="text-xs text-muted-foreground mt-1">Across 9 chains</p>
+          <p className="text-xs text-muted-foreground mt-1">Across Arbitrum + Base</p>
         </div>
 
         <div className="rounded-xl border border-border/50 bg-card/50 p-5">

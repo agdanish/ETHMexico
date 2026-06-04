@@ -10,7 +10,7 @@ import { useUptime } from "@/hooks/useUptime";
 
 export default function Settings() {
   const uptime = useUptime();
-  const [agentName, setAgentName] = useState("AeroFyta");
+  const [agentName, setAgentName] = useState("Colibrí");
   const [personality, setPersonality] = useState("balanced");
   const [autonomous, setAutonomous] = useState(true);
   const [dailyLimit, setDailyLimit] = useState("100");
@@ -71,15 +71,15 @@ export default function Settings() {
           </div>
           <div className="space-y-4">
             <div>
-              <label className="text-xs text-muted-foreground mb-1 block">Daily Tip Limit (USDT)</label>
+              <label className="text-xs text-muted-foreground mb-1 block">Daily Transfer Limit (USDC)</label>
               <Input type="number" value={dailyLimit} onChange={(e) => setDailyLimit(e.target.value)} className="bg-card border-border/50 text-sm" />
             </div>
             <div>
-              <label className="text-xs text-muted-foreground mb-1 block">Per-Tip Maximum (USDT)</label>
+              <label className="text-xs text-muted-foreground mb-1 block">Per-Transfer Maximum (USDC)</label>
               <Input type="number" value={perTipMax} onChange={(e) => setPerTipMax(e.target.value)} className="bg-card border-border/50 text-sm" />
             </div>
             <div>
-              <label className="text-xs text-muted-foreground mb-1 block">Weekly Cap (USDT)</label>
+              <label className="text-xs text-muted-foreground mb-1 block">Weekly Cap (USDC)</label>
               <Input type="number" value={weeklyCap} onChange={(e) => setWeeklyCap(e.target.value)} className="bg-card border-border/50 text-sm" />
             </div>
           </div>
@@ -93,11 +93,11 @@ export default function Settings() {
           </div>
           <div className="space-y-3">
             {[
-              { name: "Telegram Bot", status: "connected" },
-              { name: "YouTube Data API", status: "connected" },
+              { name: "Bitso Off-Ramp API", status: "connected" },
+              { name: "SPEI Transfer Rail", status: "connected" },
               { name: "Groq (Llama 3)", status: "active" },
               { name: "Gemini 2.0 Flash", status: "standby" },
-              { name: "Discord Webhook", status: "disconnected" },
+              { name: "Arbitrum RPC", status: "connected" },
             ].map((i) => (
               <div key={i.name} className="flex items-center justify-between">
                 <span className="text-xs">{i.name}</span>
@@ -147,7 +147,7 @@ export default function Settings() {
               { label: "Version", value: "v1.1.0" },
               { label: "Uptime", value: uptime },
               { label: "Total Services", value: "97+" },
-              { label: "Package", value: "@xzashr/aerofyta" },
+              { label: "Package", value: "@colibri/remittance" },
             ].map((a) => (
               <div key={a.label} className="text-center">
                 <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-0.5">{a.label}</p>

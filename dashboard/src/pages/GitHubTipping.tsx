@@ -19,15 +19,15 @@ const demoStats = {
   topContributors: [
     { username: "alice-dev", totalAmount: 18.50, tipCount: 6 },
     { username: "bob-crypto", totalAmount: 12.00, tipCount: 4 },
-    { username: "charlie-wdk", totalAmount: 9.75, tipCount: 3 },
+    { username: "charlie-colibri", totalAmount: 9.75, tipCount: 3 },
     { username: "dana-rust", totalAmount: 8.25, tipCount: 3 },
     { username: "eve-frontend", totalAmount: 6.00, tipCount: 2 },
   ],
   recentTips: [
-    { id: "t1", type: "pr", githubUsername: "alice-dev", walletAddress: "0x1234...abcd", amount: 3.75, currency: "USDT", reason: "well-scoped change, includes tests, conventional commit title", prNumber: 142, prTitle: "feat: add multi-chain routing", repoFullName: "aerofyta/agent", qualityScore: 85, status: "sent", createdAt: "2026-03-23T14:30:00Z" },
-    { id: "t2", type: "pr", githubUsername: "bob-crypto", walletAddress: "0x5678...efgh", amount: 2.50, currency: "USDT", reason: "medium-sized change, descriptive title", prNumber: 139, prTitle: "fix: gas estimation on Polygon", repoFullName: "aerofyta/agent", qualityScore: 62, status: "sent", createdAt: "2026-03-23T10:15:00Z" },
-    { id: "t3", type: "issue_bounty", githubUsername: "charlie-wdk", walletAddress: "0x9abc...ijkl", amount: 5.00, currency: "USDT", reason: "Bounty payout for issue #87", issueNumber: 87, issueTitle: "Implement TON wallet integration", repoFullName: "aerofyta/agent", qualityScore: 100, status: "pending", createdAt: "2026-03-22T18:00:00Z" },
-    { id: "t4", type: "pr", githubUsername: "dana-rust", walletAddress: "0xdef0...mnop", amount: 1.25, currency: "USDT", reason: "small change, has description", prNumber: 135, prTitle: "docs: update README setup", repoFullName: "aerofyta/agent", qualityScore: 30, status: "sent", createdAt: "2026-03-22T09:45:00Z" },
+    { id: "t1", type: "pr", githubUsername: "alice-dev", walletAddress: "0x1234...abcd", amount: 3.75, currency: "USDC", reason: "well-scoped change, includes tests, conventional commit title", prNumber: 142, prTitle: "feat: add Arbitrum + Base routing", repoFullName: "colibri/remittance", qualityScore: 85, status: "sent", createdAt: "2026-03-23T14:30:00Z" },
+    { id: "t2", type: "pr", githubUsername: "bob-crypto", walletAddress: "0x5678...efgh", amount: 2.50, currency: "USDC", reason: "medium-sized change, descriptive title", prNumber: 139, prTitle: "fix: fee estimation on Base", repoFullName: "colibri/remittance", qualityScore: 62, status: "sent", createdAt: "2026-03-23T10:15:00Z" },
+    { id: "t3", type: "issue_bounty", githubUsername: "charlie-colibri", walletAddress: "0x9abc...ijkl", amount: 5.00, currency: "USDC", reason: "Bounty payout for issue #87", issueNumber: 87, issueTitle: "Implement Bitso SPEI off-ramp", repoFullName: "colibri/remittance", qualityScore: 100, status: "pending", createdAt: "2026-03-22T18:00:00Z" },
+    { id: "t4", type: "pr", githubUsername: "dana-rust", walletAddress: "0xdef0...mnop", amount: 1.25, currency: "USDC", reason: "small change, has description", prNumber: 135, prTitle: "docs: update README setup", repoFullName: "colibri/remittance", qualityScore: 30, status: "sent", createdAt: "2026-03-22T09:45:00Z" },
   ],
   activeBounties: 3,
 };
@@ -35,7 +35,7 @@ const demoStats = {
 const demoContributors = [
   { id: "c1", githubUsername: "alice-dev", walletAddress: "0x1234567890abcdef1234567890abcdef12345678", totalTipsReceived: 6, totalTipAmount: 18.50, registeredAt: "2026-03-15T12:00:00Z" },
   { id: "c2", githubUsername: "bob-crypto", walletAddress: "0x5678901234abcdef5678901234abcdef56789012", totalTipsReceived: 4, totalTipAmount: 12.00, registeredAt: "2026-03-16T08:00:00Z" },
-  { id: "c3", githubUsername: "charlie-wdk", walletAddress: "0x9abcdef012345678abcdef012345678abcdef0123", totalTipsReceived: 3, totalTipAmount: 9.75, registeredAt: "2026-03-17T10:00:00Z" },
+  { id: "c3", githubUsername: "charlie-colibri", walletAddress: "0x9abcdef012345678abcdef012345678abcdef0123", totalTipsReceived: 3, totalTipAmount: 9.75, registeredAt: "2026-03-17T10:00:00Z" },
 ];
 
 // ── Helpers ────────────────────────────────────────────────────────
@@ -127,7 +127,7 @@ export default function GitHubTipping() {
       });
       const data = await res.json();
       if (data.ok) {
-        toast.success(`Test PR tip: ${data.tip?.amount ?? "?"} USDT for quality ${data.tip?.qualityScore ?? "?"}%`);
+        toast.success(`Test PR transfer: ${data.tip?.amount ?? "?"} USDC for quality ${data.tip?.qualityScore ?? "?"}%`);
         refetchStats();
       } else {
         toast.error("Test webhook failed");
@@ -144,9 +144,9 @@ export default function GitHubTipping() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">GitHub Tipping</h1>
+          <h1 className="text-2xl font-bold tracking-tight">GitHub Contributor Rewards</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Automatic USDT tips for merged PRs and bounty payouts via GitHub webhooks.
+            Automatic USDC transfers for merged PRs and bounty payouts via GitHub webhooks.
           </p>
         </div>
         <Button
@@ -178,13 +178,13 @@ export default function GitHubTipping() {
           <div className="flex items-center gap-2 text-muted-foreground text-xs mb-2">
             <DollarSign className="h-3.5 w-3.5" /> Total Distributed
           </div>
-          <div className="text-2xl font-bold">{safeStats.totalUSDTDistributed} <span className="text-sm text-muted-foreground">USDT</span></div>
+          <div className="text-2xl font-bold">{safeStats.totalUSDTDistributed} <span className="text-sm text-muted-foreground">USDC</span></div>
         </div>
         <div className="rounded-xl border border-border/50 p-4 bg-card">
           <div className="flex items-center gap-2 text-muted-foreground text-xs mb-2">
-            <Send className="h-3.5 w-3.5" /> Avg Tip
+            <Send className="h-3.5 w-3.5" /> Avg Transfer
           </div>
-          <div className="text-2xl font-bold">{safeStats.avgTipAmount} <span className="text-sm text-muted-foreground">USDT</span></div>
+          <div className="text-2xl font-bold">{safeStats.avgTipAmount} <span className="text-sm text-muted-foreground">USDC</span></div>
         </div>
       </div>
 
@@ -193,7 +193,7 @@ export default function GitHubTipping() {
         <div className="md:col-span-2 rounded-xl border border-border/50 overflow-hidden">
           <div className="px-5 py-3 border-b border-border/40 flex items-center gap-2">
             <GitBranch className="h-4 w-4 text-primary" />
-            <span className="text-sm font-medium">Recent Tips</span>
+            <span className="text-sm font-medium">Recent Transfers</span>
           </div>
           <div className="divide-y divide-border/30">
             {safeRecentTips.map((tip: Record<string, unknown>) => (
@@ -221,14 +221,14 @@ export default function GitHubTipping() {
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <div className="font-mono font-medium">{tip.amount as number} USDT</div>
+                  <div className="font-mono font-medium">{tip.amount as number} USDC</div>
                   <div className="mt-0.5">{statusBadge(tip.status as string)}</div>
                 </div>
               </div>
             ))}
             {safeRecentTips.length === 0 && (
               <div className="px-5 py-8 text-center text-muted-foreground text-sm">
-                No tips yet. Set up a GitHub webhook to get started.
+                No transfers yet. Set up a GitHub webhook to get started.
               </div>
             )}
           </div>
@@ -249,7 +249,7 @@ export default function GitHubTipping() {
                     {i === 0 ? "1st" : i === 1 ? "2nd" : i === 2 ? "3rd" : `${i + 1}`}
                   </span>
                   <span className="flex-1 font-medium truncate">@{c.username as string}</span>
-                  <span className="text-muted-foreground text-xs">{c.tipCount as number} tips</span>
+                  <span className="text-muted-foreground text-xs">{c.tipCount as number} transfers</span>
                   <span className="font-mono text-primary">{c.totalAmount as number}</span>
                 </div>
               ))}
@@ -324,7 +324,7 @@ export default function GitHubTipping() {
           <p>4. Secret: Set <code className="bg-muted px-1.5 py-0.5 rounded text-[11px] font-mono">GITHUB_WEBHOOK_SECRET</code> env var to match</p>
           <p>5. Events: Select <strong>Pull requests</strong>, <strong>Issues</strong>, <strong>Issue comments</strong>, and <strong>Pushes</strong></p>
           <p className="text-primary/80 pt-1">
-            Merged PRs are auto-scored on quality (lines changed, tests, commit conventions) and tipped 0.50-5.00 USDT.
+            Merged PRs are auto-scored on quality (lines changed, tests, commit conventions) and rewarded 0.50-5.00 USDC.
             Issues labeled &quot;bounty&quot; pay the assignee on close.
           </p>
         </div>

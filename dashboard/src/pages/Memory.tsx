@@ -5,43 +5,43 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { BrainCircuit, CheckCircle, XCircle } from "lucide-react";
 
 const memoryEntries = [
-  { key: "trusted_creators", value: "sarah_creates, dev_marcus, music_maya", confidence: 94, importance: 92, source: "observed", lastAccessed: "2m ago" },
-  { key: "eth_gas_threshold", value: "15 gwei (optimal)", confidence: 88, importance: 85, source: "inferred", lastAccessed: "5m ago" },
-  { key: "best_tip_hours", value: "14:00–18:00 UTC", confidence: 82, importance: 78, source: "inferred", lastAccessed: "12m ago" },
-  { key: "max_safe_tip", value: "10 USDT per tx", confidence: 96, importance: 95, source: "user", lastAccessed: "1h ago" },
-  { key: "polygon_preferred", value: "true (lowest fees for tips)", confidence: 91, importance: 80, source: "observed", lastAccessed: "18m ago" },
-  { key: "creator_tier_weights", value: "Diamond:3x, Platinum:2x, Gold:1.5x", confidence: 90, importance: 88, source: "user", lastAccessed: "30m ago" },
+  { key: "trusted_beneficiaries", value: "María García, Luis Hernández, Rosa Martínez", confidence: 94, importance: 92, source: "observed", lastAccessed: "2m ago" },
+  { key: "arbitrum_fee_threshold", value: "0.05 USDC (optimal)", confidence: 88, importance: 85, source: "inferred", lastAccessed: "5m ago" },
+  { key: "best_transfer_hours", value: "14:00–18:00 UTC", confidence: 82, importance: 78, source: "inferred", lastAccessed: "12m ago" },
+  { key: "max_safe_transfer", value: "500 USDC per tx", confidence: 96, importance: 95, source: "user", lastAccessed: "1h ago" },
+  { key: "base_preferred", value: "true (lowest fees for transfers)", confidence: 91, importance: 80, source: "observed", lastAccessed: "18m ago" },
+  { key: "recipient_tier_weights", value: "Diamond:3x, Platinum:2x, Gold:1.5x", confidence: 90, importance: 88, source: "user", lastAccessed: "30m ago" },
   { key: "risk_tolerance", value: "moderate", confidence: 97, importance: 93, source: "user", lastAccessed: "2h ago" },
-  { key: "aave_yield_min", value: "3.5% APY", confidence: 85, importance: 72, source: "inferred", lastAccessed: "45m ago" },
+  { key: "bitso_rate_min", value: "17.50 MXN/USD", confidence: 85, importance: 72, source: "inferred", lastAccessed: "45m ago" },
 ];
 
 const contextPreview = `{
-  "wallet_state": { "total": "$12,847.32", "chains": 9 },
+  "wallet_state": { "total": "$12,847.32", "chains": "Arbitrum + Base" },
   "mood": "optimistic", "multiplier": 1.2,
-  "top_creators": ["sarah_creates (94%)", "dev_marcus (87%)"],
-  "gas": { "eth": "12 gwei", "polygon": "30 gwei" },
+  "top_beneficiaries": ["María García (94%)", "Luis Hernández (87%)"],
+  "fees": { "arbitrum": "0.04 USDC", "base": "0.02 USDC" },
   "risk_tolerance": "moderate",
-  "recent_actions": ["tip @sarah 2.5 USDT", "escrow E-0047"],
+  "recent_actions": ["transfer 50 USDC → María García", "escrow E-0047"],
   "memory_count": ${memoryEntries.length},
   "session_decisions": 20
 }`;
 
 const decisions = [
-  { id: 1, time: "14:32", action: "Tip @sarah_creates 2.5 USDT", outcome: "success", learned: "Engagement spike confirms Diamond tier accuracy" },
-  { id: 2, time: "14:28", action: "Skip tip @unknown_user", outcome: "success", learned: "Low-engagement creators correctly filtered" },
-  { id: 3, time: "14:15", action: "Swap 100 USDT → ETH", outcome: "success", learned: "Gas below 15 gwei is optimal window" },
-  { id: 4, time: "13:55", action: "Tip @dev_marcus 5 USDT", outcome: "success", learned: "Polygon saves 98% on gas vs Ethereum" },
-  { id: 5, time: "13:40", action: "Create Escrow E-0047", outcome: "success", learned: "2h timelock sufficient for creator claims" },
-  { id: 6, time: "13:22", action: "Tip @risky_account 50 USDT", outcome: "fail", learned: "Guardian veto: amount exceeded risk threshold" },
-  { id: 7, time: "13:10", action: "DCA 25 USDT → ETH", outcome: "success", learned: "Daily DCA smooths volatility effectively" },
-  { id: 8, time: "12:55", action: "Supply 500 USDT to Aave", outcome: "success", learned: "4.2% APY above minimum threshold" },
-  { id: 9, time: "12:30", action: "Bridge 200 USDT ETH→Polygon", outcome: "success", learned: "Bridge time ~4min acceptable" },
-  { id: 10, time: "12:15", action: "Tip @music_maya 1.5 USDT", outcome: "success", learned: "TON chain fastest for small tips" },
+  { id: 1, time: "14:32", action: "Transfer 50 USDC → María García on Base", outcome: "success", learned: "Settlement confirmed in ~90s via Bitso SPEI" },
+  { id: 2, time: "14:28", action: "Skip transfer to unverified recipient", outcome: "success", learned: "Unverified beneficiaries correctly filtered" },
+  { id: 3, time: "14:15", action: "Swap 100 USDC → MXN via Bitso", outcome: "success", learned: "Bitso rate 17.82 MXN/USD optimal window" },
+  { id: 4, time: "13:55", action: "Transfer 75 USDC → Luis Hernández on Arbitrum", outcome: "success", learned: "Arbitrum saves 98% on fees vs Ethereum mainnet" },
+  { id: 5, time: "13:40", action: "Create Escrow E-0047", outcome: "success", learned: "2h timelock sufficient for beneficiary claims" },
+  { id: 6, time: "13:22", action: "Transfer 500 USDC → unknown address", outcome: "fail", learned: "Guardian veto: amount exceeded risk threshold" },
+  { id: 7, time: "13:10", action: "Route 25 USDC via Base (lower fee)", outcome: "success", learned: "Base fee ~$0.01 vs Arbitrum ~$0.04 for small transfers" },
+  { id: 8, time: "12:55", action: "Batch 3 remittances → Bitso SPEI", outcome: "success", learned: "Batching reduces per-transfer overhead by 40%" },
+  { id: 9, time: "12:30", action: "Bridge 200 USDC Arbitrum→Base", outcome: "success", learned: "Bridge time ~4min acceptable" },
+  { id: 10, time: "12:15", action: "Transfer 30 USDC → Rosa Martínez on Base", outcome: "success", learned: "Base ideal for micro remittances under $50" },
   { id: 11, time: "11:58", action: "Reject suspicious withdraw", outcome: "success", learned: "Anomaly score >0.9 warrants block" },
-  { id: 12, time: "11:42", action: "Rebalance portfolio", outcome: "success", learned: "Monthly rebalance keeps diversification >80%" },
-  { id: 13, time: "11:20", action: "Tip @crypto_claire 3 USDT", outcome: "success", learned: "Solana ideal for mid-range tips" },
-  { id: 14, time: "11:05", action: "Skip staking opportunity", outcome: "fail", learned: "Missed 5.1% APY — raise yield threshold awareness" },
-  { id: 15, time: "10:48", action: "Update gas threshold", outcome: "success", learned: "12 gwei new baseline after network upgrade" },
+  { id: 12, time: "11:42", action: "Rebalance USDC across L2s", outcome: "success", learned: "Monthly rebalance keeps L2 liquidity >80%" },
+  { id: 13, time: "11:20", action: "Transfer 100 USDC → Carlos Ruiz on Arbitrum", outcome: "success", learned: "Arbitrum ideal for mid-range remittances" },
+  { id: 14, time: "11:05", action: "Skip low-rate Bitso window", outcome: "fail", learned: "Missed 17.9 MXN/USD — raise rate threshold awareness" },
+  { id: 15, time: "10:48", action: "Update fee threshold", outcome: "success", learned: "0.04 USDC new Arbitrum baseline after upgrade" },
 ];
 
 const sourceBadge = (s: string) => {
@@ -55,7 +55,7 @@ export default function Memory() {
     <div>
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">Agent Memory & Learning</h1>
-        <p className="text-sm text-muted-foreground mt-1">Persistent memory, learned patterns, and decision history.</p>
+        <p className="text-sm text-muted-foreground mt-1">Persistent memory, learned transfer patterns, and decision history.</p>
       </div>
 
       {/* Memory Entries */}
@@ -113,10 +113,10 @@ export default function Memory() {
           </h3>
           <div className="space-y-3">
             {[
-              { title: "Trusted Creators", detail: "Sarah Mitchell (Diamond, 94%), Marcus Rivera (Platinum, 87%), Maya Chen (Gold, 82%)" },
-              { title: "Gas Thresholds", detail: "ETH: <15 gwei optimal, Polygon: always cheap, TON: near-zero" },
-              { title: "Best Tipping Hours", detail: "14:00–18:00 UTC yields 23% higher engagement response" },
-              { title: "Chain Selection", detail: "Polygon for tips <$5, Ethereum for >$10, TON for micro-tips" },
+              { title: "Trusted Beneficiaries", detail: "María García (Diamond, 94%), Luis Hernández (Platinum, 87%), Rosa Martínez (Gold, 82%)" },
+              { title: "Fee Thresholds", detail: "Base: <$0.02 optimal, Arbitrum: <$0.05 acceptable" },
+              { title: "Best Transfer Hours", detail: "14:00–18:00 UTC yields 23% faster SPEI settlement" },
+              { title: "Chain Selection", detail: "Base for transfers <$50, Arbitrum for >$100, batch for multiple" },
               { title: "Risk Patterns", detail: "Anomaly scores >0.9 always block, 0.7–0.9 require consensus" },
             ].map((item) => (
               <div key={item.title} className="rounded-lg bg-accent/30 p-3">

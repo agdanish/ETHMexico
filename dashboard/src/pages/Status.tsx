@@ -5,8 +5,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const SERVICES = [
-  "Wallet Service", "AI Service", "WDK", "Orchestrator", "Safety",
-  "Escrow", "Treasury", "YouTube API", "RSS", "Webhooks", "MCP Server",
+  "Wallet Service", "AI Service", "Bitso API", "Orchestrator", "Safety",
+  "Escrow", "Treasury", "SPEI Rail", "Guardian Agent", "Webhooks", "MCP Server",
 ];
 
 function randomMs() { return Math.floor(Math.random() * 80) + 12; }

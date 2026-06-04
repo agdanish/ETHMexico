@@ -8,19 +8,19 @@ import { toast } from "sonner";
 import CopyButton from "@/components/shared/CopyButton";
 
 const initialContacts = [
-  { id: 1, name: "Sarah Mitchell", address: "0x7a3B...f82d", chain: "Ethereum", tags: ["creator", "diamond"], tips: 47, group: "Creators" },
-  { id: 2, name: "Marcus Rivera", address: "0x1cE4...a91b", chain: "Polygon", tags: ["creator", "platinum"], tips: 23, group: "Creators" },
-  { id: 3, name: "Maya Chen", address: "UQBv...x4Rq", chain: "TON", tags: ["creator", "gold"], tips: 18, group: "Creators" },
-  { id: 4, name: "Claire DuPont", address: "0x9fD2...c34e", chain: "Solana", tags: ["creator"], tips: 12, group: "Creators" },
-  { id: 5, name: "Treasury Vault", address: "0x4bA8...d67f", chain: "Ethereum", tags: ["internal"], tips: 0, group: "Internal" },
-  { id: 6, name: "Yield Reserve", address: "0x2eC1...b45a", chain: "Polygon", tags: ["internal", "yield"], tips: 0, group: "Internal" },
-  { id: 7, name: "Exchange Hot Wallet", address: "0x8dF3...e92c", chain: "Ethereum", tags: ["exchange"], tips: 0, group: "Exchanges" },
+  { id: 1, name: "María García", address: "0x7a3B...f82d", chain: "Base", tags: ["recipient", "diamond"], tips: 47, group: "Recipients" },
+  { id: 2, name: "Luis Hernández", address: "0x1cE4...a91b", chain: "Arbitrum", tags: ["recipient", "platinum"], tips: 23, group: "Recipients" },
+  { id: 3, name: "Rosa Martínez", address: "0xBv...x4Rq", chain: "Base", tags: ["recipient", "gold"], tips: 18, group: "Recipients" },
+  { id: 4, name: "Carlos López", address: "0x9fD2...c34e", chain: "Arbitrum", tags: ["recipient"], tips: 12, group: "Recipients" },
+  { id: 5, name: "Treasury Vault", address: "0x4bA8...d67f", chain: "Arbitrum", tags: ["internal"], tips: 0, group: "Internal" },
+  { id: 6, name: "Yield Reserve", address: "0x2eC1...b45a", chain: "Base", tags: ["internal", "yield"], tips: 0, group: "Internal" },
+  { id: 7, name: "Bitso Hot Wallet", address: "0x8dF3...e92c", chain: "Arbitrum", tags: ["exchange"], tips: 0, group: "Exchanges" },
 ];
 
 const chainBadge = (c: string) => {
-  if (c === "Ethereum") return "bg-blue-500/15 text-blue-400 border-blue-500/30";
-  if (c === "Polygon") return "bg-purple-500/15 text-purple-400 border-purple-500/30";
-  if (c === "TON") return "bg-cyan-500/15 text-cyan-400 border-cyan-500/30";
+  if (c === "Arbitrum") return "bg-blue-500/15 text-blue-400 border-blue-500/30";
+  if (c === "Base") return "bg-purple-500/15 text-purple-400 border-purple-500/30";
+  if (c === "Ethereum") return "bg-cyan-500/15 text-cyan-400 border-cyan-500/30";
   if (c === "Solana") return "bg-emerald-500/15 text-emerald-400 border-emerald-500/30";
   return "bg-zinc-500/15 text-zinc-400 border-zinc-500/30";
 };
@@ -91,7 +91,7 @@ export default function Contacts() {
                         <div className="flex flex-wrap gap-1">
                           {c.tags.map((t) => <Badge key={t} variant="outline" className="text-[9px]">{t}</Badge>)}
                         </div>
-                        {c.tips > 0 && <span className="text-xs tabular-nums text-muted-foreground">{c.tips} tips</span>}
+                        {c.tips > 0 && <span className="text-xs tabular-nums text-muted-foreground">{c.tips} transfers</span>}
                       </div>
                     ))}
                   </div>
@@ -116,9 +116,9 @@ export default function Contacts() {
             <div className="space-y-2">
               {[
                 { label: "Total Contacts", value: "7" },
-                { label: "Creators", value: "4" },
-                { label: "Chains", value: "4" },
-                { label: "Total Tips Sent", value: "100" },
+                { label: "Recipients", value: "4" },
+                { label: "Networks", value: "2" },
+                { label: "Total Transfers Sent", value: "100" },
               ].map((s) => (
                 <div key={s.label} className="flex items-center justify-between">
                   <span className="text-xs text-muted-foreground">{s.label}</span>

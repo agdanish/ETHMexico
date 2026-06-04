@@ -7,31 +7,31 @@ import CountUp from "@/components/shared/CountUp";
 
 const alerts = [
   { id: 1, severity: "critical", message: "Anomaly score 0.92 on tx from 0xdead...beef — blocked", time: "2m ago", ack: false },
-  { id: 2, severity: "warning", message: "ETH gas spike: 45 gwei — pausing non-urgent tips", time: "8m ago", ack: false },
-  { id: 3, severity: "info", message: "DCA strategy executed: 25 USDT → ETH", time: "15m ago", ack: true },
-  { id: 4, severity: "warning", message: "Creator @risky_account flagged by anomaly detector", time: "22m ago", ack: true },
-  { id: 5, severity: "info", message: "Portfolio rebalanced: diversification now 85%", time: "35m ago", ack: true },
+  { id: 2, severity: "warning", message: "Arbitrum fee spike: 0.12 USDC — pausing non-urgent transfers", time: "8m ago", ack: false },
+  { id: 3, severity: "info", message: "FX rate updated: 1 USD = 17.82 MXN via Bitso oracle", time: "15m ago", ack: true },
+  { id: 4, severity: "warning", message: "Recipient Carlos Torres flagged by anomaly detector", time: "22m ago", ack: true },
+  { id: 5, severity: "info", message: "USDC rebalanced across L2s: liquidity now 85%", time: "35m ago", ack: true },
   { id: 6, severity: "critical", message: "Replay attack detected — nonce validator blocked tx", time: "1h ago", ack: true },
-  { id: 7, severity: "info", message: "New creator discovered: @lena_games (Twitch)", time: "1h ago", ack: true },
-  { id: 8, severity: "warning", message: "Aave APY dropped below threshold: 3.8% → 3.1%", time: "2h ago", ack: true },
+  { id: 7, severity: "info", message: "New beneficiary registered: Ana Flores (SPEI verified)", time: "1h ago", ack: true },
+  { id: 8, severity: "warning", message: "Bitso MXN rate dropped below threshold: 17.5 → 17.2", time: "2h ago", ack: true },
 ];
 
 const events = [
   { time: "14:32:15", event: "cycle_complete", detail: "Cycle #1834 completed in 2.3s" },
-  { time: "14:32:14", event: "tip_sent", detail: "Tipped @sarah_creates 2.5 USDT on Ethereum" },
-  { time: "14:32:12", event: "consensus", detail: "Multi-agent vote: 2/3 approve tip" },
+  { time: "14:32:14", event: "transfer_sent", detail: "Transferred 50 USDC → María García on Base" },
+  { time: "14:32:12", event: "consensus", detail: "Multi-agent vote: 2/3 approve transfer" },
   { time: "14:32:10", event: "guardian", detail: "Guardian review: APPROVED" },
-  { time: "14:32:08", event: "tool_call", detail: "price_check ETH/USDT → $3,245" },
+  { time: "14:32:08", event: "tool_call", detail: "fx_check USD/MXN → 17.82 via Bitso" },
   { time: "14:32:05", event: "memory_read", detail: "Read 8 memory entries for context" },
   { time: "14:31:58", event: "cycle_start", detail: "Cycle #1834 started" },
   { time: "14:30:22", event: "cycle_complete", detail: "Cycle #1833 completed in 1.8s" },
-  { time: "14:30:20", event: "escrow_created", detail: "Escrow E-0047: 50 USDT, 2h timelock" },
+  { time: "14:30:20", event: "escrow_created", detail: "Escrow E-0047: 50 USDC, 2h timelock" },
   { time: "14:28:15", event: "cycle_complete", detail: "Cycle #1832 completed in 2.1s" },
-  { time: "14:28:12", event: "scan_complete", detail: "Scanned 89 creators, 3 engagement spikes" },
-  { time: "14:26:08", event: "alert", detail: "Gas spike detected on Ethereum" },
-  { time: "14:24:00", event: "dca_executed", detail: "DCA: 25 USDT → 0.0077 ETH" },
-  { time: "14:22:15", event: "rebalance", detail: "Portfolio rebalance triggered" },
-  { time: "14:20:00", event: "yield_check", detail: "Aave APY: 4.2%, Compound: 3.8%" },
+  { time: "14:28:12", event: "scan_complete", detail: "Scanned 89 beneficiaries, 3 verified" },
+  { time: "14:26:08", event: "alert", detail: "Fee spike detected on Arbitrum" },
+  { time: "14:24:00", event: "route_selected", detail: "Router: Base selected (fee $0.02 vs $0.04)" },
+  { time: "14:22:15", event: "rebalance", detail: "USDC rebalance across Arbitrum + Base triggered" },
+  { time: "14:20:00", event: "rate_check", detail: "Bitso MXN rate: 17.82, threshold: 17.50 — OK" },
 ];
 
 const severityBadge = (s: string) => {

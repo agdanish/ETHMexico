@@ -62,11 +62,11 @@ function computeSimulation(params: SimParams): SimResult {
 
   // Chain selection based on gas costs
   const chains = [
-    { name: "Ethereum Sepolia", baseCost: 0.5 },
-    { name: "Polygon Amoy", baseCost: 0.01 },
-    { name: "Arbitrum Sepolia", baseCost: 0.03 },
-    { name: "TON Testnet", baseCost: 0.005 },
-    { name: "Tron Nile", baseCost: 0.002 },
+    { name: "Base Mainnet", baseCost: 0.01 },
+    { name: "Arbitrum One", baseCost: 0.03 },
+    { name: "Base Sepolia", baseCost: 0.005 },
+    { name: "Arbitrum Sepolia", baseCost: 0.008 },
+    { name: "Ethereum Mainnet", baseCost: 0.5 },
   ];
   const withGas = chains.map((c) => ({ ...c, cost: c.baseCost * gasSpike }));
   withGas.sort((a, b) => a.cost - b.cost);
@@ -106,7 +106,7 @@ function computeSimulation(params: SimParams): SimResult {
 
 function simulateDecisions(params: SimParams): SimDecision[] {
   const result = computeSimulation(params);
-  const types = ["tip", "rebalance", "yield-deploy", "bridge", "swap", "tip", "tip", "stake", "tip", "governance-vote"];
+  const types = ["transfer", "rebalance", "yield-deploy", "bridge", "swap", "transfer", "transfer", "stake", "transfer", "governance-vote"];
 
   return types.map((type, i) => {
     const baseConf = result.confidenceScore - 0.1 + Math.random() * 0.2;
@@ -119,11 +119,11 @@ function simulateDecisions(params: SimParams): SimDecision[] {
     else if (conf < 0.6) outcome = "deferred";
 
     const reasonings: Record<string, string> = {
-      tip: `Creator engagement ${params.creatorEngagement}% ${params.creatorEngagement > 50 ? "exceeds" : "below"} threshold. Max tip: ${result.maxTip} USDT.`,
+      transfer: `Recipient activity ${params.creatorEngagement}% ${params.creatorEngagement > 50 ? "exceeds" : "below"} threshold. Max transfer: ${result.maxTip} USDC.`,
       rebalance: `Portfolio health ${params.portfolioHealth}%. ${params.portfolioHealth < 50 ? "Rebalance needed." : "Portfolio balanced."}`,
       "yield-deploy": `Deploying ${result.yieldAllocation}% to yield. Risk score: ${result.riskScore}.`,
-      bridge: `Gas spike ${params.gasSpike}x. Routing via ${result.chosenChain}.`,
-      swap: `Optimizing gas: ${result.chosenChain} selected at ${result.gasEstimate} gwei effective.`,
+      bridge: `L2 fee spike ${params.gasSpike}x. Routing via ${result.chosenChain}.`,
+      swap: `Optimizing fees: ${result.chosenChain} selected at ${result.gasEstimate} gwei effective.`,
       stake: `Staking allocation based on ${result.mood} mood. Yield target: ${result.yieldAllocation}%.`,
       "governance-vote": `Agent voting based on portfolio alignment. Confidence: ${(conf * 100).toFixed(0)}%.`,
     };
@@ -131,7 +131,7 @@ function simulateDecisions(params: SimParams): SimDecision[] {
     return {
       id: i + 1,
       type,
-      action: type === "tip" ? `Send ${(Math.random() * result.maxTip).toFixed(2)} USDT` : `Execute ${type}`,
+      action: type === "transfer" ? `Send ${(Math.random() * result.maxTip).toFixed(2)} USDC` : `Execute ${type}`,
       outcome,
       confidence: Math.round(conf * 100) / 100,
       reasoning: reasonings[type] || `Processing ${type} with ${result.mood} mood.`,
@@ -190,8 +190,8 @@ export default function EconomicSimulator() {
 
   const sliders: { key: keyof SimParams; label: string; min: number; max: number; step: number; unit: string; icon: typeof TrendingUp; color: string }[] = [
     { key: "portfolioHealth", label: "Portfolio Health", min: 0, max: 100, step: 1, unit: "%", icon: TrendingUp, color: "#50AF95" },
-    { key: "gasSpike", label: "Gas Price Spike", min: 1, max: 10, step: 0.5, unit: "x", icon: Fuel, color: "#F7931A" },
-    { key: "creatorEngagement", label: "Creator Engagement", min: 0, max: 100, step: 1, unit: "%", icon: Zap, color: "#627EEA" },
+    { key: "gasSpike", label: "L2 Fee Spike", min: 1, max: 10, step: 0.5, unit: "x", icon: Fuel, color: "#F7931A" },
+    { key: "creatorEngagement", label: "Recipient Activity", min: 0, max: 100, step: 1, unit: "%", icon: Zap, color: "#627EEA" },
     { key: "riskLevel", label: "Risk Level", min: 0, max: 100, step: 1, unit: "%", icon: Shield, color: "#EF4444" },
   ];
 
@@ -305,10 +305,10 @@ export default function EconomicSimulator() {
 
               {/* Max Tip */}
               <div className="rounded-lg border border-border bg-background/50 p-4">
-                <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Max Tip</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Max Transfer</p>
                 <div className="flex items-center gap-1">
                   <DollarSign className="h-5 w-5 text-green-400" />
-                  <span className="text-lg font-mono font-semibold text-green-400">{result.maxTip} USDT</span>
+                  <span className="text-lg font-mono font-semibold text-green-400">{result.maxTip} USDC</span>
                 </div>
               </div>
 

@@ -4,50 +4,50 @@ import ScrollReveal from "@/components/shared/ScrollReveal";
 const milestones = [
   {
     day: "Day 1",
-    title: "Project Kickoff",
-    desc: "88 features planned from 8 AI models. Architecture designed, monorepo scaffolded, WDK packages identified.",
+    title: "Project Kickoff — Ethereum Mexico 2026",
+    desc: "Colibrí concept defined: USD→MXN cross-border remittances on Arbitrum + Base. Architecture designed, monorepo scaffolded, Bitso API integration planned.",
     icon: Rocket,
     color: "text-primary",
   },
   {
     day: "Day 2",
-    title: "Core Agent Intelligence",
-    desc: "ReAct executor, multi-agent consensus (3 agents + guardian veto), personality engine, and memory system.",
+    title: "4-Agent Council",
+    desc: "Discovery, Router, Treasury, and Guardian agents built. ReAct executor, multi-agent consensus (3 agents + guardian veto), and memory system deployed.",
     icon: Brain,
     color: "text-blue-400",
   },
   {
     day: "Day 3",
-    title: "WDK Integration",
-    desc: "12 WDK packages integrated. 9 chains connected: ETH, TON, TRX, BTC, SOL, MATIC, ARB, AVAX, CELO.",
+    title: "Arbitrum + Base Integration",
+    desc: "USDC settlement on Arbitrum and Base connected. Bitso off-ramp API integrated for MXN delivery via SPEI within ~90 seconds.",
     icon: Link2,
     color: "text-cyan-400",
   },
   {
     day: "Day 4",
-    title: "Payment Flows",
-    desc: "HTLC escrow, DCA, streaming payments, payment splits, x402 micropayments, and subscription engine.",
+    title: "Remittance Flows",
+    desc: "End-to-end USD→USDC→MXN pipeline. HTLC escrow, group remittance pools, family recurring transfers, and ~$1.20 flat fee engine.",
     icon: CreditCard,
     color: "text-emerald-400",
   },
   {
     day: "Day 5",
     title: "Security Hardening",
-    desc: "6-layer security architecture. Adversarial testing suite: Sybil, flash loan, replay, oracle, reentrancy, social engineering.",
+    desc: "6-layer security architecture. Adversarial testing suite: Sybil, flash loan, replay, oracle, reentrancy, social engineering — 1,183 tests passing.",
     icon: Shield,
     color: "text-yellow-400",
   },
   {
     day: "Day 6",
     title: "SDK + CLI Published",
-    desc: "npm package published. 107 CLI commands, 97+ MCP tools, full TypeScript SDK with 5 ready-made presets.",
+    desc: "npm package @colibri/remittance published. 8-stage CI pipeline, 97+ MCP tools, full TypeScript SDK with remittance presets.",
     icon: Terminal,
     color: "text-orange-400",
   },
   {
     day: "Day 7",
     title: "Polish & Ship",
-    desc: "Enterprise dashboard UI, 1001 tests, competitor analysis, documentation, and final deployment.",
+    desc: "Enterprise dashboard UI, 1,183 tests, competitor analysis vs Western Union, documentation, and final deployment for Ethereum Mexico 2026.",
     icon: Sparkles,
     color: "text-primary",
   },
@@ -58,7 +58,7 @@ export default function Timeline() {
     <div>
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">Project Timeline</h1>
-        <p className="text-sm text-muted-foreground mt-1">7-day build journey — from idea to production.</p>
+        <p className="text-sm text-muted-foreground mt-1">7-day build journey — Colibrí at Ethereum Mexico 2026.</p>
       </div>
 
       <div className="relative max-w-2xl">

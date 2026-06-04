@@ -72,11 +72,11 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [splashDone, setSplashDone] = useState(() =>
-    sessionStorage.getItem("aerofyta-splash-done") === "true"
+    sessionStorage.getItem("colibri-splash-done") === "true"
   );
 
   const handleSplashDone = useCallback(() => {
-    sessionStorage.setItem("aerofyta-splash-done", "true");
+    sessionStorage.setItem("colibri-splash-done", "true");
     setSplashDone(true);
   }, []);
 

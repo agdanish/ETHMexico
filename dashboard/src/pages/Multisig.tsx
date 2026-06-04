@@ -8,23 +8,23 @@ import { KeyRound, Plus, Check, X, Users, Clock } from "lucide-react";
 import { toast } from "sonner";
 
 const wallets = [
-  { address: "0x7a3B...f82d", signers: 3, threshold: 2, balance: "$8,234.50", chain: "Ethereum" },
-  { address: "0x4bA8...d67f", signers: 3, threshold: 2, balance: "$3,120.00", chain: "Polygon" },
+  { address: "0x7a3B...f82d", signers: 3, threshold: 2, balance: "$8,234.50", chain: "Arbitrum" },
+  { address: "0x4bA8...d67f", signers: 3, threshold: 2, balance: "$3,120.00", chain: "Base" },
   { address: "0x2eC1...b45a", signers: 5, threshold: 3, balance: "$1,450.80", chain: "Arbitrum" },
 ];
 
 const pendingTxs = [
-  { id: "TX-001", description: "Transfer 500 USDT to yield vault", signatures: 1, required: 2, signers: ["Agent A"], time: "5m ago" },
-  { id: "TX-002", description: "Approve Aave V3 spending", signatures: 1, required: 2, signers: ["Agent B"], time: "12m ago" },
-  { id: "TX-003", description: "Bridge 200 USDT to Polygon", signatures: 2, required: 3, signers: ["Agent A", "Agent C"], time: "25m ago" },
+  { id: "TX-001", description: "Transfer 500 USDC to remittance vault", signatures: 1, required: 2, signers: ["Agent A"], time: "5m ago" },
+  { id: "TX-002", description: "Approve Bitso off-ramp spending", signatures: 1, required: 2, signers: ["Agent B"], time: "12m ago" },
+  { id: "TX-003", description: "Bridge 200 USDC from Arbitrum to Base", signatures: 2, required: 3, signers: ["Agent A", "Agent C"], time: "25m ago" },
 ];
 
 const history = [
-  { id: "TX-098", description: "Tip @sarah_creates 2.5 USDT", signers: ["Agent A", "Agent B"], time: "1h ago", status: "executed" },
+  { id: "TX-098", description: "Transfer 50 USDC → María García on Base", signers: ["Agent A", "Agent B"], time: "1h ago", status: "executed" },
   { id: "TX-097", description: "Create escrow E-0047", signers: ["Agent A", "Agent B"], time: "2h ago", status: "executed" },
-  { id: "TX-096", description: "Withdraw 1000 USDT", signers: ["Agent C"], time: "3h ago", status: "rejected" },
-  { id: "TX-095", description: "Rebalance portfolio", signers: ["Agent A", "Agent B", "Agent C"], time: "4h ago", status: "executed" },
-  { id: "TX-094", description: "Supply 500 USDT to Aave", signers: ["Agent A", "Agent B"], time: "5h ago", status: "executed" },
+  { id: "TX-096", description: "Withdraw 1000 USDC", signers: ["Agent C"], time: "3h ago", status: "rejected" },
+  { id: "TX-095", description: "Rebalance USDC across Arbitrum + Base", signers: ["Agent A", "Agent B", "Agent C"], time: "4h ago", status: "executed" },
+  { id: "TX-094", description: "Fund Bitso off-ramp with 500 USDC", signers: ["Agent A", "Agent B"], time: "5h ago", status: "executed" },
 ];
 
 export default function Multisig() {

@@ -26,26 +26,26 @@ interface ApiEndpoint {
 
 const API_ENDPOINTS: ApiEndpoint[] = [
   // Wallets
-  { id: "balances", method: "GET", path: "/api/wallet/balances", label: "Get Balances", category: "Wallets", description: "Get wallet balances across all 9 chains" },
-  { id: "addresses", method: "GET", path: "/api/wallet/addresses", label: "Get Addresses", category: "Wallets", description: "Get wallet addresses for every supported chain" },
-  // Tipping
-  { id: "tip", method: "POST", path: "/api/tip", label: "Send Tip", category: "Tipping", description: "Send a tip through the full 10-step AI reasoning pipeline", exampleBody: JSON.stringify({ recipient: "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD28", amount: "2.5", token: "usdt", message: "Great content!" }, null, 2) },
-  { id: "tip-parse", method: "POST", path: "/api/tip/parse", label: "Parse Tip Intent", category: "Tipping", description: "Parse natural language into a structured tip intent", exampleBody: JSON.stringify({ text: "tip @sarah_creates 5 USDT on polygon for her latest video" }, null, 2) },
-  { id: "tip-history", method: "GET", path: "/api/agent/history?limit=10", label: "Tip History", category: "Tipping", description: "Get recent tip history" },
+  { id: "balances", method: "GET", path: "/api/wallet/balances", label: "Get Balances", category: "Wallets", description: "Get wallet balances across Arbitrum + Base" },
+  { id: "addresses", method: "GET", path: "/api/wallet/addresses", label: "Get Addresses", category: "Wallets", description: "Get wallet addresses for every supported L2" },
+  // Remittance
+  { id: "tip", method: "POST", path: "/api/tip", label: "Send Transfer", category: "Remittance", description: "Send a remittance through the full 8-stage AI reasoning pipeline", exampleBody: JSON.stringify({ recipient: "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD28", amount: "2.5", token: "usdc", message: "For the family!" }, null, 2) },
+  { id: "tip-parse", method: "POST", path: "/api/tip/parse", label: "Parse Transfer Intent", category: "Remittance", description: "Parse natural language into a structured transfer intent", exampleBody: JSON.stringify({ text: "send María 50 USDC on Arbitrum for rent" }, null, 2) },
+  { id: "tip-history", method: "GET", path: "/api/agent/history?limit=10", label: "Transfer History", category: "Remittance", description: "Get recent remittance transfer history" },
   // Escrow
-  { id: "escrow-create", method: "POST", path: "/api/escrow", label: "Create Escrow", category: "Escrow", description: "Create a new HTLC escrow with timelock", exampleBody: JSON.stringify({ recipient: "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD28", amount: "50", timelock: 3600, chain: "ethereum" }, null, 2) },
+  { id: "escrow-create", method: "POST", path: "/api/escrow", label: "Create Escrow", category: "Escrow", description: "Create a new HTLC escrow with timelock", exampleBody: JSON.stringify({ recipient: "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD28", amount: "50", timelock: 3600, chain: "arbitrum" }, null, 2) },
   { id: "escrow-list", method: "GET", path: "/api/escrow", label: "List Escrows", category: "Escrow", description: "List all active escrow contracts" },
   // Agent Intelligence
   { id: "agent-state", method: "GET", path: "/api/agent/state", label: "Agent Status", category: "Agent", description: "Get current agent state, mood, and decision info" },
   { id: "brain-state", method: "GET", path: "/api/brain/state", label: "Brain State", category: "Agent", description: "Get Wallet-as-Brain state: mood, pulse, preferences" },
-  { id: "chat", method: "POST", path: "/api/chat", label: "Chat with Agent", category: "Agent", description: "Send a message to the AI agent", exampleBody: JSON.stringify({ message: "What's the best chain for micro-tips under $5?" }, null, 2) },
-  { id: "reasoning", method: "POST", path: "/api/openclaw/reason", label: "Run Reasoning", category: "Agent", description: "Run a full ReAct reasoning cycle", exampleBody: JSON.stringify({ prompt: "Should I tip @music_maya based on her engagement score?" }, null, 2) },
+  { id: "chat", method: "POST", path: "/api/chat", label: "Chat with Agent", category: "Agent", description: "Send a message to the AI agent", exampleBody: JSON.stringify({ message: "What's the best L2 for remittances under $50?" }, null, 2) },
+  { id: "reasoning", method: "POST", path: "/api/openclaw/reason", label: "Run Reasoning", category: "Agent", description: "Run a full ReAct reasoning cycle", exampleBody: JSON.stringify({ prompt: "Should I route this transfer via Arbitrum or Base?" }, null, 2) },
   // DeFi
-  { id: "fee-compare", method: "GET", path: "/api/fees/compare?recipient=0x742d&amount=10", label: "Compare Fees", category: "DeFi", description: "Compare transaction fees across all chains" },
-  { id: "gasless-sim", method: "GET", path: "/api/gasless/simulate?chain=ethereum&amount=10", label: "Simulate Gasless", category: "DeFi", description: "Simulate an ERC-4337 gasless transfer" },
-  { id: "gasless-chains", method: "GET", path: "/api/gasless/chains", label: "Gasless Chain Support", category: "DeFi", description: "Get gasless support across all chains" },
+  { id: "fee-compare", method: "GET", path: "/api/fees/compare?recipient=0x742d&amount=10", label: "Compare Fees", category: "DeFi", description: "Compare transaction fees across Arbitrum + Base" },
+  { id: "gasless-sim", method: "GET", path: "/api/gasless/simulate?chain=arbitrum&amount=10", label: "Simulate Gasless", category: "DeFi", description: "Simulate an ERC-4337 gasless transfer on Arbitrum" },
+  { id: "gasless-chains", method: "GET", path: "/api/gasless/chains", label: "Gasless L2 Support", category: "DeFi", description: "Get gasless support across Arbitrum + Base" },
   // Security
-  { id: "health", method: "GET", path: "/api/health/full", label: "Health Check", category: "System", description: "Full agent health report" },
+  { id: "health", method: "GET", path: "/api/health/full", label: "Health Check", category: "System", description: "Full Colibrí agent health report" },
   { id: "a2a-discover", method: "GET", path: "/api/a2a/discover", label: "Discover Agents", category: "A2A", description: "Discover other agents on the network" },
   { id: "policies", method: "GET", path: "/api/policies", label: "List Policies", category: "Security", description: "List all active tip policies" },
   { id: "audit-recent", method: "GET", path: "/api/audit/recent?limit=10", label: "Audit Trail", category: "Security", description: "Get recent audit log entries" },
@@ -62,7 +62,7 @@ const methodColors: Record<string, string> = {
 
 const categoryIcons: Record<string, typeof Wallet> = {
   Wallets: Wallet,
-  Tipping: Send,
+  Remittance: Send,
   Escrow: Lock,
   Agent: Brain,
   DeFi: Zap,
@@ -202,7 +202,7 @@ export default function ApiPlayground() {
             </CardHeader>
             <CardContent className="space-y-2">
               {[
-                { id: "tip", label: "Try Tipping", icon: Send, color: "text-[#FF4E00]" },
+                { id: "tip", label: "Try Transfer", icon: Send, color: "text-[#FF4E00]" },
                 { id: "gasless-sim", label: "Simulate Gasless", icon: Zap, color: "text-emerald-400" },
                 { id: "chat", label: "Chat with Agent", icon: Brain, color: "text-blue-400" },
                 { id: "balances", label: "Check Balances", icon: Wallet, color: "text-purple-400" },
@@ -328,29 +328,21 @@ function generateDemoResponse(ep: ApiEndpoint): string {
   const demos: Record<string, unknown> = {
     balances: {
       balances: {
-        ethereum: { nativeBalance: "0.847", usdtBalance: "2450.00" },
-        polygon: { nativeBalance: "125.3", usdtBalance: "1200.50" },
-        arbitrum: { nativeBalance: "0.324", usdtBalance: "890.25" },
-        ton: { nativeBalance: "45.6", usdtBalance: "500.00" },
-        tron: { nativeBalance: "5420", usdtBalance: "3200.00" },
-        solana: { nativeBalance: "12.8", usdtBalance: "750.00" },
+        arbitrum: { nativeBalance: "0.324", usdcBalance: "890.25" },
+        base: { nativeBalance: "0.187", usdcBalance: "1200.50" },
       },
     },
     addresses: {
       addresses: {
-        ethereum: "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD28",
-        polygon: "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD28",
         arbitrum: "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD28",
-        ton: "EQBvW8Z5huBkMJYdnfAEM5JqTNkuWX3diqYENkWsIL0XggGG",
-        tron: "TN7oLmj3mPNgRLYYzNNtVcTmXLt2dHPwDx",
-        solana: "7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV",
+        base: "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD28",
       },
     },
     tip: {
-      id: "tip_demo_001", status: "completed", chainId: "polygon",
+      id: "transfer_demo_001", status: "completed", chainId: "arbitrum",
       txHash: "0xabc123...def456", from: "0x742d...bD28", to: "0x123...456",
-      amount: "2.5", token: "USDT", fee: "0.002",
-      decision: { selectedChain: "polygon", reasoning: "Lowest fee ($0.002) with 2s finality", confidence: 0.94 },
+      amount: "2.5", token: "USDC", fee: "0.002",
+      decision: { selectedChain: "arbitrum", reasoning: "Lowest fee ($0.002) with ~90s SPEI settlement", confidence: 0.94 },
     },
     "agent-state": {
       status: "online", mood: "optimistic", cyclesRun: 1834,
@@ -361,11 +353,11 @@ function generateDemoResponse(ep: ApiEndpoint): string {
       pulse: { liquidity: 78, diversification: 85, velocity: 62, healthScore: 91 },
       preferredChain: "polygon", riskTolerance: 0.65, batchSize: 5,
     },
-    health: { status: "healthy", uptime: 86400, version: "1.1.0", chains: 9, services: 48 },
+    health: { status: "healthy", uptime: 86400, version: "1.1.0", chains: 2, services: 48 },
     "gasless-sim": {
-      chain: "ethereum", supported: true, standard: "ERC-4337",
+      chain: "arbitrum", supported: true, standard: "ERC-4337",
       estimatedGasSavedUsd: "$1.2500", normalGasCostUsd: "$1.2500",
-      bundlerEndpoint: "https://api.pimlico.io/v2/1/rpc",
+      bundlerEndpoint: "https://api.pimlico.io/v2/42161/rpc",
     },
   };
   const data = demos[ep.id] ?? { message: "Demo response", endpoint: ep.path, method: ep.method };

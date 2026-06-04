@@ -61,16 +61,13 @@ interface AuditStats {
 // ── Explorer URLs ──────────────────────────────────────────────
 
 const EXPLORER_MAP: Record<string, string> = {
-  "ethereum": "https://etherscan.io/tx/",
-  "ethereum-sepolia": "https://sepolia.etherscan.io/tx/",
-  "polygon": "https://polygonscan.com/tx/",
-  "polygon-amoy": "https://amoy.polygonscan.com/tx/",
   "arbitrum": "https://arbiscan.io/tx/",
-  "ton": "https://tonscan.org/tx/",
+  "base": "https://basescan.org/tx/",
+  "ethereum": "https://etherscan.io/tx/",
 };
 
 function getExplorerUrl(chain: string, txHash: string): string {
-  const base = EXPLORER_MAP[chain?.toLowerCase()] ?? EXPLORER_MAP["ethereum-sepolia"];
+  const base = EXPLORER_MAP[chain?.toLowerCase()] ?? EXPLORER_MAP["arbitrum"];
   return `${base}${txHash}`;
 }
 
@@ -102,7 +99,7 @@ function avgConfidence(votes: AgentVote[]): number {
 
 const typeBadge = (t: string) => {
   const map: Record<string, string> = {
-    tip: "bg-primary/15 text-primary border-primary/30",
+    transfer: "bg-primary/15 text-primary border-primary/30",
     escrow: "bg-blue-500/15 text-blue-400 border-blue-500/30",
     swap: "bg-purple-500/15 text-purple-400 border-purple-500/30",
     yield: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
@@ -137,9 +134,9 @@ const FALLBACK_STATS: AuditStats = {
   vetoRate: 4,
   avgConfidence: 0.84,
   avgExecutionTimeMs: 342,
-  byType: { tip: 22, escrow: 8, swap: 6, yield: 5, security: 3, dca: 2, bridge: 1 },
+  byType: { transfer: 22, escrow: 8, swap: 6, yield: 5, security: 3, dca: 2, bridge: 1 },
   byOutcome: { executed: 32, rejected: 6, vetoed: 2, failed: 3, approved: 4 },
-  byChain: { "ethereum-sepolia": 28, "polygon-amoy": 12, "ton": 7 },
+  byChain: { "arbitrum": 28, "base": 19 },
   transactionsWithHash: 32,
   cycleCount: 53,
   uptimeMs: 7_200_000,
@@ -148,10 +145,10 @@ const FALLBACK_STATS: AuditStats = {
 const FALLBACK_DECISIONS: AuditDecision[] = [
   {
     timestamp: new Date(Date.now() - 120_000).toISOString(),
-    decisionId: "dec_tip_001",
-    type: "tip",
-    input: "Creator @sarah_creates posted a new video with 15k views, 94% engagement quality",
-    reasoning: "ReAct chain: OBSERVE -> creator engagement score 0.94 exceeds threshold 0.7 -> THINK -> high quality content deserves recognition -> ACT -> send 2.5 USDT tip via Ethereum Sepolia -> REFLECT -> tip successfully sent, creator now in trusted list",
+    decisionId: "dec_transfer_001",
+    type: "transfer",
+    input: "Beneficiary María Flores requested remittance of 2.5 USDC, KYC verified, Bitso account active",
+    reasoning: "ReAct chain: OBSERVE -> recipient KYC score 0.94 exceeds threshold 0.7 -> THINK -> beneficiary verified, SPEI off-ramp ready -> ACT -> send 2.5 USDC via Arbitrum, off-ramp to MXN via Bitso/SPEI -> REFLECT -> transfer completed in 88s, recipient confirmed payout",
     agentVotes: [
       { agent: "AnalystAgent", vote: "approve", confidence: 0.91 },
       { agent: "RiskAgent", vote: "approve", confidence: 0.87 },
@@ -160,7 +157,7 @@ const FALLBACK_DECISIONS: AuditDecision[] = [
     guardianVerdict: "approved",
     outcome: "executed",
     txHash: "0xabc123def456789012345678901234567890abcdef1234567890abcdef123456",
-    chain: "ethereum-sepolia",
+    chain: "arbitrum",
     gasUsed: "21000",
     executionTimeMs: 287,
     riskScore: 0.12,
@@ -187,8 +184,8 @@ const FALLBACK_DECISIONS: AuditDecision[] = [
     timestamp: new Date(Date.now() - 480_000).toISOString(),
     decisionId: "dec_yield_003",
     type: "yield",
-    input: "Aave V3 yield opportunity: 4.2% APY on USDT, current allocation is 0%",
-    reasoning: "ReAct chain: OBSERVE -> Aave yield 4.2% > threshold 3% -> THINK -> treasury has idle funds, yield strategy approved -> ACT -> supply 50 USDT to Aave V3 pool -> REFLECT -> supply confirmed, monitoring position",
+    input: "Aave V3 yield opportunity: 4.2% APY on USDC, current allocation is 0%",
+    reasoning: "ReAct chain: OBSERVE -> Aave yield 4.2% > threshold 3% -> THINK -> treasury has idle funds, yield strategy approved -> ACT -> supply 50 USDC to Aave V3 pool on Arbitrum -> REFLECT -> supply confirmed, monitoring position",
     agentVotes: [
       { agent: "AnalystAgent", vote: "approve", confidence: 0.89 },
       { agent: "RiskAgent", vote: "approve", confidence: 0.78 },
@@ -197,7 +194,7 @@ const FALLBACK_DECISIONS: AuditDecision[] = [
     guardianVerdict: "approved",
     outcome: "executed",
     txHash: "0xdef789abc012345678901234567890abcdef1234567890abcdef1234567890ab",
-    chain: "ethereum-sepolia",
+    chain: "arbitrum",
     gasUsed: "145000",
     executionTimeMs: 512,
     riskScore: 0.25,
@@ -207,8 +204,8 @@ const FALLBACK_DECISIONS: AuditDecision[] = [
     timestamp: new Date(Date.now() - 600_000).toISOString(),
     decisionId: "dec_escrow_004",
     type: "escrow",
-    input: "Milestone delivery confirmed for project #E-0047 by @dev_marcus",
-    reasoning: "ReAct chain: OBSERVE -> milestone proof submitted with 3/3 validator signatures -> THINK -> escrow conditions met, release funds -> ACT -> release 50 USDT from escrow to @dev_marcus -> REFLECT -> escrow completed successfully",
+    input: "Milestone delivery confirmed for project #E-0047 by beneficiary Carlos Mendoza",
+    reasoning: "ReAct chain: OBSERVE -> milestone proof submitted with 3/3 validator signatures -> THINK -> escrow conditions met, release funds -> ACT -> release 50 USDC from escrow to Carlos Mendoza on Base -> REFLECT -> escrow completed successfully",
     agentVotes: [
       { agent: "AnalystAgent", vote: "approve", confidence: 0.95 },
       { agent: "RiskAgent", vote: "approve", confidence: 0.90 },
@@ -217,7 +214,7 @@ const FALLBACK_DECISIONS: AuditDecision[] = [
     guardianVerdict: "not_required",
     outcome: "executed",
     txHash: "0x456789abcdef012345678901234567890abcdef1234567890abcdef12345678",
-    chain: "polygon-amoy",
+    chain: "base",
     gasUsed: "35000",
     executionTimeMs: 390,
     riskScore: 0.08,
@@ -227,8 +224,8 @@ const FALLBACK_DECISIONS: AuditDecision[] = [
     timestamp: new Date(Date.now() - 900_000).toISOString(),
     decisionId: "dec_swap_005",
     type: "swap",
-    input: "Cross-chain rebalancing: Polygon USDT balance low (< 10 USDT), Ethereum has surplus",
-    reasoning: "ReAct chain: OBSERVE -> Polygon balance 3.2 USDT < threshold 10 -> THINK -> need to bridge funds for upcoming tips -> ACT -> bridge 25 USDT from Ethereum to Polygon -> REFLECT -> bridge initiated, confirming in ~5 min",
+    input: "Cross-L2 rebalancing: Base USDC balance low (< 10 USDC), Arbitrum has surplus",
+    reasoning: "ReAct chain: OBSERVE -> Base balance 3.2 USDC < threshold 10 -> THINK -> need to bridge funds for upcoming remittances -> ACT -> bridge 25 USDC from Arbitrum to Base -> REFLECT -> bridge initiated, confirming in ~5 min",
     agentVotes: [
       { agent: "AnalystAgent", vote: "approve", confidence: 0.86 },
       { agent: "RiskAgent", vote: "approve", confidence: 0.81 },
@@ -237,7 +234,7 @@ const FALLBACK_DECISIONS: AuditDecision[] = [
     guardianVerdict: "approved",
     outcome: "executed",
     txHash: "0x789abcdef0123456789012345678901234567890abcdef1234567890abcdef01",
-    chain: "ethereum-sepolia",
+    chain: "arbitrum",
     gasUsed: "89000",
     executionTimeMs: 445,
     riskScore: 0.18,
@@ -302,7 +299,7 @@ export default function AuditTrail() {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `aerofyta-proof-bundle-${Date.now()}.json`;
+        a.download = `colibri-proof-bundle-${Date.now()}.json`;
         a.click();
         URL.revokeObjectURL(url);
         toast.success("Proof bundle exported");
@@ -333,7 +330,7 @@ export default function AuditTrail() {
               Decision Audit Trail
             </h1>
             <p className="text-muted-foreground text-sm">
-              Verifiable proof of every autonomous decision made by the AeroFyta agent.
+              Verifiable proof of every autonomous decision made by the Colibrí agent.
             </p>
           </div>
           <div className="flex gap-2">
@@ -393,7 +390,7 @@ export default function AuditTrail() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Types</SelectItem>
-            <SelectItem value="tip">Tip</SelectItem>
+            <SelectItem value="transfer">Transfer</SelectItem>
             <SelectItem value="escrow">Escrow</SelectItem>
             <SelectItem value="swap">Swap</SelectItem>
             <SelectItem value="yield">Yield</SelectItem>

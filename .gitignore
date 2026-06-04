@@ -44,3 +44,6 @@ docs/COMPETITOR_ANALYSIS*.md
 docs/ALL_191_BUIDLS.md
 AGENTS.md
 agent/coverage/
+
+# build artifacts
+*.zip

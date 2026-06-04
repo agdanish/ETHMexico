@@ -15,7 +15,7 @@ interface WebSocketEvent {
 type EventCallback = (data: unknown) => void;
 
 /**
- * React hook for real-time WebSocket connection to the AeroFyta agent.
+ * React hook for real-time WebSocket connection to the Colibrí agent.
  *
  * - Connects to the agent's Socket.IO server
  * - Auto-reconnects on disconnect

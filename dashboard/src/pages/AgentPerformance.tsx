@@ -15,7 +15,7 @@ import { toast } from "sonner";
 
 // ── Demo data generators ────────────────────────────────────────
 
-function generateDailyTips() {
+function generateDailyTransfers() {
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   return days.map((day) => ({
     day,
@@ -70,15 +70,15 @@ interface KPICard {
 export default function AgentPerformance() {
   const [timeRange, setTimeRange] = useState<"24h" | "7d" | "30d">("7d");
 
-  const dailyTips = useMemo(() => generateDailyTips(), []);
+  const dailyTips = useMemo(() => generateDailyTransfers(), []);
   const confidenceData = useMemo(() => generateConfidenceOverTime(), []);
   const responseData = useMemo(() => generateResponseTimes(), []);
   const healthTrend = useMemo(() => generateHealthTrend(), []);
 
   const kpis: KPICard[] = [
-    { label: "Tips Sent (7d)", value: "87", change: 12.5, icon: Zap, color: "#FF4E00" },
+    { label: "Transfers (7d)", value: "87", change: 12.5, icon: Zap, color: "#FF4E00" },
     { label: "Avg Confidence", value: "0.84", change: 3.2, icon: Brain, color: "#627EEA" },
-    { label: "Gas Savings", value: "$14.32", change: 8.1, icon: Fuel, color: "#50AF95" },
+    { label: "Fee Savings", value: "$14.32", change: 8.1, icon: Fuel, color: "#50AF95" },
     { label: "Yield Earned", value: "$2.87", change: -1.4, icon: DollarSign, color: "#F7931A" },
     { label: "LLM Cost/Decision", value: "$0.002", change: -15.3, icon: TrendingUp, color: "#9945FF" },
     { label: "Agent Uptime", value: "99.7%", change: 0.1, icon: Activity, color: "#35D07F" },
@@ -89,8 +89,8 @@ export default function AgentPerformance() {
     { metric: "Avg Confidence", yours: 0.84, average: 0.62, unit: "" },
     { metric: "Approval Rate", yours: 72, average: 58, unit: "%" },
     { metric: "Avg Response", yours: 450, average: 1200, unit: "ms" },
-    { metric: "Gas Optimized", yours: 82, average: 35, unit: "%" },
-    { metric: "Chains Active", yours: 9, average: 2, unit: "" },
+    { metric: "Fee Optimized", yours: 82, average: 35, unit: "%" },
+    { metric: "L2s Active", yours: 2, average: 1, unit: "" },
   ];
 
   const handleExport = () => {
@@ -123,7 +123,7 @@ export default function AgentPerformance() {
             Agent Performance
           </h1>
           <p className="text-muted-foreground mt-1">
-            Comprehensive KPIs and benchmarks for the autonomous payment agent
+            Comprehensive KPIs and benchmarks for the Colibrí remittance agent
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -190,7 +190,7 @@ export default function AgentPerformance() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Tips per Day */}
         <div className="rounded-xl border border-border bg-card p-6">
-          <h3 className="text-sm font-semibold mb-4">Tips Sent Per Day</h3>
+          <h3 className="text-sm font-semibold mb-4">Transfers Sent Per Day</h3>
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={dailyTips}>
@@ -201,8 +201,8 @@ export default function AgentPerformance() {
                   contentStyle={{ backgroundColor: "#1a1a2e", border: "1px solid #333", borderRadius: "8px" }}
                   labelStyle={{ color: "#fff" }}
                 />
-                <Bar dataKey="tips" fill="#FF4E00" radius={[4, 4, 0, 0]} name="Tips" />
-                <Bar dataKey="amount" fill="#50AF95" radius={[4, 4, 0, 0]} name="USDT Amount" />
+                <Bar dataKey="tips" fill="#FF4E00" radius={[4, 4, 0, 0]} name="Transfers" />
+                <Bar dataKey="amount" fill="#50AF95" radius={[4, 4, 0, 0]} name="USDC Amount" />
               </BarChart>
             </ResponsiveContainer>
           </div>

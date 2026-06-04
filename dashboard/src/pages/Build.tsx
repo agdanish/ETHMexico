@@ -4,32 +4,32 @@ import { ExternalLink, Package, Cpu, Zap, Link2, Hexagon, Diamond, CircleDot, Bi
 import { type LucideIcon } from "lucide-react";
 
 const codeBlocks = [
-  { label: "Install", code: "npm install @xzashr/aerofyta" },
-  { label: "Try", code: "npx @xzashr/aerofyta demo" },
-  { label: "Build", code: `import { createAeroFytaAgent } from '@xzashr/aerofyta'\n\nconst agent = createAeroFytaAgent({\n  preset: 'tipBot',\n  chains: ['ethereum', 'polygon'],\n})` },
+  { label: "Install", code: "npm install @colibri/remittance" },
+  { label: "Try", code: "npx @colibri/remittance demo" },
+  { label: "Build", code: `import { createColibriAgent } from '@colibri/remittance'\n\nconst agent = createColibriAgent({\n  preset: 'remittanceBot',\n  chains: ['arbitrum', 'base'],\n})` },
 ];
 
 const presets = [
-  { name: "tipBot", desc: "Auto-tip creators based on engagement scoring. Supports multi-chain routing and DCA.", config: `{ preset: 'tipBot', chains: ['ethereum', 'polygon'], maxTip: 10 }` },
-  { name: "treasuryManager", desc: "Manage a multi-sig treasury with DeFi yield and rebalancing strategies.", config: `{ preset: 'treasuryManager', chains: ['ethereum'], aaveEnabled: true }` },
+  { name: "remittanceBot", desc: "Auto-route USD→MXN transfers via Arbitrum + Base with Bitso/SPEI off-ramp.", config: `{ preset: 'remittanceBot', chains: ['arbitrum', 'base'], maxTransfer: 10 }` },
+  { name: "treasuryManager", desc: "Manage a multi-sig treasury with DeFi yield and rebalancing strategies.", config: `{ preset: 'treasuryManager', chains: ['arbitrum'], aaveEnabled: true }` },
   { name: "escrowAgent", desc: "HTLC escrow creation, monitoring, claim/refund with timelock automation.", config: `{ preset: 'escrowAgent', defaultTimelock: 7200 }` },
   { name: "paymentProcessor", desc: "Subscriptions, streaming payments, splits, and x402 micropayments.", config: `{ preset: 'paymentProcessor', x402: true, streaming: true }` },
-  { name: "advisor", desc: "Portfolio analysis, risk scoring, and investment recommendations.", config: `{ preset: 'advisor', riskTolerance: 'moderate' }` },
+  { name: "advisor", desc: "Portfolio analysis, risk scoring, and remittance corridor recommendations.", config: `{ preset: 'advisor', riskTolerance: 'moderate' }` },
 ];
 
 const hooks = [
-  "onAgentBoot", "onCycleStart", "onCycleEnd", "onTipQueued", "onTipSent",
+  "onAgentBoot", "onCycleStart", "onCycleEnd", "onTransferQueued", "onTransferSent",
   "onEscrowCreated", "onEscrowClaimed", "onEscrowRefunded", "onSwapExecuted",
   "onRiskAlert", "onGuardianVeto", "onConsensusReached", "onPolicyViolation",
-  "onChainSwitch", "onBalanceChange", "onCreatorDiscovered", "onDCAExecuted", "onError",
+  "onChainSwitch", "onBalanceChange", "onRecipientDiscovered", "onDCAExecuted", "onError",
 ];
 
 const adapters: { name: string; chains: string; icon: LucideIcon }[] = [
-  { name: "EVM", chains: "Ethereum, Polygon, Arbitrum, Avalanche, Celo", icon: Hexagon },
-  { name: "TON", chains: "TON Network", icon: Diamond },
-  { name: "Tron", chains: "Tron Network", icon: CircleDot },
-  { name: "Bitcoin", chains: "Bitcoin (via Taproot)", icon: Bitcoin },
-  { name: "Solana", chains: "Solana", icon: Sun },
+  { name: "Arbitrum", chains: "Arbitrum One (L2)", icon: Hexagon },
+  { name: "Base", chains: "Base (L2 by Coinbase)", icon: Diamond },
+  { name: "Bitso", chains: "MXN off-ramp / SPEI", icon: CircleDot },
+  { name: "ERC-4337", chains: "Gasless transfers", icon: Bitcoin },
+  { name: "EVM", chains: "Any EVM-compatible", icon: Sun },
 ];
 
 export default function Build() {
@@ -37,11 +37,11 @@ export default function Build() {
     <div>
       <div className="mb-8 flex items-start justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Build on AeroFyta</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Build on Colibrí</h1>
           <p className="text-sm text-muted-foreground mt-1">SDK-first platform — install, import, extend.</p>
         </div>
         <a
-          href="https://www.npmjs.com/package/@xzashr/aerofyta"
+          href="https://www.npmjs.com/package/@colibri/remittance"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1.5 text-sm text-primary hover:underline"
@@ -107,7 +107,7 @@ export default function Build() {
       {/* Adapters */}
       <div>
         <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4 flex items-center gap-2">
-          <Link2 className="h-4 w-4" strokeWidth={1.5} style={{ color: "#C6B6B1" }} />Chain Adapters
+          <Link2 className="h-4 w-4" strokeWidth={1.5} style={{ color: "#C6B6B1" }} />L2 + Off-Ramp Adapters
         </h2>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
           {adapters.map((a) => (

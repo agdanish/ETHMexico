@@ -6,44 +6,43 @@ import { Network, Bot, Cpu, Shield, CheckCircle2, XCircle, Clock } from "lucide-
 import { toast } from "sonner";
 
 const agents = [
-  { id: "Agent A", role: "Analyst", status: "active", task: "Evaluating creator @sarah_creates engagement" },
-  { id: "Agent B", role: "Risk Manager", status: "active", task: "Scanning for anomalies in recent transactions" },
-  { id: "Agent C", role: "Executor", status: "idle", task: "Waiting for consensus on tip approval" },
-  { id: "Guardian", role: "Overseer", status: "active", task: "Reviewing pending high-value escrow" },
+  { id: "Discovery", role: "Rate Scout", status: "active", task: "Fetching live USD/MXN rates from Bitso and Chainlink" },
+  { id: "Router", role: "L2 Selector", status: "active", task: "Choosing optimal route: Arbitrum vs Base for next batch" },
+  { id: "Treasury", role: "Executor", status: "idle", task: "Waiting for consensus on remittance batch approval" },
+  { id: "Guardian", role: "Overseer", status: "active", task: "Reviewing pending high-value SPEI disbursement" },
 ];
 
 const rules = [
-  { name: "Majority Vote", condition: "2-of-3 agents agree", action: "Execute transaction", priority: 1 },
+  { name: "Majority Vote", condition: "2-of-3 agents agree", action: "Execute remittance", priority: 1 },
   { name: "Guardian Veto", condition: "Guardian flags anomaly", action: "Block and review", priority: 1 },
-  { name: "High Value Alert", condition: "Amount > 50 USDT", action: "Require unanimous vote", priority: 2 },
-  { name: "Gas Threshold", condition: "Gas > 30 gwei on ETH", action: "Defer to cheaper chain", priority: 3 },
-  { name: "Cooldown Period", condition: "3+ tips in 5 minutes", action: "Pause for 10 minutes", priority: 2 },
-  { name: "New Creator", condition: "Creator reputation < 50", action: "Cap tip at 1 USDT", priority: 2 },
+  { name: "High Value Alert", condition: "Amount > 500 USDC", action: "Require unanimous vote", priority: 2 },
+  { name: "Gas Threshold", condition: "Gas > 30 gwei on ARB", action: "Defer to Base", priority: 3 },
+  { name: "Cooldown Period", condition: "3+ transfers in 5 minutes", action: "Pause for 10 minutes", priority: 2 },
+  { name: "New Beneficiary", condition: "Recipient KYC < 50", action: "Cap transfer at 10 USDC", priority: 2 },
 ];
 
 const decisions = [
-  { id: 1, decision: "Tip @sarah_creates 2.5 USDT", votes: "2/3 approve", outcome: "executed", time: "14:32" },
-  { id: 2, decision: "Create escrow E-0048", votes: "3/3 approve", outcome: "executed", time: "14:28" },
-  { id: 3, decision: "Tip @risky_account 50 USDT", votes: "1/3 approve", outcome: "blocked", time: "14:15" },
-  { id: 4, decision: "Swap 200 USDT to ETH", votes: "3/3 approve", outcome: "executed", time: "13:55" },
-  { id: 5, decision: "Supply 500 USDT to Aave", votes: "2/3 approve", outcome: "executed", time: "13:40" },
+  { id: 1, decision: "Send 50 USDC to María López via Bitso/SPEI", votes: "2/3 approve", outcome: "executed", time: "14:32" },
+  { id: 2, decision: "Create escrow E-0048 for Rosa García", votes: "3/3 approve", outcome: "executed", time: "14:28" },
+  { id: 3, decision: "Transfer 500 USDC to unverified address", votes: "1/3 approve", outcome: "blocked", time: "14:15" },
+  { id: 4, decision: "Route batch via Arbitrum (Base congested)", votes: "3/3 approve", outcome: "executed", time: "13:55" },
+  { id: 5, decision: "Send 120 USDC to Carlos Mendoza — MXN 2,340", votes: "2/3 approve", outcome: "executed", time: "13:40" },
 ];
 
 const networkHealth = [
-  { chain: "Ethereum", block: 19847234, rpc: "healthy", latency: "45ms" },
-  { chain: "Polygon", block: 55123456, rpc: "healthy", latency: "12ms" },
-  { chain: "TON", block: 38912345, rpc: "healthy", latency: "28ms" },
-  { chain: "Solana", block: 267891234, rpc: "degraded", latency: "180ms" },
-  { chain: "Tron", block: 61234567, rpc: "healthy", latency: "35ms" },
   { chain: "Arbitrum", block: 198765432, rpc: "healthy", latency: "18ms" },
+  { chain: "Base", block: 14823456, rpc: "healthy", latency: "12ms" },
+  { chain: "Ethereum L1", block: 19847234, rpc: "healthy", latency: "45ms" },
+  { chain: "Bitso API", block: 0, rpc: "healthy", latency: "28ms" },
+  { chain: "SPEI Rail", block: 0, rpc: "healthy", latency: "35ms" },
 ];
 
 export default function Swarm() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight">Multi-Agent Swarm Intelligence</h1>
-        <p className="text-sm text-muted-foreground mt-1">Coordinated multi-agent decision-making with consensus protocols.</p>
+        <h1 className="text-2xl font-bold tracking-tight">4-Agent Council</h1>
+        <p className="text-sm text-muted-foreground mt-1">Discovery · Router · Treasury · Guardian — coordinated consensus for every remittance.</p>
       </div>
 
       {/* Stats */}

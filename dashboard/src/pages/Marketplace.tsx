@@ -19,14 +19,14 @@ interface Skill {
 }
 
 const initialSkills: Skill[] = [
-  { id: "tip-engine", name: "Tip Engine", description: "Automated creator tipping with engagement analysis", icon: Package, installed: true, enabled: true, author: "AeroFyta Core", permissions: ["wallet.send", "creator.read"] },
-  { id: "escrow-manager", name: "Escrow Manager", description: "HTLC escrow creation and claim management", icon: Wrench, installed: true, enabled: true, author: "AeroFyta Core", permissions: ["wallet.send", "escrow.create"] },
-  { id: "yield-optimizer", name: "Yield Optimizer", description: "DeFi yield farming across protocols", icon: Puzzle, installed: true, enabled: true, author: "AeroFyta Core", permissions: ["defi.interact", "wallet.send"] },
-  { id: "zk-proofs", name: "ZK Proofs", description: "Zero-knowledge proof generation and verification", icon: Code, installed: true, enabled: false, author: "AeroFyta Labs", permissions: ["crypto.compute"] },
-  { id: "cross-chain-bridge", name: "Cross-Chain Bridge", description: "Trustless token bridging between chains", icon: Globe, installed: false, enabled: false, author: "Community", permissions: ["wallet.send", "bridge.execute"] },
-  { id: "nft-scanner", name: "NFT Scanner", description: "Scan and analyze NFT collections for creator activity", icon: Cpu, installed: false, enabled: false, author: "Community", permissions: ["nft.read", "creator.read"] },
-  { id: "sentiment-ai", name: "Sentiment AI", description: "Social media sentiment analysis for tipping decisions", icon: Puzzle, installed: false, enabled: false, author: "Community", permissions: ["social.read", "ai.infer"] },
-  { id: "tax-reporter", name: "Tax Reporter", description: "Automated tax lot tracking and report generation", icon: Wrench, installed: false, enabled: false, author: "AeroFyta Labs", permissions: ["tx.read", "report.generate"] },
+  { id: "remittance-engine", name: "Remittance Engine", description: "Automated USD→MXN transfers with route optimization", icon: Package, installed: true, enabled: true, author: "Colibrí Core", permissions: ["wallet.send", "beneficiary.read"] },
+  { id: "escrow-manager", name: "Escrow Manager", description: "HTLC escrow creation and claim management", icon: Wrench, installed: true, enabled: true, author: "Colibrí Core", permissions: ["wallet.send", "escrow.create"] },
+  { id: "fx-optimizer", name: "FX Optimizer", description: "Real-time USD/MXN rate optimization via Bitso oracle", icon: Puzzle, installed: true, enabled: true, author: "Colibrí Core", permissions: ["fx.read", "wallet.send"] },
+  { id: "zk-proofs", name: "ZK Proofs", description: "Zero-knowledge proof generation and verification", icon: Code, installed: true, enabled: false, author: "Colibrí Labs", permissions: ["crypto.compute"] },
+  { id: "l2-bridge", name: "L2 Bridge", description: "Trustless USDC bridging between Arbitrum and Base", icon: Globe, installed: false, enabled: false, author: "Community", permissions: ["wallet.send", "bridge.execute"] },
+  { id: "compliance-scanner", name: "Compliance Scanner", description: "AML/KYC screening for remittance recipients", icon: Cpu, installed: false, enabled: false, author: "Community", permissions: ["kyc.read", "beneficiary.read"] },
+  { id: "spei-rail", name: "SPEI Rail", description: "Direct SPEI bank transfer integration for MXN delivery", icon: Puzzle, installed: false, enabled: false, author: "Community", permissions: ["spei.send", "ai.infer"] },
+  { id: "tax-reporter", name: "Tax Reporter", description: "Automated tax lot tracking and report generation", icon: Wrench, installed: false, enabled: false, author: "Colibrí Labs", permissions: ["tx.read", "report.generate"] },
 ];
 
 export default function Marketplace() {

@@ -20,39 +20,32 @@ import { type LucideIcon } from "lucide-react";
 
 /* ── Decision feed data ── */
 const decisionFeed = [
-  { time: "14:32", icon: "✅", text: "APPROVED tip 2.5 USDT → @sarah_creates (87% confidence)", color: "#50AF95" },
+  { time: "14:32", icon: "✅", text: "APPROVED $200 → María (Base · $0.01 fee · 87% confidence)", color: "#50AF95" },
   { time: "14:31", icon: "🛡️", text: "GUARDIAN VETO: unknown recipient, 0 history", color: "#EF4444" },
   { time: "14:30", icon: "🔄", text: "FLIP: TreasuryOptimizer changed reject→approve", color: "#627EEA" },
-  { time: "14:29", icon: "⏭️", text: "SKIPPED: engagement 0.45 < threshold 0.55", color: "#666" },
-  { time: "14:27", icon: "✅", text: "APPROVED tip 5.0 USDT → @dev_marcus (91% confidence)", color: "#50AF95" },
-  { time: "14:25", icon: "✅", text: "APPROVED swap 100 USDT → 0.054 ETH", color: "#50AF95" },
-  { time: "14:22", icon: "🛡️", text: "GUARDIAN VETO: amount 50 USDT exceeds single-tx limit", color: "#EF4444" },
-  { time: "14:20", icon: "⏭️", text: "SKIPPED: creator @new_user has no reputation score", color: "#666" },
+  { time: "14:29", icon: "⏭️", text: "SKIPPED: recipient liquidity below threshold", color: "#666" },
+  { time: "14:27", icon: "✅", text: "APPROVED $500 → Carlos (Arbitrum · $0.04 fee · 91% confidence)", color: "#50AF95" },
+  { time: "14:25", icon: "🔀", text: "ROUTER: Base cheaper than Arbitrum ($0.01 vs $0.04)", color: "#50AF95" },
+  { time: "14:22", icon: "🛡️", text: "GUARDIAN VETO: $600 exceeds daily transfer limit", color: "#EF4444" },
+  { time: "14:20", icon: "⏭️", text: "SKIPPED: new recipient pending KYC verification", color: "#666" },
 ];
 
 /* ── Chain balances for portfolio bar ── */
 const chainSegments = [
-  { chain: "ETH", color: "#627EEA", pct: 25, bal: "0.065" },
-  { chain: "TON", color: "#0098EA", pct: 15, bal: "342.5" },
-  { chain: "TRX", color: "#FF0013", pct: 17, bal: "18,420" },
-  { chain: "BTC", color: "#F7931A", pct: 12, bal: "0.023" },
-  { chain: "SOL", color: "#9945FF", pct: 8, bal: "6.82" },
-  { chain: "MATIC", color: "#8247E5", pct: 11, bal: "2,140" },
-  { chain: "ARB", color: "#28A0F0", pct: 7, bal: "0.421" },
-  { chain: "AVAX", color: "#E84142", pct: 3, bal: "15.3" },
-  { chain: "CELO", color: "#35D07F", pct: 2, bal: "450" },
+  { chain: "USDC (Arbitrum)", color: "#28A0F0", pct: 58, bal: "7,451.32" },
+  { chain: "USDC (Base)", color: "#0052FF", pct: 42, bal: "5,396.00" },
 ];
 
 const moodColors: Record<string, string> = { optimistic: "#FF4E00", cautious: "#627EEA", strategic: "#50AF95" };
 const moodIcons: Record<string, LucideIcon> = { optimistic: Smile, cautious: Meh, strategic: TrendingUp };
 
 const innovationCards = [
-  { icon: ClipboardCheck, value: 50, label: "Autonomous Decisions (24h)" },
-  { icon: Package, value: 12, label: "WDK Packages" },
-  { icon: Globe, value: 9, label: "Blockchains" },
-  { icon: CheckCircle, value: 1052, label: "Tests" },
-  { icon: Terminal, value: 107, label: "CLI Commands" },
-  { icon: Wrench, value: 97, label: "MCP Tools" },
+  { icon: CheckCircle, value: 1183, label: "Tests" },
+  { icon: Globe, value: 2, label: "L2 Networks" },
+  { icon: Brain, value: 4, label: "AI Agents" },
+  { icon: ClipboardCheck, value: 8, label: "Pipeline Stages" },
+  { icon: Terminal, value: 90, label: "Avg Settlement (s)" },
+  { icon: Package, value: 1, label: "Avg Fee (USD)" },
   { icon: LayoutDashboard, value: 42, label: "Dashboard Pages" },
 ];
 
@@ -108,7 +101,7 @@ export default function Dashboard() {
     return subscribe("tip:sent", (data: unknown) => {
       const d = data as { recipient?: string; amount?: string; chain?: string };
       const id = `tip-${Date.now()}`;
-      const message = `Tip ${d.amount || "?"} sent to ${(d.recipient || "?").slice(0, 12)}... on ${d.chain || "?"}`;
+      const message = `Transfer ${d.amount || "?"} sent to ${(d.recipient || "?").slice(0, 12)}... on ${d.chain || "?"}`;
       setTipNotifications((prev) => [
         { id, message, timestamp: new Date().toISOString() },
         ...prev.slice(0, 4),
@@ -198,7 +191,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <h3 className="text-base font-bold">AeroFyta Agent</h3>
+          <h3 className="text-base font-bold">Colibrí Agent</h3>
           <p className="text-xs text-muted-foreground mt-0.5 font-mono">
             {agent?.online ?? agent?.loop?.running ?? false ? `Running — Cycle #${agent?.stats?.cyclesRun?.value || agent?.loop?.currentCycle || 0}` : "Stopped"}
           </p>
@@ -207,7 +200,7 @@ export default function Dashboard() {
           <div className="flex items-center gap-4 mt-4 text-xs text-muted-foreground">
             <span className="font-mono tabular-nums">{uptime}</span>
             <span className="w-px h-3 bg-border" />
-            <span className="tabular-nums">{agent?.stats?.tipsSent?.value || agent?.loop?.tipsExecuted || 0} tips</span>
+            <span className="tabular-nums">{agent?.stats?.tipsSent?.value || agent?.loop?.tipsExecuted || 0} transfers</span>
             <span className="w-px h-3 bg-border" />
             <Badge variant="outline" className="text-[10px] px-2 py-0" style={{ borderColor: `${moodGlow}66`, color: moodGlow }}>
               {agent?.mood?.name || moodType}
@@ -237,7 +230,7 @@ export default function Dashboard() {
               +2.3% 24h
             </Badge>
           </div>
-          <p className="text-xs text-muted-foreground mb-5">Total portfolio across 9 chains</p>
+          <p className="text-xs text-muted-foreground mb-5">USDC treasury across Arbitrum + Base</p>
 
           {/* Chain balance bar */}
           <div className="flex h-3 rounded-full overflow-hidden mb-4">
@@ -280,10 +273,10 @@ export default function Dashboard() {
         >
           <div className="flex items-center gap-2 mb-1">
             <Brain className="h-4 w-4 text-primary" strokeWidth={1.5} />
-            <h3 className="text-sm font-semibold">Wallet-as-Brain™</h3>
+            <h3 className="text-sm font-semibold">Route Intelligence™</h3>
             <Eye className="h-3 w-3 text-muted-foreground/50 ml-auto" />
           </div>
-          <p className="text-[11px] text-muted-foreground mb-3">Financial state drives agent behavior</p>
+          <p className="text-[11px] text-muted-foreground mb-3">Treasury state drives routing decisions</p>
 
           {/* Radar chart */}
           <div className="h-48 -mx-2">
@@ -319,9 +312,9 @@ export default function Dashboard() {
             </Badge>
           </div>
 
-          <p className="text-[10px] text-center text-muted-foreground mb-2">Driving 8 behaviors</p>
+          <p className="text-[10px] text-center text-muted-foreground mb-2">Driving 8 pipeline stages</p>
           <div className="flex flex-wrap justify-center gap-1.5">
-            {["Chain: ethereum", "Explore: 10%", "Batch: 3"].map((tag) => (
+            {["Route: Base", "Fee: $0.01", "KYC: on"].map((tag) => (
               <span key={tag} className="text-[10px] font-mono bg-secondary text-muted-foreground px-2 py-1 rounded">
                 {tag}
               </span>
@@ -367,8 +360,8 @@ export default function Dashboard() {
 
           <div className="grid grid-cols-2 gap-2.5">
             {([
-              { route: "/tips", icon: SendHorizontal, accent: "#FF4E00", title: "Send Tip", desc: "Tip a creator across 9 chains" },
-              { route: "/escrow", icon: Lock, accent: "#50AF95", title: "Create Escrow", desc: "SHA-256 hash-locked with timelock" },
+              { route: "/tips", icon: SendHorizontal, accent: "#FF4E00", title: "Send Money", desc: "USD→MXN via Arbitrum or Base" },
+              { route: "/escrow", icon: Lock, accent: "#50AF95", title: "New Recipient", desc: "Add & verify a MXN recipient" },
               { route: "/reasoning", icon: Brain, accent: "#9945FF", title: "Watch Agent Think", desc: "Live ReAct reasoning stream" },
               { route: "/demo", icon: Play, accent: "#627EEA", title: "Run Full Demo", desc: "10-step guided walkthrough" },
             ] as const).map((card) => {
@@ -419,10 +412,10 @@ export default function Dashboard() {
             >
               <code>
                 <span className="text-muted-foreground/50">$ </span>
-                <span style={{ color: "#50AF95" }}>npm install @xzashr/aerofyta</span>
+                <span style={{ color: "#50AF95" }}>npm install @colibri/remittance</span>
               </code>
               <div className="absolute top-2 right-2">
-                <CopyButton text="npm install @xzashr/aerofyta" />
+                <CopyButton text="npm install @colibri/remittance" />
               </div>
             </div>
             <div
@@ -431,10 +424,10 @@ export default function Dashboard() {
             >
               <code>
                 <span className="text-muted-foreground/50">$ </span>
-                <span style={{ color: "#50AF95" }}>npx @xzashr/aerofyta demo</span>
+                <span style={{ color: "#50AF95" }}>npx @colibri/remittance demo</span>
               </code>
               <div className="absolute top-2 right-2">
-                <CopyButton text="npx @xzashr/aerofyta demo" />
+                <CopyButton text="npx @colibri/remittance demo" />
               </div>
             </div>
           </div>

@@ -8,10 +8,10 @@ import { Award, Search, Download, Upload, Trophy, Star, Zap, Globe, Heart, Shiel
 import { toast } from "sonner";
 
 const achievements = [
-  { id: "first_tip", name: "First Tip", icon: Zap, unlocked: true },
+  { id: "first_tip", name: "First Transfer", icon: Zap, unlocked: true },
   { id: "consistent", name: "Consistent", icon: Star, unlocked: true },
-  { id: "generous", name: "Generous", icon: Heart, unlocked: true },
-  { id: "multi_chain", name: "Multi-Chain", icon: Globe, unlocked: true },
+  { id: "generous", name: "Frequent Sender", icon: Heart, unlocked: true },
+  { id: "multi_chain", name: "Multi-L2", icon: Globe, unlocked: true },
   { id: "guardian", name: "Guardian", icon: Shield, unlocked: true },
   { id: "whale", name: "Whale", icon: Trophy, unlocked: false },
   { id: "pioneer", name: "Pioneer", icon: Award, unlocked: false },
@@ -51,8 +51,8 @@ export default function Reputation() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight">Cross-Chain Reputation Passport</h1>
-        <p className="text-sm text-muted-foreground mt-1">ZK-verified reputation scores, achievements, and exportable passports.</p>
+        <h1 className="text-2xl font-bold tracking-tight">Remittance Reputation Passport</h1>
+        <p className="text-sm text-muted-foreground mt-1">ZK-verified reputation scores, transfer achievements, and exportable passports.</p>
       </div>
 
       {/* Lookup */}

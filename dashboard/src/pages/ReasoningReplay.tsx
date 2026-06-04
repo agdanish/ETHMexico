@@ -40,9 +40,9 @@ interface Decision {
 // ── Demo decisions ──────────────────────────────────────────────
 
 function generateDemoDecisions(): Decision[] {
-  const types = ["tip", "swap", "yield-deploy", "rebalance", "tip", "tip", "bridge", "tip", "stake", "tip"];
-  const creators = ["@alice_creates", "@dev_marcus", "@sarah_writes", "@nft_studio", "@open_source_hero"];
-  const chains = ["ethereum-sepolia", "polygon-amoy", "ton-testnet", "arbitrum-sepolia"];
+  const types = ["remittance", "swap", "rebalance", "rebalance", "remittance", "remittance", "bridge", "remittance", "rebalance", "remittance"];
+  const creators = ["María García", "Luis Hernández", "Rosa Martínez", "Carlos Ruiz", "Ana Flores"];
+  const chains = ["arbitrum-one", "base", "base", "arbitrum-one"];
   const verdicts: Decision["guardianVerdict"][] = ["approved", "approved", "vetoed", "approved", "approved"];
   const outcomes: Decision["outcome"][] = ["executed", "executed", "rejected", "executed", "executed"];
 
@@ -54,15 +54,13 @@ function generateDemoDecisions(): Decision[] {
     const verdict = verdicts[i % verdicts.length];
     const outcome = outcomes[i % outcomes.length];
 
-    const inputText = type === "tip"
-      ? `Evaluate tip 2.5 USDT to ${creator} on ${chain}`
+    const inputText = type === "remittance"
+      ? `Evaluate transfer 50 USDC to ${creator} on ${chain}`
       : type === "swap"
-        ? `Swap 100 USDT to ETH for gas optimization`
-        : type === "yield-deploy"
-          ? `Deploy 500 USDT to Aave v3 lending pool`
-          : type === "bridge"
-            ? `Bridge 50 USDT from Ethereum to Polygon`
-            : `Rebalance portfolio: target 40% ETH, 30% stables, 30% other`;
+        ? `Swap 100 USDC → MXN via Bitso for optimal FX rate`
+        : type === "bridge"
+          ? `Bridge 50 USDC from Arbitrum to Base`
+          : `Rebalance USDC across Arbitrum + Base: target 60/40 split`;
 
     return {
       id: i + 1,
@@ -71,17 +69,17 @@ function generateDemoDecisions(): Decision[] {
       input: inputText,
       steps: [
         { phase: "input", content: inputText, timestamp: 0 },
-        { phase: "thought", content: `Analyzing ${type} request. Checking creator reputation, risk parameters, gas costs, and portfolio health. Current mood: ${confidence > 0.75 ? "optimistic" : "cautious"}.`, timestamp: 120 },
-        { phase: "action", content: `Querying on-chain data: creator history (${Math.floor(Math.random() * 50 + 5)} tips received), gas price (${(Math.random() * 30 + 5).toFixed(1)} gwei), chain congestion (${(Math.random() * 100).toFixed(0)}%).`, timestamp: 340 },
-        { phase: "observation", content: `Creator has ${Math.floor(Math.random() * 4.5 + 0.5)}/5 reputation score. Portfolio health: ${(70 + Math.random() * 25).toFixed(0)}%. Daily tip budget remaining: ${(Math.random() * 80 + 20).toFixed(0)}%.`, timestamp: 520 },
-        { phase: "reflection", content: `Risk assessment: ${confidence > 0.8 ? "LOW" : confidence > 0.6 ? "MEDIUM" : "HIGH"}. ${verdict === "vetoed" ? "Guardian flags excessive amount relative to creator history." : "All safety checks pass. Economic model supports this action."}`, timestamp: 680 },
-        { phase: "decision", content: `${outcome === "executed" ? "APPROVE" : "REJECT"}: ${type === "tip" ? `Send ${(Math.random() * 5 + 0.5).toFixed(1)} USDT to ${creator}` : inputText}. Confidence: ${(confidence * 100).toFixed(0)}%. ${verdict === "vetoed" ? "VETOED by Guardian." : "All agents concur."}`, timestamp: 800 },
+        { phase: "thought", content: `Analyzing ${type} request. Checking beneficiary SPEI status, risk parameters, USDC fees, and L2 liquidity. Current mood: ${confidence > 0.75 ? "optimistic" : "cautious"}.`, timestamp: 120 },
+        { phase: "action", content: `Querying on-chain data: beneficiary history (${Math.floor(Math.random() * 50 + 5)} transfers received), Base fee (${(Math.random() * 0.03 + 0.01).toFixed(3)} USDC), chain congestion (${(Math.random() * 100).toFixed(0)}%).`, timestamp: 340 },
+        { phase: "observation", content: `Beneficiary has ${Math.floor(Math.random() * 4.5 + 0.5)}/5 reliability score. L2 liquidity: ${(70 + Math.random() * 25).toFixed(0)}%. Daily transfer budget remaining: ${(Math.random() * 80 + 20).toFixed(0)}%.`, timestamp: 520 },
+        { phase: "reflection", content: `Risk assessment: ${confidence > 0.8 ? "LOW" : confidence > 0.6 ? "MEDIUM" : "HIGH"}. ${verdict === "vetoed" ? "Guardian flags excessive amount relative to beneficiary history." : "All safety checks pass. Fee under $1.20 cap. Economic model supports this action."}`, timestamp: 680 },
+        { phase: "decision", content: `${outcome === "executed" ? "APPROVE" : "REJECT"}: ${type === "remittance" ? `Send ${(Math.random() * 50 + 10).toFixed(0)} USDC to ${creator}` : inputText}. Confidence: ${(confidence * 100).toFixed(0)}%. ${verdict === "vetoed" ? "VETOED by Guardian." : "All agents concur."}`, timestamp: 800 },
       ],
       agentVotes: [
-        { agent: "TipAdvisor", vote: confidence > 0.6 ? "approve" : "reject", confidence: confidence + (Math.random() * 0.1 - 0.05), reasoning: "Creator metrics meet threshold" },
-        { agent: "RiskAnalyst", vote: confidence > 0.5 ? "approve" : "reject", confidence: confidence - 0.05 + Math.random() * 0.1, reasoning: "Risk within acceptable bounds" },
-        { agent: "TreasuryOptimizer", vote: confidence > 0.65 ? "approve" : "abstain", confidence: confidence + Math.random() * 0.08, reasoning: "Budget allocation optimal" },
-        { agent: "ChainRouter", vote: "approve", confidence: 0.85 + Math.random() * 0.1, reasoning: `${chain} offers best gas cost` },
+        { agent: "Discovery", vote: confidence > 0.6 ? "approve" : "reject", confidence: confidence + (Math.random() * 0.1 - 0.05), reasoning: "Beneficiary SPEI status verified" },
+        { agent: "Guardian", vote: confidence > 0.5 ? "approve" : "reject", confidence: confidence - 0.05 + Math.random() * 0.1, reasoning: "Risk within acceptable bounds" },
+        { agent: "Treasury", vote: confidence > 0.65 ? "approve" : "abstain", confidence: confidence + Math.random() * 0.08, reasoning: "USDC budget allocation optimal" },
+        { agent: "Router", vote: "approve", confidence: 0.85 + Math.random() * 0.1, reasoning: `${chain} offers lowest fee` },
       ],
       guardianVerdict: verdict,
       outcome,

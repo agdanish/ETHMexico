@@ -57,26 +57,26 @@ function genTrend(): number[] {
 }
 
 const DEMO_CREATORS: Creator[] = [
-  { name: "Sarah Creates", handle: "@sarah_creates", subscribers: 892000, engagementScore: 96 },
-  { name: "Jake Tech Reviews", handle: "@jake_tech", subscribers: 1240000, engagementScore: 93 },
-  { name: "Music Maya", handle: "@music_maya", subscribers: 456000, engagementScore: 91 },
-  { name: "Crypto Claire", handle: "@crypto_claire", subscribers: 723000, engagementScore: 88 },
-  { name: "Dev Danny", handle: "@dev_danny", subscribers: 310000, engagementScore: 85 },
-  { name: "Finance Fiona", handle: "@finance_fiona", subscribers: 580000, engagementScore: 82 },
-  { name: "Gaming Greg", handle: "@gaming_greg", subscribers: 1100000, engagementScore: 78 },
-  { name: "Art Alice", handle: "@art_alice", subscribers: 195000, engagementScore: 76 },
-  { name: "Travel Tom", handle: "@travel_tom", subscribers: 420000, engagementScore: 72 },
-  { name: "Chef Carlos", handle: "@chef_carlos", subscribers: 680000, engagementScore: 69 },
-  { name: "Science Sam", handle: "@science_sam", subscribers: 250000, engagementScore: 65 },
-  { name: "Fitness Frank", handle: "@fitness_frank", subscribers: 890000, engagementScore: 62 },
-  { name: "DIY Dana", handle: "@diy_dana", subscribers: 340000, engagementScore: 58 },
-  { name: "Podcast Pete", handle: "@podcast_pete", subscribers: 175000, engagementScore: 52 },
-  { name: "Nature Nina", handle: "@nature_nina", subscribers: 410000, engagementScore: 47 },
-  { name: "Comedy Carl", handle: "@comedy_carl", subscribers: 760000, engagementScore: 44 },
-  { name: "Photo Phil", handle: "@photo_phil", subscribers: 130000, engagementScore: 39 },
-  { name: "History Helen", handle: "@history_helen", subscribers: 220000, engagementScore: 35 },
-  { name: "Music Mike", handle: "@music_mike", subscribers: 95000, engagementScore: 28 },
-  { name: "Study Sara", handle: "@study_sara", subscribers: 67000, engagementScore: 22 },
+  { name: "María García", handle: "@maria_garcia", subscribers: 892000, engagementScore: 96 },
+  { name: "Luis Hernández", handle: "@luis_hdz", subscribers: 1240000, engagementScore: 93 },
+  { name: "Rosa Martínez", handle: "@rosa_mtz", subscribers: 456000, engagementScore: 91 },
+  { name: "Carlos López", handle: "@carlos_lop", subscribers: 723000, engagementScore: 88 },
+  { name: "Ana Rodríguez", handle: "@ana_rdz", subscribers: 310000, engagementScore: 85 },
+  { name: "Fernando Torres", handle: "@fer_torres", subscribers: 580000, engagementScore: 82 },
+  { name: "Gabriela Sánchez", handle: "@gabi_san", subscribers: 1100000, engagementScore: 78 },
+  { name: "Miguel Flores", handle: "@miguel_flrs", subscribers: 195000, engagementScore: 76 },
+  { name: "Isabel Ramírez", handle: "@isabel_rmz", subscribers: 420000, engagementScore: 72 },
+  { name: "Javier Cruz", handle: "@javier_cruz", subscribers: 680000, engagementScore: 69 },
+  { name: "Patricia Morales", handle: "@paty_mor", subscribers: 250000, engagementScore: 65 },
+  { name: "Roberto Jiménez", handle: "@roberto_jim", subscribers: 890000, engagementScore: 62 },
+  { name: "Diana Vargas", handle: "@diana_vrg", subscribers: 340000, engagementScore: 58 },
+  { name: "Eduardo Reyes", handle: "@edu_reyes", subscribers: 175000, engagementScore: 52 },
+  { name: "Claudia Mendoza", handle: "@clau_men", subscribers: 410000, engagementScore: 47 },
+  { name: "Andrés Castillo", handle: "@andres_cas", subscribers: 760000, engagementScore: 44 },
+  { name: "Sofía Guerrero", handle: "@sofia_gue", subscribers: 130000, engagementScore: 39 },
+  { name: "Hugo Navarro", handle: "@hugo_nav", subscribers: 220000, engagementScore: 35 },
+  { name: "Elena Peña", handle: "@elena_pen", subscribers: 95000, engagementScore: 28 },
+  { name: "Marcos Ibarra", handle: "@marcos_iba", subscribers: 67000, engagementScore: 22 },
 ].map((c, i) => ({
   ...c,
   rank: i + 1,
@@ -86,12 +86,12 @@ const DEMO_CREATORS: Creator[] = [
   avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${c.handle}&backgroundColor=1a1a2e`,
   trendWeek: genTrend(),
   recentVideos: [
-    { title: `${c.name} - Latest Episode`, views: Math.round(50000 + Math.random() * 500000), likes: Math.round(2000 + Math.random() * 30000), date: "2026-03-24" },
-    { title: `${c.name} - Behind the Scenes`, views: Math.round(20000 + Math.random() * 200000), likes: Math.round(1000 + Math.random() * 15000), date: "2026-03-22" },
+    { title: `${c.name} - Transfer Request`, views: Math.round(50000 + Math.random() * 500000), likes: Math.round(2000 + Math.random() * 30000), date: "2026-03-24" },
+    { title: `${c.name} - Remittance History`, views: Math.round(20000 + Math.random() * 200000), likes: Math.round(1000 + Math.random() * 15000), date: "2026-03-22" },
   ],
   tipHistory: [
-    { amount: +(1 + Math.random() * 10).toFixed(2), date: "2026-03-24", chain: ["Ethereum", "Polygon", "TON", "Tron"][i % 4] },
-    { amount: +(0.5 + Math.random() * 5).toFixed(2), date: "2026-03-23", chain: ["Polygon", "Arbitrum", "Solana"][i % 3] },
+    { amount: +(1 + Math.random() * 10).toFixed(2), date: "2026-03-24", chain: ["Base", "Arbitrum", "Base", "Arbitrum"][i % 4] },
+    { amount: +(0.5 + Math.random() * 5).toFixed(2), date: "2026-03-23", chain: ["Arbitrum", "Base", "Arbitrum"][i % 3] },
   ],
 }));
 
@@ -130,7 +130,7 @@ export default function CreatorLeaderboard() {
     setAutoTipping(true);
     setTimeout(() => {
       setAutoTipping(false);
-      toast.success("Auto-tipped top 5 creators based on engagement scores!");
+      toast.success("Auto-transferred to top 5 recipients based on trust scores!");
     }, 2500);
   }, []);
 
@@ -148,9 +148,9 @@ export default function CreatorLeaderboard() {
     <div>
       <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Creator Leaderboard</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Top Recipients</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Top 20 creators ranked by engagement score with real Rumble data.
+            Top 20 beneficiaries ranked by trust score and remittance activity.
           </p>
         </div>
         <Button
@@ -159,7 +159,7 @@ export default function CreatorLeaderboard() {
           className="bg-[#FF4E00] hover:bg-[#FF4E00]/80 text-white gap-2"
         >
           {autoTipping ? <Loader2 className="h-4 w-4 animate-spin" /> : <Zap className="h-4 w-4" />}
-          Auto-Tip Top 5
+          Auto-Transfer Top 5
         </Button>
       </div>
 
@@ -192,7 +192,7 @@ export default function CreatorLeaderboard() {
         <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search creators..."
+            placeholder="Search recipients..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="pl-9 bg-background/50"
@@ -216,7 +216,7 @@ export default function CreatorLeaderboard() {
           <SelectContent>
             <SelectItem value="engagement">Sort: Engagement</SelectItem>
             <SelectItem value="subscribers">Sort: Subscribers</SelectItem>
-            <SelectItem value="tips">Sort: Tips Received</SelectItem>
+            <SelectItem value="tips">Sort: Transfers Received</SelectItem>
             <SelectItem value="recent">Sort: Recent Activity</SelectItem>
           </SelectContent>
         </Select>
@@ -294,7 +294,7 @@ export default function CreatorLeaderboard() {
                     {/* Tips */}
                     <div className="text-right hidden sm:block">
                       <div className="text-sm font-medium text-emerald-400">${creator.totalTipsReceived}</div>
-                      <div className="text-[10px] text-muted-foreground">total tips</div>
+                      <div className="text-[10px] text-muted-foreground">total received</div>
                     </div>
 
                     {/* Activity */}
@@ -347,17 +347,17 @@ export default function CreatorLeaderboard() {
                       {/* Tip history */}
                       <div className="space-y-2">
                         <div className="text-xs font-medium text-muted-foreground flex items-center gap-1">
-                          <Send className="h-3 w-3" /> Tip History
+                          <Send className="h-3 w-3" /> Transfer History
                         </div>
                         {creator.tipHistory.map((t, i) => (
                           <div key={i} className="flex items-center justify-between p-2 rounded bg-background/50 border border-border/20 text-xs">
-                            <span className="text-emerald-400 font-medium">${t.amount} USDT</span>
+                            <span className="text-emerald-400 font-medium">${t.amount} USDC</span>
                             <Badge variant="outline" className="text-[9px]">{t.chain}</Badge>
                             <span className="text-muted-foreground">{t.date}</span>
                           </div>
                         ))}
                         <Button variant="outline" size="sm" className="w-full gap-1 text-xs mt-1">
-                          <Send className="h-3 w-3" /> Tip {creator.name.split(" ")[0]}
+                          <Send className="h-3 w-3" /> Send to {creator.name.split(" ")[0]}
                         </Button>
                       </div>
                     </div>
@@ -368,7 +368,7 @@ export default function CreatorLeaderboard() {
 
             {filtered.length === 0 && (
               <div className="p-8 text-center text-muted-foreground">
-                No creators match your filters.
+                No recipients match your filters.
               </div>
             )}
           </div>

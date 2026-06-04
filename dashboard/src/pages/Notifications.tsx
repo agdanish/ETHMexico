@@ -23,15 +23,15 @@ const typeIcons: Record<string, LucideIcon> = {
 };
 
 const initialNotifications: Notification[] = [
-  { id: 1, type: "tip", title: "Tip Sent", message: "2.5 USDT tipped to @sarah_creates on Ethereum", time: "2m ago", read: false },
+  { id: 1, type: "tip", title: "Transfer Sent", message: "50 USDC transferred to María García on Base", time: "2m ago", read: false },
   { id: 2, type: "security", title: "Threat Blocked", message: "Anomaly score 0.92 on tx from 0xdead...beef", time: "5m ago", read: false },
-  { id: 3, type: "escrow", title: "Escrow Created", message: "Escrow E-0048: 50 USDT with 2h timelock", time: "12m ago", read: false },
-  { id: 4, type: "system", title: "Rebalance Complete", message: "Portfolio rebalanced: diversification now 85%", time: "18m ago", read: true },
-  { id: 5, type: "tip", title: "Tip Sent", message: "1.0 USDT tipped to @dev_marcus on Polygon", time: "25m ago", read: true },
-  { id: 6, type: "security", title: "Guardian Review", message: "Guardian approved tip to @crypto_claire", time: "32m ago", read: true },
-  { id: 7, type: "escrow", title: "Escrow Claimed", message: "Escrow E-0045 claimed by @music_maya", time: "45m ago", read: true },
-  { id: 8, type: "system", title: "DCA Executed", message: "25 USDT converted to 0.0077 ETH", time: "1h ago", read: true },
-  { id: 9, type: "tip", title: "Tip Failed", message: "Insufficient gas for tip to @new_creator", time: "1h ago", read: true },
+  { id: 3, type: "escrow", title: "Escrow Created", message: "Escrow E-0048: 50 USDC with 2h timelock", time: "12m ago", read: false },
+  { id: 4, type: "system", title: "Rebalance Complete", message: "USDC rebalanced across Arbitrum + Base: liquidity 85%", time: "18m ago", read: true },
+  { id: 5, type: "tip", title: "Transfer Sent", message: "75 USDC transferred to Luis Hernández on Arbitrum", time: "25m ago", read: true },
+  { id: 6, type: "security", title: "Guardian Review", message: "Guardian approved transfer to Rosa Martínez", time: "32m ago", read: true },
+  { id: 7, type: "escrow", title: "Escrow Claimed", message: "Escrow E-0045 claimed by Carlos Ruiz", time: "45m ago", read: true },
+  { id: 8, type: "system", title: "FX Rate Updated", message: "1 USD = 17.82 MXN via Bitso oracle", time: "1h ago", read: true },
+  { id: 9, type: "tip", title: "Transfer Failed", message: "Insufficient USDC for transfer to new beneficiary", time: "1h ago", read: true },
   { id: 10, type: "system", title: "Cycle Complete", message: "Agent cycle #1834 completed in 2.3s", time: "2h ago", read: true },
 ];
 
@@ -62,7 +62,7 @@ export default function Notifications() {
       <Tabs value={tab} onValueChange={setTab}>
         <TabsList className="bg-secondary/50 mb-6">
           <TabsTrigger value="all">All {unreadCount > 0 && <Badge className="ml-1.5 h-4 min-w-4 px-1 text-[9px] bg-primary text-primary-foreground">{unreadCount}</Badge>}</TabsTrigger>
-          <TabsTrigger value="tip">Tips</TabsTrigger>
+          <TabsTrigger value="tip">Transfers</TabsTrigger>
           <TabsTrigger value="escrow">Escrow</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
           <TabsTrigger value="system">System</TabsTrigger>

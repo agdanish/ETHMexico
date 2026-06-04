@@ -25,112 +25,28 @@ interface ChainDef {
 
 const CHAINS: ChainDef[] = [
   {
-    id: "ethereum-sepolia",
-    name: "Ethereum Sepolia",
-    symbol: "ETH",
-    color: "#627EEA",
-    rpc: "https://rpc.sepolia.org",
-    explorerUrl: "https://sepolia.etherscan.io",
-    explorerName: "Etherscan",
-    walletAddress: "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD38",
-    bridgesTo: ["polygon-amoy", "arbitrum-sepolia", "optimism-sepolia"],
-    logo: "ETH",
-  },
-  {
-    id: "polygon-amoy",
-    name: "Polygon Amoy",
-    symbol: "MATIC",
-    color: "#8247E5",
-    rpc: "https://rpc-amoy.polygon.technology",
-    explorerUrl: "https://amoy.polygonscan.com",
-    explorerName: "Polygonscan",
-    walletAddress: "0x8Ba1f109551bD432803012645Hac136E22C3F0B7",
-    bridgesTo: ["ethereum-sepolia", "arbitrum-sepolia"],
-    logo: "MATIC",
-  },
-  {
     id: "arbitrum-sepolia",
-    name: "Arbitrum Sepolia",
+    name: "Arbitrum One (Sepolia)",
     symbol: "ARB",
     color: "#28A0F0",
     rpc: "https://sepolia-rollup.arbitrum.io/rpc",
     explorerUrl: "https://sepolia.arbiscan.io",
     explorerName: "Arbiscan",
     walletAddress: "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-    bridgesTo: ["ethereum-sepolia", "polygon-amoy"],
+    bridgesTo: ["base-sepolia"],
     logo: "ARB",
   },
   {
-    id: "ton-testnet",
-    name: "TON Testnet",
-    symbol: "TON",
-    color: "#0098EA",
-    rpc: "https://testnet.toncenter.com/api/v2",
-    explorerUrl: "https://testnet.tonscan.org",
-    explorerName: "TONScan",
-    walletAddress: "EQDtFpEwcFAEcRe5mLVh2N6C0x-_hJEM7W61_JLnSF76p4k2",
-    bridgesTo: [],
-    logo: "TON",
-  },
-  {
-    id: "tron-nile",
-    name: "Tron Nile",
-    symbol: "TRX",
-    color: "#FF0013",
-    rpc: "https://nile.trongrid.io",
-    explorerUrl: "https://nile.tronscan.org",
-    explorerName: "Tronscan",
-    walletAddress: "TNPeeaaFB7K9cmo4uQpcU32zGK8G1NYqeL",
-    bridgesTo: [],
-    logo: "TRX",
-  },
-  {
-    id: "optimism-sepolia",
-    name: "Optimism Sepolia",
-    symbol: "OP",
-    color: "#FF0420",
-    rpc: "https://sepolia.optimism.io",
-    explorerUrl: "https://sepolia-optimism.etherscan.io",
-    explorerName: "Etherscan (OP)",
-    walletAddress: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-    bridgesTo: ["ethereum-sepolia"],
-    logo: "OP",
-  },
-  {
-    id: "avalanche-fuji",
-    name: "Avalanche Fuji",
-    symbol: "AVAX",
-    color: "#E84142",
-    rpc: "https://api.avax-test.network/ext/bc/C/rpc",
-    explorerUrl: "https://testnet.snowtrace.io",
-    explorerName: "Snowtrace",
-    walletAddress: "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
-    bridgesTo: ["ethereum-sepolia"],
-    logo: "AVAX",
-  },
-  {
-    id: "celo-alfajores",
-    name: "Celo Alfajores",
-    symbol: "CELO",
-    color: "#35D07F",
-    rpc: "https://alfajores-forno.celo-testnet.org",
-    explorerUrl: "https://alfajores.celoscan.io",
-    explorerName: "Celoscan",
-    walletAddress: "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
-    bridgesTo: ["ethereum-sepolia"],
-    logo: "CELO",
-  },
-  {
-    id: "solana-devnet",
-    name: "Solana Devnet",
-    symbol: "SOL",
-    color: "#9945FF",
-    rpc: "https://api.devnet.solana.com",
-    explorerUrl: "https://explorer.solana.com/?cluster=devnet",
-    explorerName: "Solana Explorer",
-    walletAddress: "7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV",
-    bridgesTo: [],
-    logo: "SOL",
+    id: "base-sepolia",
+    name: "Base Sepolia",
+    symbol: "BASE",
+    color: "#0052FF",
+    rpc: "https://sepolia.base.org",
+    explorerUrl: "https://sepolia.basescan.org",
+    explorerName: "Basescan",
+    walletAddress: "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD38",
+    bridgesTo: ["arbitrum-sepolia"],
+    logo: "BASE",
   },
 ];
 
@@ -157,11 +73,11 @@ interface TxRecord {
 }
 
 function generateTxHistory(chain: string): TxRecord[] {
-  const types = ["tip", "swap", "bridge", "yield-deposit", "gas-refuel"];
+  const types = ["transfer", "swap", "bridge", "yield-deposit", "gas-refuel"];
   return Array.from({ length: 8 }, (_, i) => ({
     hash: `0x${Array.from({ length: 12 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}...`,
     type: types[i % types.length],
-    amount: `${(Math.random() * 10 + 0.1).toFixed(2)} USDT`,
+    amount: `${(Math.random() * 10 + 0.1).toFixed(2)} USDC`,
     to: `0x${Array.from({ length: 8 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}...`,
     timestamp: new Date(Date.now() - i * 3600000).toISOString(),
     status: i === 0 ? "pending" : i === 6 ? "failed" : "confirmed",
@@ -235,10 +151,10 @@ export default function ChainExplorer() {
         <div>
           <h1 className="text-2xl font-bold tracking-tight flex items-center gap-3">
             <Globe className="h-7 w-7 text-orange-500" />
-            Multi-Chain Transaction Explorer
+            L2 Transaction Explorer
           </h1>
           <p className="text-muted-foreground mt-1">
-            Real-time status across all {CHAINS.length} supported blockchains
+            Real-time status across Arbitrum + Base — Colibrí's settlement L2s
           </p>
         </div>
         <Badge className={connectedCount === CHAINS.length ? "bg-green-500/20 text-green-400" : "bg-yellow-500/20 text-yellow-400"}>

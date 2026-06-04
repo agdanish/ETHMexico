@@ -94,13 +94,13 @@ export default function Creators() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();
       if (Array.isArray(json) && json.length > 0) {
-        toast.success(`Scraped ${json.length} creator profiles from Rumble`);
+        toast.success(`Loaded ${json.length} recipient profiles from registry`);
         refetch();
       } else {
-        toast.info("API returned no results -- showing cached profiles");
+          toast.info("API returned no results -- showing cached recipient profiles");
       }
     } catch {
-      toast.info("Live scraping unavailable -- showing cached Rumble profiles");
+      toast.info("Live registry unavailable -- showing cached recipient profiles");
     } finally {
       setScraping(false);
     }
@@ -122,9 +122,9 @@ export default function Creators() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Rumble Creator Intelligence</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Recipient Intelligence</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Real Rumble creator profiles with engagement scoring and tier classification.
+            Verified beneficiary profiles with trust scoring and tier classification.
             {isDemo && (
               <Badge variant="outline" className="ml-2 text-[10px] bg-amber-500/10 text-amber-400 border-amber-500/30">
                 Cached Data
@@ -150,7 +150,7 @@ export default function Creators() {
           <Button
             size="sm"
             className="bg-primary hover:bg-primary/90"
-            onClick={() => toast.success(`Discovered ${safeCreators.length} Rumble creators`)}
+            onClick={() => toast.success(`Discovered ${safeCreators.length} recipients in registry`)}
           >
             <Sparkles className="h-3.5 w-3.5 mr-2" />
             Discover
@@ -163,7 +163,7 @@ export default function Creators() {
         <div className="rounded-lg border border-border/50 bg-card p-4">
           <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
             <Users className="h-3.5 w-3.5" />
-            Total Creators
+            Total Recipients
           </div>
           <div className="text-2xl font-bold">{safeCreators.length}</div>
         </div>
@@ -186,7 +186,7 @@ export default function Creators() {
         <div className="rounded-lg border border-border/50 bg-card p-4">
           <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
             <Video className="h-3.5 w-3.5" />
-            Total Tips Sent
+            Total Transfers Sent
           </div>
           <div className="text-2xl font-bold">{safeCreators.reduce((s, c) => s + c.tips, 0)}</div>
         </div>
@@ -212,7 +212,7 @@ export default function Creators() {
               className={sortBy !== key ? "border-border/50" : ""}
               onClick={() => setSortBy(key)}
             >
-              {key === "engagement" ? "Score" : key === "subscribers" ? "Subs" : "Tips"}
+              {key === "engagement" ? "Score" : key === "subscribers" ? "Subs" : "Transfers"}
             </Button>
           ))}
         </div>
@@ -255,7 +255,7 @@ export default function Creators() {
                       </Badge>
                     </div>
                     <div className="text-xs text-muted-foreground mt-0.5">
-                      @{c.handle} &middot; {c.platform} &middot; {formatNumber(c.subscribers)} subscribers
+                      @{c.handle} &middot; {c.platform} &middot; {formatNumber(c.subscribers)} beneficiaries
                     </div>
                   </div>
 
@@ -278,7 +278,7 @@ export default function Creators() {
                   {/* Tips */}
                   <div className="hidden sm:flex flex-col items-center shrink-0 w-16">
                     <div className="text-sm font-semibold tabular-nums">{c.tips}</div>
-                    <div className="text-[10px] text-muted-foreground">Tips</div>
+                    <div className="text-[10px] text-muted-foreground">Transfers</div>
                   </div>
 
                   {/* Expand Icon */}
@@ -297,7 +297,7 @@ export default function Creators() {
                     {c.engagementScore}%
                   </div>
                   <Progress value={c.engagementScore} className="h-1.5 flex-1 bg-secondary" />
-                  <span className="text-xs text-muted-foreground">{c.tips} tips</span>
+                  <span className="text-xs text-muted-foreground">{c.tips} transfers</span>
                 </div>
               </button>
 
@@ -318,7 +318,7 @@ export default function Creators() {
                       <div className="text-lg font-bold">{formatNumber(c.totalViews)}</div>
                     </div>
                     <div className="rounded-lg bg-background/50 p-3">
-                      <div className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Joined Rumble</div>
+                      <div className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Registered</div>
                       <div className="text-lg font-bold">{c.joinedYear}</div>
                     </div>
                   </div>
@@ -362,10 +362,10 @@ export default function Creators() {
                       className="bg-primary hover:bg-primary/90"
                       onClick={(e) => {
                         e.stopPropagation();
-                        toast.success(`Tip sent to @${c.handle}`);
+                        toast.success(`Transfer sent to @${c.handle}`);
                       }}
                     >
-                      Send Tip
+                      Send Transfer
                     </Button>
                     <Button
                       size="sm"
@@ -373,11 +373,11 @@ export default function Creators() {
                       className="border-border/50"
                       onClick={(e) => {
                         e.stopPropagation();
-                        window.open(`https://rumble.com/c/${c.handle}`, "_blank");
+                        window.open(`https://bitso.com`, "_blank");
                       }}
                     >
                       <ExternalLink className="h-3 w-3 mr-1.5" />
-                      Rumble Profile
+                      Bitso Profile
                     </Button>
                   </div>
                 </div>
@@ -389,7 +389,7 @@ export default function Creators() {
 
       {filtered.length === 0 && (
         <div className="text-center py-12 text-muted-foreground">
-          No creators match your search.
+          No recipients match your search.
         </div>
       )}
     </div>

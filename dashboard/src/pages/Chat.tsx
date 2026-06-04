@@ -17,30 +17,30 @@ interface Message {
 }
 
 const capabilities = [
-  "check_balance", "send_tip", "create_escrow", "claim_escrow",
-  "swap_tokens", "check_gas", "analyze_creator", "get_reputation",
+  "check_balance", "send_transfer", "create_escrow", "claim_escrow",
+  "swap_tokens", "check_gas", "analyze_recipient", "get_reputation",
   "dca_setup", "yield_check", "portfolio_report", "security_scan", "explain_reasoning",
 ];
 
 const demoMessages: Message[] = [
-  { id: 1, role: "user", text: "Who should I tip today?" },
+  { id: 1, role: "user", text: "Who should I send money to today?" },
   {
-    id: 2, role: "agent", text: "Based on engagement analysis, I recommend tipping @sarah_creates (Diamond tier, 94% engagement spike in last 2h) and @dev_marcus (Platinum, new video with 12k views). Both are on Polygon for lowest fees.",
-    intent: "analyze_creator", confidence: 91,
-    actions: ["Tip @sarah_creates 2.5 USDT", "Tip @dev_marcus 1.0 USDT", "View creator profiles"],
+    id: 2, role: "agent", text: "Based on pending remittances, I recommend sending to María García (verified, Bitso account active, 94% trust score) and Luis Hernández (Platinum tier, ready for SPEI payout). Both route via Arbitrum for lowest fees.",
+    intent: "analyze_recipient", confidence: 91,
+    actions: ["Transfer 2.5 USDC to María", "Transfer 1.0 USDC to Luis", "View recipient profiles"],
   },
 ];
 
-const suggestions = ["Who should I tip?", "Check my balance", "Analyze gas fees", "Show portfolio health"];
+const suggestions = ["Who should I send to?", "Check my balance", "Analyze gas fees", "Show portfolio health"];
 
 const actionRoutes: Record<string, string> = {
   "View wallets": "/wallets",
   "View dashboard": "/dashboard",
-  "View creator profiles": "/creators",
+  "View recipient profiles": "/creators",
   "View yield options": "/defi",
   "Transfer funds": "/wallets",
   "Rebalance now": "/trading",
-  "Switch to Polygon": "/wallets",
+  "Switch to Base": "/wallets",
 };
 
 export default function Chat() {
@@ -50,10 +50,11 @@ export default function Chat() {
   const [loading, setLoading] = useState(false);
 
   const agentResponses: Record<string, Omit<Message, "id" | "role">> = {
-    "check my balance": { text: "Your total balance is $12,847.32 across 5 chains. ETH: $8,234 | USDT: $3,597 | SOL: $645 | TRX: $215 | MATIC: $156. Liquidity ratio: 78%.", intent: "check_balance", confidence: 98, actions: ["View wallets", "Transfer funds"] },
-    "analyze gas fees": { text: "Current gas: ETH 12 gwei (low), Polygon 0.003 gwei (very low), Solana 0.00025 SOL. Recommendation: use Polygon for tips under $5, Ethereum for amounts over $10. Optimal window: next 2 hours.", intent: "check_gas", confidence: 94, actions: ["Set gas alert", "Switch to Polygon"] },
-    "show portfolio health": { text: "Health Score: 87/100. Diversification: 85% (good). Risk: 23/100 (low). Yield: 4.2% avg APY. Suggestion: consider rebalancing 5% from stables to ETH staking for better yield.", intent: "portfolio_report", confidence: 89, actions: ["Rebalance now", "View yield options"] },
-    "who should i tip?": { text: "Based on engagement analysis, I recommend tipping @sarah_creates (Diamond tier, 94% engagement spike in last 2h) and @dev_marcus (Platinum, new video with 12k views). Both are on Polygon for lowest fees.", intent: "analyze_creator", confidence: 91, actions: ["Tip @sarah_creates 2.5 USDT", "Tip @dev_marcus 1.0 USDT", "View creator profiles"] },
+    "check my balance": { text: "Your total balance is $12,847.32 across Arbitrum + Base. USDC on Arbitrum: $8,234 | USDC on Base: $3,597 | ETH (gas): $1,016. Liquidity ratio: 78%.", intent: "check_balance", confidence: 98, actions: ["View wallets", "Transfer funds"] },
+    "analyze gas fees": { text: "Current gas: Arbitrum ~0.002 USDC (very low), Base ~0.001 USDC (ultra-low). Recommendation: use Base for transfers under $20, Arbitrum for amounts over $50. Both settle MXN via Bitso/SPEI in ~90s.", intent: "check_gas", confidence: 94, actions: ["Set gas alert", "Switch to Base"] },
+
+    "show portfolio health": { text: "Health Score: 87/100. Diversification: 85% (good). Risk: 23/100 (low). Yield: 4.2% avg APY. Suggestion: consider rebalancing 5% from idle USDC to Aave yield on Arbitrum.", intent: "portfolio_report", confidence: 89, actions: ["Rebalance now", "View yield options"] },
+    "who should i send to?": { text: "Based on pending remittances, I recommend sending to María García (verified, Bitso account active, 94% trust score) and Luis Hernández (Platinum tier, ready for SPEI payout). Both route via Arbitrum for lowest fees.", intent: "analyze_recipient", confidence: 91, actions: ["Transfer 2.5 USDC to María", "Transfer 1.0 USDC to Luis", "View recipient profiles"] },
   };
 
   const handleSuggestion = useCallback((suggestion: string) => {
@@ -85,9 +86,9 @@ export default function Chat() {
       return;
     }
 
-    // Tip actions
-    if (action.toLowerCase().startsWith("tip ")) {
-      toast.success("Tip sent successfully!", {
+    // Transfer actions
+    if (action.toLowerCase().startsWith("transfer ")) {
+      toast.success("Transfer sent successfully!", {
         description: action,
       });
       return;
@@ -151,7 +152,7 @@ export default function Chat() {
     <div>
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">Talk to the Agent</h1>
-        <p className="text-sm text-muted-foreground mt-1">Natural language interface to AeroFyta's 97+ MCP tools.</p>
+        <p className="text-sm text-muted-foreground mt-1">Natural language interface to Colibrí's 97+ MCP tools.</p>
       </div>
 
       <div className="grid lg:grid-cols-[1fr_280px] gap-4">
@@ -164,7 +165,7 @@ export default function Chat() {
                   <div className={`max-w-[80%] rounded-xl px-4 py-3 ${m.role === "user" ? "bg-primary/10 border border-primary/20" : "bg-accent/40 border border-border/40"}`}>
                     <div className="flex items-center gap-2 mb-1.5">
                       {m.role === "agent" ? <Bot className="h-3.5 w-3.5" strokeWidth={1.5} style={{ color: "#C6B6B1" }} /> : <User className="h-3.5 w-3.5" strokeWidth={1.5} style={{ color: "#C6B6B1" }} />}
-                      <span className="text-[10px] text-muted-foreground uppercase tracking-wider">{m.role === "user" ? "You" : "AeroFyta"}</span>
+                      <span className="text-[10px] text-muted-foreground uppercase tracking-wider">{m.role === "user" ? "You" : "Colibrí"}</span>
                     </div>
                     <p className="text-sm leading-relaxed">{m.text}</p>
                     {m.intent && (

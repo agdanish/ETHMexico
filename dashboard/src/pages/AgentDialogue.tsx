@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 
 /* ── Types ─────────────────────────────────────────────── */
 
-type AgentName = "TipExecutor" | "Guardian" | "TreasuryOptimizer";
+type AgentName = "Router" | "Guardian" | "TreasuryOptimizer";
 type Stance = "approve" | "reject" | "conditional";
 type Consensus = "approved" | "rejected" | "escalated";
 
@@ -35,12 +35,12 @@ interface DialogueSession {
 /* ── Constants ─────────────────────────────────────────── */
 
 const AGENT_CONFIG: Record<AgentName, { color: string; bg: string; border: string; icon: typeof Send; label: string }> = {
-  TipExecutor: {
+  Router: {
     color: "#3b82f6",
     bg: "rgba(59,130,246,0.08)",
     border: "rgba(59,130,246,0.25)",
     icon: Send,
-    label: "Tip Executor",
+    label: "Router",
   },
   Guardian: {
     color: "#ef4444",
@@ -78,22 +78,22 @@ const CONSENSUS_STYLES: Record<Consensus, { color: string; label: string }> = {
 
 /* ── Demo proposal presets ─────────────────────────────── */
 const DEMO_PROPOSALS = [
-  { action: "Tip", recipient: "@crypto_educator", amount: 3.0, token: "USDT", chain: "Polygon" },
-  { action: "Tip", recipient: "@whale_trader", amount: 10.0, token: "USDT", chain: "Ethereum" },
-  { action: "Cross-chain swap", amount: 25, token: "USDT", chain: "TON", details: "rebalance treasury" },
-  { action: "Yield deposit", amount: 40, token: "USDT", chain: "Polygon", details: "Aave V3 lending pool" },
-  { action: "Escrow creation", recipient: "@new_freelancer", amount: 15, token: "USDT", chain: "Polygon" },
+  { action: "Remittance", recipient: "María García", amount: 3.0, token: "USDC", chain: "Arbitrum" },
+  { action: "Remittance", recipient: "Luis Hernández", amount: 10.0, token: "USDC", chain: "Base" },
+  { action: "Cross-chain rebalance", amount: 25, token: "USDC", chain: "Arbitrum", details: "rebalance treasury" },
+  { action: "Yield deposit", amount: 40, token: "USDC", chain: "Base", details: "Aave V3 lending pool" },
+  { action: "Escrow creation", recipient: "Rosa Martínez", amount: 15, token: "USDC", chain: "Arbitrum" },
 ];
 
 /* ── Demo seed data (fallback when API is unreachable) ── */
 const DEMO_SESSIONS: DialogueSession[] = [
   {
     id: "dlg_demo_001",
-    topic: "Tip @MegaCreator 8.0 USDT on Ethereum",
+    topic: "Transfer 8.0 USDC to María González on Base",
     turns: [
-      { agent: "TipExecutor", role: "proposer", message: "I propose tipping @MegaCreator 8.0 USDT on Ethereum. Their latest video hit 250K views with 95% positive sentiment.", reasoning: "Engagement score 9.2/10. Historical tip average: 3.5 USDT.", stance: "approve", confidence: 0.88 },
-      { agent: "Guardian", role: "challenger", message: "Risk alert: 8.0 USDT is 2.3x our average. Daily budget at 78%. Ethereum gas at 0.12 USDT. Recommend reducing to 5.0 USDT on Polygon.", reasoning: "Daily limit 78% used. Ethereum gas spike detected.", stance: "reject", confidence: 0.82 },
-      { agent: "TreasuryOptimizer", role: "mediator", message: "Compromise: approve 5.5 USDT on Polygon. Saves 0.119 USDT in gas, keeps budget at 83%.", reasoning: "Gas savings 0.119 USDT switching to Polygon. Treasury reserve healthy.", stance: "conditional", confidence: 0.91 },
+      { agent: "Router", role: "proposer", message: "I propose transferring 8.0 USDC to María González on Base. KYC verified, Bitso off-ramp ready for MXN payout.", reasoning: "Recipient score 9.2/10. Historical transfer average: 3.5 USDC.", stance: "approve", confidence: 0.88 },
+      { agent: "Guardian", role: "challenger", message: "Risk alert: 8.0 USDC is 2.3x our average. Daily budget at 78%. Base gas at 0.002 USDC. Recommend reducing to 5.0 USDC.", reasoning: "Daily limit 78% used. OFAC check passed.", stance: "reject", confidence: 0.82 },
+      { agent: "TreasuryOptimizer", role: "mediator", message: "Compromise: approve 5.5 USDC on Base. Saves ~$0.12 in fees, keeps budget at 83%. Bitso MXN rate locked.", reasoning: "Gas savings on Base. Treasury reserve healthy.", stance: "conditional", confidence: 0.91 },
     ],
     consensus: "approved",
     consensusConfidence: 0.87,
@@ -102,11 +102,11 @@ const DEMO_SESSIONS: DialogueSession[] = [
   },
   {
     id: "dlg_demo_002",
-    topic: "Tip @indie_dev 1.5 USDT on Polygon",
+    topic: "Transfer 1.5 USDC to Luis Ramírez on Arbitrum",
     turns: [
-      { agent: "TipExecutor", role: "proposer", message: "Standard tip for @indie_dev — 1.5 USDT on Polygon for their WDK tutorial.", reasoning: "Community value score 8.5/10.", stance: "approve", confidence: 0.92 },
-      { agent: "Guardian", role: "challenger", message: "No concerns. Budget at 45%, recipient trust 98/100. Approved.", reasoning: "All metrics within safe bounds.", stance: "approve", confidence: 0.95 },
-      { agent: "TreasuryOptimizer", role: "mediator", message: "Polygon gas 0.0008 USDT — optimal. Full approval.", reasoning: "No optimization required.", stance: "approve", confidence: 0.96 },
+      { agent: "Router", role: "proposer", message: "Standard remittance for Luis Ramírez — 1.5 USDC on Arbitrum, SPEI off-ramp to Bitso.", reasoning: "Beneficiary trust score 8.5/10.", stance: "approve", confidence: 0.92 },
+      { agent: "Guardian", role: "challenger", message: "No concerns. Budget at 45%, recipient KYC 98/100. Approved.", reasoning: "All metrics within safe bounds.", stance: "approve", confidence: 0.95 },
+      { agent: "TreasuryOptimizer", role: "mediator", message: "Arbitrum gas ~0.0008 USDC — optimal. Full approval. ~90s to SPEI settlement.", reasoning: "No optimization required.", stance: "approve", confidence: 0.96 },
     ],
     consensus: "approved",
     consensusConfidence: 0.943,
@@ -115,9 +115,9 @@ const DEMO_SESSIONS: DialogueSession[] = [
   },
   {
     id: "dlg_demo_003",
-    topic: "Create escrow 50 USDT for @unknown_vendor",
+    topic: "Create escrow 50 USDC for unverified beneficiary",
     turns: [
-      { agent: "TipExecutor", role: "proposer", message: "Proposing escrow: 50 USDT for @unknown_vendor. WDK plugin delivery by Friday.", reasoning: "No prior history with this vendor.", stance: "approve", confidence: 0.55 },
+      { agent: "Router", role: "proposer", message: "Proposing escrow: 50 USDC for unverified beneficiary. Bitso account pending KYC.", reasoning: "No prior transfer history with this beneficiary.", stance: "approve", confidence: 0.55 },
       { agent: "Guardian", role: "challenger", message: "VETO. Zero reputation, unverified identity, 34% of treasury. Too risky.", reasoning: "Risk score 9.1/10 (critical).", stance: "reject", confidence: 0.94 },
       { agent: "TreasuryOptimizer", role: "mediator", message: "Agree with Guardian. Escalating to human operator.", reasoning: "Treasury impact critical. Human oversight warranted.", stance: "reject", confidence: 0.91 },
     ],
@@ -175,7 +175,7 @@ export default function AgentDialogue() {
           id: `dlg_local_${Date.now().toString(36)}`,
           topic: `${proposal.action} ${proposal.recipient ? "to " + proposal.recipient + " " : ""}${proposal.amount} ${proposal.token} on ${proposal.chain}`,
           turns: [
-            { agent: "TipExecutor", role: "proposer", message: `Proposing: ${proposal.action} ${proposal.amount} ${proposal.token} on ${proposal.chain}.`, reasoning: "Recipient metrics indicate high value.", stance: "approve", confidence: 0.85 },
+            { agent: "Router", role: "proposer", message: `Proposing: ${proposal.action} ${proposal.amount} ${proposal.token} on ${proposal.chain}.`, reasoning: "Beneficiary metrics indicate high value.", stance: "approve", confidence: 0.85 },
             { agent: "Guardian", role: "challenger", message: `Moderate risk. Budget usage acceptable. Conditionally approve with gas monitoring.`, reasoning: "Within safe bounds.", stance: "conditional", confidence: 0.78 },
             { agent: "TreasuryOptimizer", role: "mediator", message: `Gas on ${proposal.chain} is optimal. Treasury healthy. Approve.`, reasoning: "No treasury concerns.", stance: "approve", confidence: 0.90 },
           ],
@@ -216,7 +216,7 @@ export default function AgentDialogue() {
             Agent Dialogue
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Three AI agents debate every decision before execution — TipExecutor proposes, Guardian challenges, TreasuryOptimizer mediates.
+            Three AI agents debate every decision before execution — Router proposes, Guardian challenges, TreasuryOptimizer mediates.
           </p>
         </div>
         <Button

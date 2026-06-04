@@ -4,33 +4,33 @@ import CountUp from "@/components/shared/CountUp";
 import { Target, CheckCircle2, Flame, Trophy, Zap, Star, Heart, Globe, Shield, Award } from "lucide-react";
 
 const activeGoals = [
-  { title: "Tip 50 creators this month", progress: 68, target: "50 creators", deadline: "8 days left" },
+  { title: "Complete 50 remittances this month", progress: 68, target: "50 transfers", deadline: "8 days left" },
   { title: "Maintain 90%+ health score", progress: 94, target: "90% minimum", deadline: "Ongoing" },
-  { title: "Deploy on 3 new chains", progress: 33, target: "3 chains", deadline: "14 days left" },
-  { title: "Reach $500 monthly yield", progress: 72, target: "$500/mo", deadline: "22 days left" },
+  { title: "Expand to 3 new corridors", progress: 33, target: "3 corridors", deadline: "14 days left" },
+  { title: "Reach $500 monthly savings for users", progress: 72, target: "$500/mo", deadline: "22 days left" },
 ];
 
 const completedGoals = [
-  { title: "Process first 100 tips", completedAt: "Mar 15" },
+  { title: "Process first 100 remittances", completedAt: "Mar 15" },
   { title: "Achieve Diamond reputation tier", completedAt: "Mar 12" },
   { title: "Block 50 security threats", completedAt: "Mar 10" },
-  { title: "Integrate 5 blockchains", completedAt: "Mar 7" },
+  { title: "Integrate Arbitrum + Base", completedAt: "Mar 7" },
 ];
 
 const achievements = [
   { id: "first_100", name: "Century Club", icon: Trophy, date: "Mar 15", unlocked: true },
   { id: "diamond", name: "Diamond Tier", icon: Star, date: "Mar 12", unlocked: true },
   { id: "guardian", name: "Guardian Angel", icon: Shield, date: "Mar 10", unlocked: true },
-  { id: "multi_chain", name: "Chain Hopper", icon: Globe, date: "Mar 7", unlocked: true },
-  { id: "generous", name: "Big Tipper", icon: Heart, date: "Mar 5", unlocked: true },
+  { id: "multi_chain", name: "L2 Pioneer", icon: Globe, date: "Mar 7", unlocked: true },
+  { id: "generous", name: "Top Sender", icon: Heart, date: "Mar 5", unlocked: true },
   { id: "speed", name: "Speed Demon", icon: Zap, date: null, unlocked: false },
   { id: "whale", name: "Whale Status", icon: Award, date: null, unlocked: false },
   { id: "streak30", name: "30-Day Streak", icon: Flame, date: null, unlocked: false },
 ];
 
 const challenges = [
-  { title: "Tip 5 creators today", progress: 60, reward: "Speed Demon badge" },
-  { title: "Keep gas spending under $2", progress: 85, reward: "+5 reputation points" },
+  { title: "Complete 5 remittances today", progress: 60, reward: "Speed Demon badge" },
+  { title: "Keep fee spending under $2", progress: 85, reward: "+5 reputation points" },
   { title: "Complete 10 agent cycles", progress: 40, reward: "Efficiency bonus" },
 ];
 
@@ -40,7 +40,7 @@ export default function Goals() {
       <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Goals & Achievements</h1>
-          <p className="text-sm text-muted-foreground mt-1">Track progress, earn badges, and maintain your streak.</p>
+          <p className="text-sm text-muted-foreground mt-1">Track remittance milestones, earn badges, and maintain your streak.</p>
         </div>
         <div className="flex items-center gap-2 rounded-lg border border-border/50 bg-card/50 px-4 py-2">
           <Flame className="h-5 w-5" strokeWidth={1.5} style={{ color: "#FF4E00" }} />

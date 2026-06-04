@@ -12,8 +12,8 @@ import {
 const labels: Record<string, string> = {
   dashboard: "Dashboard",
   wallets: "Wallets",
-  creators: "Creators",
-  tips: "Tips",
+  creators: "Recipients",
+  tips: "Transfers",
   escrow: "Escrow",
   reasoning: "Reasoning",
   demo: "Demo",
@@ -35,7 +35,7 @@ export default function Breadcrumbs() {
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink href="/dashboard" className="text-muted-foreground hover:text-foreground text-xs">
-            AeroFyta
+            Colibrí
           </BreadcrumbLink>
         </BreadcrumbItem>
         {segments.map((seg, i) => (

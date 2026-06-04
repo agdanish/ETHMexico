@@ -8,23 +8,23 @@ import { Vote, Plus, Check, X, Users, ThumbsUp, ThumbsDown } from "lucide-react"
 import { toast } from "sonner";
 
 const proposals = [
-  { id: "PROP-012", title: "Increase max tip to 25 USDT", status: "voting", votesFor: 2, votesAgainst: 1, deadline: "2h 15m", description: "Raise the per-transaction tip limit from 10 to 25 USDT." },
-  { id: "PROP-011", title: "Add Arbitrum chain support", status: "approved", votesFor: 3, votesAgainst: 0, deadline: "Closed", description: "Integrate Arbitrum One for low-cost L2 transactions." },
+  { id: "PROP-012", title: "Increase max transfer to 250 USDC", status: "voting", votesFor: 2, votesAgainst: 1, deadline: "2h 15m", description: "Raise the per-transaction transfer limit from 100 to 250 USDC." },
+  { id: "PROP-011", title: "Add Base Mainnet as primary route", status: "approved", votesFor: 3, votesAgainst: 0, deadline: "Closed", description: "Make Base the default L2 for sub-$50 transfers due to lower fees." },
   { id: "PROP-010", title: "Reduce rebalance interval to daily", status: "rejected", votesFor: 1, votesAgainst: 2, deadline: "Closed", description: "Switch treasury rebalance from weekly to daily." },
-  { id: "PROP-009", title: "Enable ZK proofs for reputation", status: "approved", votesFor: 3, votesAgainst: 0, deadline: "Closed", description: "Use zero-knowledge proofs for privacy-preserving reputation." },
-  { id: "PROP-008", title: "Whitelist Beefy yield vault", status: "voting", votesFor: 1, votesAgainst: 1, deadline: "5h 42m", description: "Add Beefy Finance vault to approved yield strategies." },
+  { id: "PROP-009", title: "Enable ZK proofs for KYC attestations", status: "approved", votesFor: 3, votesAgainst: 0, deadline: "Closed", description: "Use zero-knowledge proofs for privacy-preserving KYC verification." },
+  { id: "PROP-008", title: "Whitelist Aave V3 yield vault", status: "voting", votesFor: 1, votesAgainst: 1, deadline: "5h 42m", description: "Add Aave V3 vault on Arbitrum to approved yield strategies." },
 ];
 
 const consensusLog = [
-  { id: 1, decision: "Tip @sarah_creates 2.5 USDT", agents: ["approve", "approve", "deny"], outcome: "approved", time: "14:32" },
+  { id: 1, decision: "Transfer 2.5 USDC → María García (Base)", agents: ["approve", "approve", "deny"], outcome: "approved", time: "14:32" },
   { id: 2, decision: "Create escrow E-0047", agents: ["approve", "approve", "approve"], outcome: "approved", time: "14:28" },
-  { id: 3, decision: "Swap 200 USDT to ETH", agents: ["approve", "approve", "approve"], outcome: "approved", time: "14:15" },
-  { id: 4, decision: "Tip @risky_account 50 USDT", agents: ["deny", "deny", "approve"], outcome: "rejected", time: "13:55" },
-  { id: 5, decision: "Supply to Aave V3", agents: ["approve", "approve", "deny"], outcome: "approved", time: "13:40" },
-  { id: 6, decision: "Bridge ETH to Polygon", agents: ["approve", "approve", "approve"], outcome: "approved", time: "13:22" },
-  { id: 7, decision: "DCA 25 USDT to ETH", agents: ["approve", "approve", "approve"], outcome: "approved", time: "13:10" },
-  { id: 8, decision: "Tip @unknown_user 100 USDT", agents: ["deny", "deny", "deny"], outcome: "rejected", time: "12:55" },
-  { id: 9, decision: "Rebalance portfolio", agents: ["approve", "approve", "approve"], outcome: "approved", time: "12:30" },
+  { id: 3, decision: "Swap 200 USDC to USDC (rebalance)", agents: ["approve", "approve", "approve"], outcome: "approved", time: "14:15" },
+  { id: 4, decision: "Transfer 50 USDC → unverified recipient", agents: ["deny", "deny", "approve"], outcome: "rejected", time: "13:55" },
+  { id: 5, decision: "Supply to Aave V3 (Arbitrum)", agents: ["approve", "approve", "deny"], outcome: "approved", time: "13:40" },
+  { id: 6, decision: "Bridge USDC Arbitrum → Base", agents: ["approve", "approve", "approve"], outcome: "approved", time: "13:22" },
+  { id: 7, decision: "Off-ramp 25 USDC via Bitso SPEI", agents: ["approve", "approve", "approve"], outcome: "approved", time: "13:10" },
+  { id: 8, decision: "Transfer 100 USDC → unknown address", agents: ["deny", "deny", "deny"], outcome: "rejected", time: "12:55" },
+  { id: 9, decision: "Rebalance Arbitrum/Base treasury", agents: ["approve", "approve", "approve"], outcome: "approved", time: "12:30" },
   { id: 10, decision: "Withdraw to external wallet", agents: ["deny", "approve", "deny"], outcome: "rejected", time: "12:15" },
 ];
 

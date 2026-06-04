@@ -5,16 +5,16 @@ import { FileCheck, Download } from "lucide-react";
 import { toast } from "sonner";
 
 const taxEvents = [
-  { id: 1, date: "2025-03-22", type: "tip", amount: "2.50 USDT", recipient: "@sarah_creates", chain: "Ethereum", taxLot: "TL-0247" },
-  { id: 2, date: "2025-03-22", type: "escrow", amount: "50.00 USDT", recipient: "0x742d...bD28", chain: "Polygon", taxLot: "TL-0246" },
-  { id: 3, date: "2025-03-22", type: "yield", amount: "3.42 USDT", recipient: "Aave V3", chain: "Ethereum", taxLot: "TL-0245" },
-  { id: 4, date: "2025-03-22", type: "tip", amount: "5.00 USDT", recipient: "@dev_marcus", chain: "Polygon", taxLot: "TL-0244" },
-  { id: 5, date: "2025-03-21", type: "swap", amount: "100.00 USDT", recipient: "DEX (ETH)", chain: "Ethereum", taxLot: "TL-0243" },
-  { id: 6, date: "2025-03-21", type: "tip", amount: "1.50 USDT", recipient: "@music_maya", chain: "TON", taxLot: "TL-0242" },
-  { id: 7, date: "2025-03-21", type: "yield", amount: "1.87 USDT", recipient: "Compound", chain: "Ethereum", taxLot: "TL-0241" },
-  { id: 8, date: "2025-03-21", type: "escrow", amount: "25.00 USDT", recipient: "0x8626...1199", chain: "Ethereum", taxLot: "TL-0240" },
-  { id: 9, date: "2025-03-20", type: "tip", amount: "3.00 USDT", recipient: "@crypto_claire", chain: "Solana", taxLot: "TL-0239" },
-  { id: 10, date: "2025-03-20", type: "dca", amount: "25.00 USDT", recipient: "ETH", chain: "Ethereum", taxLot: "TL-0238" },
+  { id: 1, date: "2025-03-22", type: "transfer", amount: "2.50 USDC", recipient: "María García", chain: "Base", taxLot: "TL-0247" },
+  { id: 2, date: "2025-03-22", type: "escrow", amount: "50.00 USDC", recipient: "0x742d...bD28", chain: "Arbitrum", taxLot: "TL-0246" },
+  { id: 3, date: "2025-03-22", type: "yield", amount: "3.42 USDC", recipient: "Aave V3", chain: "Arbitrum", taxLot: "TL-0245" },
+  { id: 4, date: "2025-03-22", type: "transfer", amount: "5.00 USDC", recipient: "Luis Hernández", chain: "Base", taxLot: "TL-0244" },
+  { id: 5, date: "2025-03-21", type: "swap", amount: "100.00 USDC", recipient: "Bitso Off-ramp", chain: "Arbitrum", taxLot: "TL-0243" },
+  { id: 6, date: "2025-03-21", type: "transfer", amount: "1.50 USDC", recipient: "Rosa Martínez", chain: "Base", taxLot: "TL-0242" },
+  { id: 7, date: "2025-03-21", type: "yield", amount: "1.87 USDC", recipient: "Compound", chain: "Arbitrum", taxLot: "TL-0241" },
+  { id: 8, date: "2025-03-21", type: "escrow", amount: "25.00 USDC", recipient: "0x8626...1199", chain: "Base", taxLot: "TL-0240" },
+  { id: 9, date: "2025-03-20", type: "transfer", amount: "3.00 USDC", recipient: "Carlos López", chain: "Arbitrum", taxLot: "TL-0239" },
+  { id: 10, date: "2025-03-20", type: "dca", amount: "25.00 USDC", recipient: "ETH", chain: "Base", taxLot: "TL-0238" },
 ];
 
 const reports = [
@@ -24,20 +24,20 @@ const reports = [
 ];
 
 const auditTrail = [
-  { id: 1, action: "tip_sent", time: "14:32:15", detail: "2.5 USDT → @sarah_creates on Ethereum. TX: 0xabc...def" },
-  { id: 2, action: "escrow_created", time: "14:28:00", detail: "E-0047: 50 USDT, 2h timelock, SHA-256 hash lock" },
-  { id: 3, action: "consensus_vote", time: "14:27:55", detail: "Agent A: TIP (0.87), Agent B: TIP (0.91), Agent C: HOLD (0.62)" },
+  { id: 1, action: "transfer_sent", time: "14:32:15", detail: "2.5 USDC → María García on Base. TX: 0xabc...def" },
+  { id: 2, action: "escrow_created", time: "14:28:00", detail: "E-0047: 50 USDC, 2h timelock, SHA-256 hash lock" },
+  { id: 3, action: "consensus_vote", time: "14:27:55", detail: "Discovery: SEND (0.87), Router: SEND (0.91), Treasury: HOLD (0.62)" },
   { id: 4, action: "guardian_review", time: "14:27:50", detail: "Guardian review: APPROVED — no anomalies detected" },
-  { id: 5, action: "policy_check", time: "14:27:48", detail: "Policy check: amount 2.5 USDT < 100 USDT limit — PASS" },
+  { id: 5, action: "policy_check", time: "14:27:48", detail: "Policy check: amount 2.5 USDC < 100 USDC limit — PASS" },
   { id: 6, action: "anomaly_scan", time: "14:27:45", detail: "Anomaly score: 0.12 — well below 0.7 threshold" },
-  { id: 7, action: "balance_update", time: "14:27:40", detail: "ETH balance: 1.847 → 1.846 ETH (gas deducted)" },
-  { id: 8, action: "memory_write", time: "14:27:38", detail: "Updated: trusted_creators confidence 94% → 95%" },
-  { id: 9, action: "yield_harvest", time: "14:15:00", detail: "Harvested 3.42 USDT from Aave V3" },
-  { id: 10, action: "dca_executed", time: "14:00:00", detail: "DCA: 25 USDT → 0.0077 ETH at $3,245" },
+  { id: 7, action: "balance_update", time: "14:27:40", detail: "USDC balance: 12,848.32 → 12,845.82 (fee deducted)" },
+  { id: 8, action: "memory_write", time: "14:27:38", detail: "Updated: trusted_recipients confidence 94% → 95%" },
+  { id: 9, action: "yield_harvest", time: "14:15:00", detail: "Harvested 3.42 USDC from Aave V3" },
+  { id: 10, action: "offramp_executed", time: "14:00:00", detail: "Bitso SPEI: 25 USDC → 425.00 MXN at $17.00" },
 ];
 
 const typeBadge = (t: string) => {
-  if (t === "tip") return "bg-primary/15 text-primary border-primary/30";
+  if (t === "transfer") return "bg-primary/15 text-primary border-primary/30";
   if (t === "escrow") return "bg-blue-500/15 text-blue-400 border-blue-500/30";
   if (t === "yield") return "bg-emerald-500/15 text-emerald-400 border-emerald-500/30";
   if (t === "swap") return "bg-purple-500/15 text-purple-400 border-purple-500/30";

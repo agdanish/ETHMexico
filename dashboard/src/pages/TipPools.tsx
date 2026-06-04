@@ -48,7 +48,7 @@ const now = Date.now();
 const demoPools: Pool[] = [
   {
     id: "pool-bongino-001",
-    creatorHandle: "@Bongino",
+    creatorHandle: "María López (Guadalajara)",
     targetAmount: 50,
     currentAmount: 35,
     contributors: Array.from({ length: 8 }, (_, i) => ({
@@ -57,13 +57,13 @@ const demoPools: Pool[] = [
       timestamp: new Date(now - (8 - i) * 3600000).toISOString(),
     })),
     status: "active",
-    chain: "ethereum-sepolia",
+    chain: "arbitrum",
     expiresAt: new Date(now + 5 * 86400000).toISOString(),
     createdAt: new Date(now - 2 * 86400000).toISOString(),
   },
   {
     id: "pool-tucker-001",
-    creatorHandle: "@TuckerCarlson",
+    creatorHandle: "Rosa García (Monterrey)",
     targetAmount: 50,
     currentAmount: 50,
     contributors: Array.from({ length: 12 }, (_, i) => ({
@@ -72,13 +72,13 @@ const demoPools: Pool[] = [
       timestamp: new Date(now - (20 - i * 1.5) * 3600000).toISOString(),
     })),
     status: "filled",
-    chain: "ethereum-sepolia",
+    chain: "base",
     expiresAt: new Date(now + 5 * 86400000).toISOString(),
     createdAt: new Date(now - 3 * 86400000).toISOString(),
   },
   {
     id: "pool-timpool-001",
-    creatorHandle: "@TimPool",
+    creatorHandle: "Carlos Mendoza (CDMX)",
     targetAmount: 25,
     currentAmount: 10,
     contributors: Array.from({ length: 3 }, (_, i) => ({
@@ -87,7 +87,7 @@ const demoPools: Pool[] = [
       timestamp: new Date(now - (10 - i * 3) * 3600000).toISOString(),
     })),
     status: "active",
-    chain: "ton-testnet",
+    chain: "base",
     expiresAt: new Date(now + 5 * 86400000).toISOString(),
     createdAt: new Date(now - 86400000).toISOString(),
   },
@@ -137,7 +137,7 @@ function ProgressBar({ current, target }: { current: number; target: number }) {
   return (
     <div className="w-full">
       <div className="flex justify-between text-xs mb-1">
-        <span className="text-muted-foreground">{current} / {target} USDT</span>
+        <span className="text-muted-foreground">{current} / {target} USDC</span>
         <span className="font-semibold text-primary">{pct}%</span>
       </div>
       <div className="h-2 rounded-full bg-muted overflow-hidden">
@@ -206,7 +206,7 @@ export default function TipPools() {
     try {
       const res = await apiPost(`/pools/${poolId}/contribute`, { amount: contribAmount, contributorAddress: contribAddress });
       if (res.pool) {
-        toast.success(`Contributed ${contribAmount} USDT`);
+        toast.success(`Contributed ${contribAmount} USDC`);
         setContributePoolId(null);
         setContribAmount(""); setContribAddress("");
       } else {
@@ -229,7 +229,7 @@ export default function TipPools() {
   const statCards = [
     { label: "Total Pools", value: stats.totalPools, icon: Users },
     { label: "Active", value: stats.activePools, icon: Clock },
-    { label: "Total Contributed", value: stats.totalContributed, suffix: " USDT", icon: Coins },
+    { label: "Total Contributed", value: stats.totalContributed, suffix: " USDC", icon: Coins },
     { label: "Contributors", value: stats.uniqueContributors, icon: Trophy },
   ];
 
@@ -238,26 +238,26 @@ export default function TipPools() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Community Tip Pools</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Group Remittances</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Crowdfunded bounty pools. Fans contribute, creators collect when the target is hit.
+            Family pools for collective remittances. Contributors send USDC, beneficiary collects via Bitso/SPEI when the target is hit.
           </p>
         </div>
         <Dialog open={createOpen} onOpenChange={setCreateOpen}>
           <DialogTrigger asChild>
             <Button size="sm" className="bg-primary hover:bg-primary/90">
-              <Plus className="h-3.5 w-3.5 mr-2" />Create Pool
+              <Plus className="h-3.5 w-3.5 mr-2" />Create Family Pool
             </Button>
           </DialogTrigger>
           <DialogContent className="bg-card border-border">
-            <DialogHeader><DialogTitle>Create Tip Pool</DialogTitle></DialogHeader>
+            <DialogHeader><DialogTitle>Create Family Pool</DialogTitle></DialogHeader>
             <div className="space-y-4 mt-2">
               <div>
-                <Label className="text-xs">Creator Handle</Label>
-                <Input placeholder="@CreatorName" value={newHandle} onChange={(e) => setNewHandle(e.target.value)} className="mt-1 bg-background" />
+                <Label className="text-xs">Beneficiary Name</Label>
+                <Input placeholder="e.g. María López (Guadalajara)" value={newHandle} onChange={(e) => setNewHandle(e.target.value)} className="mt-1 bg-background" />
               </div>
               <div>
-                <Label className="text-xs">Target Amount (USDT)</Label>
+                <Label className="text-xs">Target Amount (USDC)</Label>
                 <Input type="number" placeholder="50" value={newTarget} onChange={(e) => setNewTarget(e.target.value)} className="mt-1 bg-background" />
               </div>
               <div>
@@ -265,13 +265,13 @@ export default function TipPools() {
                 <Select value={newChain} onValueChange={setNewChain}>
                   <SelectTrigger className="mt-1 bg-background"><SelectValue /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="ethereum-sepolia">Ethereum Sepolia</SelectItem>
-                    <SelectItem value="ton-testnet">TON Testnet</SelectItem>
-                    <SelectItem value="tron-nile">Tron Nile</SelectItem>
+                    <SelectItem value="arbitrum">Arbitrum</SelectItem>
+                    <SelectItem value="base">Base</SelectItem>
+                    <SelectItem value="ethereum-sepolia">Ethereum Sepolia (testnet)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-              <Button className="w-full" onClick={handleCreate}>Create Pool</Button>
+              <Button className="w-full" onClick={handleCreate}>Create Family Pool</Button>
             </div>
           </DialogContent>
         </Dialog>
@@ -354,7 +354,7 @@ export default function TipPools() {
               <div className="mt-4 p-3 rounded-lg border border-border bg-background space-y-3">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <Label className="text-xs">Amount (USDT)</Label>
+                    <Label className="text-xs">Amount (USDC)</Label>
                     <Input type="number" placeholder="5" value={contribAmount} onChange={(e) => setContribAmount(e.target.value)} className="mt-1" />
                   </div>
                   <div>

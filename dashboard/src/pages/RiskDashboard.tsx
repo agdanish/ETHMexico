@@ -38,7 +38,7 @@ interface ThreatCategory {
 }
 
 const THREAT_CATEGORIES: ThreatCategory[] = [
-  { id: "overflow", name: "Amount Overflow", icon: AlertTriangle, status: "safe", score: 98, description: "Integer overflow & underflow attacks on tip amounts", lastTested: "2m ago" },
+  { id: "overflow", name: "Amount Overflow", icon: AlertTriangle, status: "safe", score: 98, description: "Integer overflow & underflow attacks on transfer amounts", lastTested: "2m ago" },
   { id: "replay", name: "Replay Attack", icon: Lock, status: "safe", score: 95, description: "Duplicate transaction submission prevention", lastTested: "5m ago" },
   { id: "injection", name: "Prompt Injection", icon: Bug, status: "safe", score: 97, description: "LLM prompt injection via user inputs", lastTested: "3m ago" },
   { id: "sybil", name: "Sybil Attack", icon: Fingerprint, status: "safe", score: 92, description: "Fake identity & multi-account exploits", lastTested: "8m ago" },
@@ -55,27 +55,24 @@ const THREAT_CATEGORIES: ThreatCategory[] = [
 // ── Chain risk heatmap data ───────────────────────────────────────
 
 const CHAIN_RISKS = [
-  { chain: "Ethereum", risk: 22, txCount: 1247, blocked: 3 },
-  { chain: "Polygon", risk: 15, txCount: 2341, blocked: 1 },
-  { chain: "Arbitrum", risk: 18, txCount: 892, blocked: 2 },
-  { chain: "Optimism", risk: 12, txCount: 567, blocked: 0 },
-  { chain: "Avalanche", risk: 25, txCount: 423, blocked: 2 },
-  { chain: "BNB Chain", risk: 35, txCount: 1100, blocked: 5 },
-  { chain: "TON", risk: 20, txCount: 780, blocked: 1 },
-  { chain: "Tron", risk: 30, txCount: 1560, blocked: 4 },
-  { chain: "Solana", risk: 17, txCount: 645, blocked: 1 },
+  { chain: "Arbitrum", risk: 14, txCount: 2341, blocked: 1 },
+  { chain: "Base", risk: 12, txCount: 1892, blocked: 0 },
+  { chain: "Bitso MXN", risk: 8, txCount: 987, blocked: 0 },
+  { chain: "SPEI Rail", risk: 5, txCount: 645, blocked: 0 },
+  { chain: "Ethereum L1", risk: 22, txCount: 234, blocked: 2 },
+  { chain: "Bridge ARB", risk: 18, txCount: 423, blocked: 1 },
 ];
 
 // ── Alert feed ────────────────────────────────────────────────────
 
 const ALERTS = [
   { id: 1, type: "blocked", message: "Blocked suspicious tx: amount overflow attempt ($999,999)", time: "30s ago", severity: "critical" },
-  { id: 2, type: "warning", message: "Front-running risk detected on Ethereum — delayed execution by 2 blocks", time: "2m ago", severity: "warning" },
+  { id: 2, type: "warning", message: "Front-running risk detected on Arbitrum — delayed execution by 2 blocks", time: "2m ago", severity: "warning" },
   { id: 3, type: "blocked", message: "Rate limit exceeded: 45 requests in 10s from 192.168.1.42", time: "5m ago", severity: "critical" },
-  { id: 4, type: "info", message: "Oracle price feed refreshed — deviation within 0.3% tolerance", time: "8m ago", severity: "info" },
+  { id: 4, type: "info", message: "Bitso FX rate refreshed — USD/MXN deviation within 0.3% tolerance", time: "8m ago", severity: "info" },
   { id: 5, type: "blocked", message: "Phishing address detected: 0x7f2e...3a4b flagged by community", time: "12m ago", severity: "critical" },
-  { id: 6, type: "warning", message: "Unusual BNB Chain gas spike — switching to Polygon for next batch", time: "15m ago", severity: "warning" },
-  { id: 7, type: "info", message: "Guardian multi-agent consensus: 3/3 approved tip cycle #1834", time: "18m ago", severity: "info" },
+  { id: 6, type: "warning", message: "Unusual Arbitrum gas spike — routing next transfer via Base", time: "15m ago", severity: "warning" },
+  { id: 7, type: "info", message: "Guardian multi-agent consensus: 3/3 approved remittance batch #1834", time: "18m ago", severity: "info" },
   { id: 8, type: "blocked", message: "Replay attack prevented — duplicate nonce rejected", time: "22m ago", severity: "critical" },
 ];
 
@@ -147,7 +144,7 @@ export default function RiskDashboard() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">Risk Dashboard</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Real-time threat monitoring across 12 categories, 9 chains, and guardian consensus.
+          Real-time threat monitoring across 12 categories, Arbitrum + Base, and guardian consensus.
         </p>
       </div>
 
@@ -354,8 +351,8 @@ export default function RiskDashboard() {
               />
             </div>
             <div className="text-xs text-muted-foreground space-y-1.5">
-              <div>Max single tip: <span className="text-foreground font-medium">${(riskAppetite * 2).toFixed(0)} USDT</span></div>
-              <div>Max daily spend: <span className="text-foreground font-medium">${(riskAppetite * 10).toFixed(0)} USDT</span></div>
+              <div>Max single transfer: <span className="text-foreground font-medium">${(riskAppetite * 2).toFixed(0)} USDC</span></div>
+              <div>Max daily spend: <span className="text-foreground font-medium">${(riskAppetite * 10).toFixed(0)} USDC</span></div>
               <div>Auto-pause threshold: <span className="text-foreground font-medium">{100 - riskAppetite}% drawdown</span></div>
               <div>Guardian strictness: <span className="text-foreground font-medium">{riskAppetite < 30 ? "Maximum" : riskAppetite < 60 ? "Standard" : "Relaxed"}</span></div>
             </div>

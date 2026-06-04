@@ -57,14 +57,12 @@ const navGroups: { label: string; items: NavItem[] }[] = [
     items: [
       { title: "Wallets", url: "/wallets", icon: Wallet },
       { title: "Transactions", url: "/transactions", icon: ArrowLeftRight },
-      { title: "Tips", url: "/tips", icon: Send },
       { title: "Escrow", url: "/escrow", icon: Lock },
       { title: "Payments", url: "/payments", icon: CreditCard },
       { title: "QR Codes", url: "/qr", icon: QrCode },
       { title: "Treasury", url: "/treasury", icon: Landmark },
       { title: "Economics", url: "/economics", icon: Calculator },
       { title: "Portfolio Analytics", url: "/portfolio-analytics", icon: PieChart },
-      { title: "Tip Pools", url: "/tip-pools", icon: UsersRound },
       { title: "Economic Simulator", url: "/economic-simulator", icon: FlaskConical },
       { title: "Chain Explorer", url: "/chain-explorer", icon: Globe },
     ],
@@ -80,15 +78,10 @@ const navGroups: { label: string; items: NavItem[] }[] = [
     ],
   },
   {
-    label: "Creators & Content",
+    label: "Recipients",
     items: [
-      { title: "Creators", url: "/creators", icon: Users },
-      { title: "Engagement", url: "/engagement", icon: Sparkles },
-      { title: "Reputation", url: "/reputation", icon: Award },
-      { title: "Contacts", url: "/contacts", icon: BookUser },
-      { title: "GitHub Tipping", url: "/github-tipping", icon: GitMerge },
+      { title: "Beneficiaries", url: "/contacts", icon: BookUser },
       { title: "Data Sources", url: "/data-sources", icon: Database },
-      { title: "Leaderboard", url: "/creator-leaderboard", icon: Trophy },
     ],
   },
   {
@@ -147,7 +140,7 @@ export default function AppSidebar() {
       <div className="h-14 flex items-center px-4 border-b border-sidebar-border shrink-0 gap-2">
         <img
           src="/logo-orange.png"
-          alt="AeroFyta"
+          alt="Colibrí"
           className="h-8 w-8 shrink-0"
           onError={(e) => {
             const parent = e.currentTarget.parentElement;

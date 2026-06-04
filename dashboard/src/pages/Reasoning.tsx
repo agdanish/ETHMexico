@@ -24,15 +24,15 @@ const typeIcons: Record<string, LucideIcon> = {
 };
 
 const prefilledTrace: ReasoningCard[] = [
-  { type: "thought", label: "Thought", content: "Analyzing top creator engagement scores across Rumble and YouTube...", confidence: 22, source: "Engagement Scanner" },
-  { type: "action", label: "Action", content: "Calling price_check tool for ETH/USDT pair on CoinGecko oracle.", confidence: 40, source: "Tool Executor" },
-  { type: "observation", label: "Observation", content: "ETH price: $3,245. Gas: 12 gwei. Fee ratio: 2.3% for a 0.01 USDT tip.", confidence: 58, source: "Price Oracle" },
-  { type: "reflection", label: "Reflection", content: "Fee ratio is 2.3% — acceptable for this tip amount. Creator @sarah_creates has Diamond tier with 94% engagement.", confidence: 74, source: "Risk Engine" },
-  { type: "decision", label: "Decision", content: "Approve tip of 0.01 USDT to 0xABC...def on ethereum-sepolia. Confidence: 87%. Guardian review: PASS.", confidence: 87, source: "Consensus Engine" },
+  { type: "thought", label: "Thought", content: "Analyzing top beneficiary transfer history and SPEI verification status...", confidence: 22, source: "Discovery Agent" },
+  { type: "action", label: "Action", content: "Calling fx_check tool for USD/MXN pair on Bitso oracle.", confidence: 40, source: "Tool Executor" },
+  { type: "observation", label: "Observation", content: "USD/MXN: 17.82. Base fee: 0.02 USDC. Fee ratio: 0.04% for a 50 USDC remittance.", confidence: 58, source: "FX Oracle" },
+  { type: "reflection", label: "Reflection", content: "Fee ratio is 0.04% — well below $1.20 cap. Beneficiary María García is SPEI-verified with 94% reliability.", confidence: 74, source: "Risk Engine" },
+  { type: "decision", label: "Decision", content: "Approve transfer of 50 USDC to 0xABC...def on Base. Confidence: 87%. Guardian review: PASS.", confidence: 87, source: "Consensus Engine" },
 ];
 
 export default function Reasoning() {
-  const [prompt, setPrompt] = useState("Analyze portfolio and recommend next action");
+  const [prompt, setPrompt] = useState("Analyze USDC balance and recommend next remittance action");
   const [cards, setCards] = useState<ReasoningCard[]>(prefilledTrace);
   const [isStreaming, setIsStreaming] = useState(false);
   const [confidence, setConfidence] = useState(87);

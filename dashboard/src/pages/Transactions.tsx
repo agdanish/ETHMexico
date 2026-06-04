@@ -7,17 +7,17 @@ import { ArrowLeftRight, Search, ExternalLink, Clock, CheckCircle2, Loader2 } fr
 import { toast } from "sonner";
 
 const recentTxs = [
-  { hash: "0xabc1...def2", type: "tip", amount: "2.5 USDT", chain: "Ethereum", status: "confirmed", confirmations: 24, time: "2m ago", to: "@sarah_creates" },
-  { hash: "0xfed3...ba45", type: "escrow", amount: "50 USDT", chain: "Polygon", status: "confirmed", confirmations: 128, time: "12m ago", to: "Escrow E-0048" },
-  { hash: "0x123a...789b", type: "swap", amount: "100 USDT", chain: "Ethereum", status: "confirmed", confirmations: 18, time: "18m ago", to: "Uniswap V3" },
-  { hash: "UQCx...4mRp", type: "tip", amount: "1.0 USDT", chain: "TON", status: "confirmed", confirmations: 1, time: "25m ago", to: "@music_maya" },
-  { hash: "0x456c...012d", type: "yield", amount: "500 USDT", chain: "Ethereum", status: "confirmed", confirmations: 45, time: "35m ago", to: "Aave V3" },
-  { hash: "0x789e...345f", type: "bridge", amount: "200 USDT", chain: "Polygon", status: "confirmed", confirmations: 256, time: "1h ago", to: "Polygon Bridge" },
+  { hash: "0xabc1...def2", type: "tip", amount: "50.0 USDC", chain: "Arbitrum", status: "confirmed", confirmations: 24, time: "2m ago", to: "María López → Bitso/SPEI" },
+  { hash: "0xfed3...ba45", type: "escrow", amount: "120.0 USDC", chain: "Base", status: "confirmed", confirmations: 128, time: "12m ago", to: "Escrow E-0048 (Rosa García)" },
+  { hash: "0x123a...789b", type: "swap", amount: "100.0 USDC", chain: "Arbitrum", status: "confirmed", confirmations: 18, time: "18m ago", to: "Uniswap V3" },
+  { hash: "0xcc2d...8f3a", type: "tip", amount: "35.0 USDC", chain: "Base", status: "confirmed", confirmations: 12, time: "25m ago", to: "Luis Torres → Bitso/SPEI" },
+  { hash: "0x456c...012d", type: "yield", amount: "500.0 USDC", chain: "Arbitrum", status: "confirmed", confirmations: 45, time: "35m ago", to: "Aave V3" },
+  { hash: "0x789e...345f", type: "bridge", amount: "200.0 USDC", chain: "Base", status: "confirmed", confirmations: 256, time: "1h ago", to: "Base Bridge" },
 ];
 
 const pendingTxs = [
-  { hash: "0xpnd1...abc2", type: "tip", amount: "3.0 USDT", chain: "Ethereum", status: "pending", time: "10s ago" },
-  { hash: "0xpnd2...def3", type: "dca", amount: "25 USDT", chain: "Ethereum", status: "mempool", time: "30s ago" },
+  { hash: "0xpnd1...abc2", type: "tip", amount: "75.0 USDC", chain: "Arbitrum", status: "pending", time: "10s ago" },
+  { hash: "0xpnd2...def3", type: "dca", amount: "25 USDC", chain: "Base", status: "mempool", time: "30s ago" },
 ];
 
 const typeBadge = (t: string) => {
@@ -34,11 +34,9 @@ const typeBadge = (t: string) => {
 
 const explorerUrl = (chain: string, hash: string) => {
   const urls: Record<string, string> = {
+    Arbitrum: `https://arbiscan.io/tx/${hash}`,
+    Base: `https://basescan.org/tx/${hash}`,
     Ethereum: `https://etherscan.io/tx/${hash}`,
-    Polygon: `https://polygonscan.com/tx/${hash}`,
-    TON: `https://tonscan.org/tx/${hash}`,
-    Tron: `https://tronscan.org/#/transaction/${hash}`,
-    Solana: `https://solscan.io/tx/${hash}`,
   };
   return urls[chain] || "#";
 };
@@ -57,7 +55,7 @@ export default function Transactions() {
     <div>
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">On-Chain Transaction Tracker</h1>
-        <p className="text-sm text-muted-foreground mt-1">Track, verify, and explore all agent transactions across chains.</p>
+        <p className="text-sm text-muted-foreground mt-1">Track, verify, and explore all remittance transactions on Arbitrum + Base.</p>
       </div>
 
       {/* Lookup */}

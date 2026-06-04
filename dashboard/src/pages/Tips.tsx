@@ -17,12 +17,9 @@ const statusColors: Record<string, string> = {
 };
 
 const chainColors: Record<string, string> = {
-  Ethereum: "bg-[#627EEA]/15 text-[#627EEA] border-[#627EEA]/30",
-  Polygon: "bg-[#8247E5]/15 text-[#8247E5] border-[#8247E5]/30",
-  TON: "bg-[#0098EA]/15 text-[#0098EA] border-[#0098EA]/30",
-  Solana: "bg-[#9945FF]/15 text-[#9945FF] border-[#9945FF]/30",
   Arbitrum: "bg-[#28A0F0]/15 text-[#28A0F0] border-[#28A0F0]/30",
-  Tron: "bg-[#FF0013]/15 text-[#FF0013] border-[#FF0013]/30",
+  Base: "bg-[#0052FF]/15 text-[#0052FF] border-[#0052FF]/30",
+  Ethereum: "bg-[#627EEA]/15 text-[#627EEA] border-[#627EEA]/30",
 };
 
 function randomHex(len: number) {
@@ -36,7 +33,7 @@ export default function Tips() {
   const [chainFilter, setChainFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
   const [open, setOpen] = useState(false);
-  const [tipForm, setTipForm] = useState({ address: "", amount: "", chain: "Ethereum", token: "USD₮" });
+  const [tipForm, setTipForm] = useState({ address: "", amount: "", chain: "Arbitrum", token: "USDC" });
 
   const safeTips = Array.isArray(tips) ? tips : demoTipHistory;
   const allTips = [...localTips, ...safeTips];
@@ -63,16 +60,16 @@ export default function Tips() {
       txHash: `0x${randomHex(64)}`,
     };
     setLocalTips((prev) => [newTip, ...prev]);
-    toast.success(`Tip of ${tipForm.amount} ${token} sent to ${newTip.recipient} on ${chain}`);
+    toast.success(`Transfer of ${tipForm.amount} ${token} sent to ${newTip.recipient} on ${chain}`);
     setOpen(false);
-    setTipForm({ address: "", amount: "", chain: "Ethereum", token: "USD₮" });
+    setTipForm({ address: "", amount: "", chain: "Arbitrum", token: "USDC" });
 
     // Simulate confirmation after 2 seconds
     setTimeout(() => {
       setLocalTips((prev) =>
         prev.map((t) => (t.id === newTip.id ? { ...t, status: "confirmed" as const } : t))
       );
-      toast.success(`Tip of ${newTip.amount} ${token} to ${newTip.recipient} confirmed on ${chain}`);
+      toast.success(`Transfer of ${newTip.amount} ${token} to ${newTip.recipient} confirmed on ${chain}`);
     }, 2000);
   };
 
@@ -80,21 +77,21 @@ export default function Tips() {
     <div>
       <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Payment History</h1>
-          <p className="text-sm text-muted-foreground mt-1">Every tip, every chain, fully auditable.</p>
+          <h1 className="text-2xl font-bold tracking-tight">Transfer History</h1>
+          <p className="text-sm text-muted-foreground mt-1">Every remittance, every chain, fully auditable.</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button size="sm" className="bg-primary hover:bg-primary/90">
-              <Send className="h-3.5 w-3.5 mr-2" />Send Tip
+              <Send className="h-3.5 w-3.5 mr-2" />Send Transfer
             </Button>
           </DialogTrigger>
           <DialogContent className="bg-card border-border">
-            <DialogHeader><DialogTitle>Send Tip</DialogTitle></DialogHeader>
+            <DialogHeader><DialogTitle>Send Transfer</DialogTitle></DialogHeader>
             <div className="space-y-4 mt-2">
               <div>
                 <Label className="text-xs">Recipient Address</Label>
-                <Input placeholder="0x... or creator handle" value={tipForm.address} onChange={(e) => setTipForm({ ...tipForm, address: e.target.value })} className="mt-1 bg-background" />
+                <Input placeholder="0x... or beneficiary name" value={tipForm.address} onChange={(e) => setTipForm({ ...tipForm, address: e.target.value })} className="mt-1 bg-background" />
               </div>
               <div>
                 <Label className="text-xs">Token</Label>
@@ -119,7 +116,7 @@ export default function Tips() {
                 </Select>
               </div>
               <Button onClick={sendTip} className="w-full bg-primary hover:bg-primary/90" disabled={!tipForm.address || !tipForm.amount}>
-                Send Tip
+                Send Transfer
               </Button>
             </div>
           </DialogContent>
@@ -130,13 +127,13 @@ export default function Tips() {
       <div className="flex items-center gap-3 mb-4 flex-wrap">
         <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Search recipients..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9 bg-card border-border/50" />
+          <Input placeholder="Search beneficiaries..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9 bg-card border-border/50" />
         </div>
         <Select value={chainFilter} onValueChange={setChainFilter}>
           <SelectTrigger className="w-[140px] bg-card border-border/50"><SelectValue placeholder="Chain" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Chains</SelectItem>
-            {["Ethereum", "Polygon", "TON", "Solana", "Arbitrum", "Tron"].map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+            {["Arbitrum", "Base", "Ethereum"].map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
           </SelectContent>
         </Select>
         <Select value={statusFilter} onValueChange={setStatusFilter}>
@@ -163,7 +160,7 @@ export default function Tips() {
                   <span className="text-xs text-muted-foreground tabular-nums">{tip.date}</span>
                   <span className="font-medium truncate">{tip.recipient}</span>
                   <span className="text-right tabular-nums font-medium">{tip.amount}</span>
-                  <span className={`text-xs font-medium ${(tip as Record<string, unknown>).token === "XAU₮" ? "text-[#D4A843]" : (tip as Record<string, unknown>).token === "USA₮" ? "text-[#1A3C6E]" : "text-[#26A17B]"}`}>{(tip as Record<string, unknown>).token ?? "USD₮"}</span>
+                  <span className={`text-xs font-medium ${(tip as Record<string, unknown>).token === "XAU₮" ? "text-[#D4A843]" : (tip as Record<string, unknown>).token === "USA₮" ? "text-[#1A3C6E]" : "text-[#26A17B]"}`}>{(tip as Record<string, unknown>).token ?? "USDC"}</span>
                   <Badge variant="outline" className={`text-[10px] w-fit ${chainColors[tip.chain] || ""}`}>{tip.chain}</Badge>
                   <Badge variant="outline" className={`text-[10px] w-fit ${statusColors[tip.status] || ""}`}>{tip.status}</Badge>
                   <a

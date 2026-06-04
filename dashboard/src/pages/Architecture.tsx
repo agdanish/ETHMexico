@@ -8,12 +8,12 @@ import CountUp from "@/components/shared/CountUp";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 
 const pipelineSteps: { label: string; sub: string; icon: LucideIcon }[] = [
-  { label: "YouTube API", sub: "RSS + Webhooks", icon: MonitorPlay },
-  { label: "Event Simulator", sub: "Real-time ingestion", icon: Zap },
-  { label: "Agent Brain", sub: "ReAct executor", icon: Brain },
-  { label: "Multi-Agent", sub: "3-agent consensus", icon: Handshake },
-  { label: "WDK Execution", sub: "Tether SDK", icon: Settings },
-  { label: "9 Chains", sub: "ETH, TON, BTC...", icon: Link },
+  { label: "Intent Parser", sub: "NL → transfer intent", icon: MonitorPlay },
+  { label: "Discovery Agent", sub: "Route analysis", icon: Zap },
+  { label: "Router Agent", sub: "ReAct executor", icon: Brain },
+  { label: "4-Agent Council", sub: "consensus + guardian", icon: Handshake },
+  { label: "USDC Settlement", sub: "Arbitrum + Base", icon: Settings },
+  { label: "Bitso Off-ramp", sub: "SPEI → MXN pesos", icon: Link },
 ];
 
 const securityLayers = [
@@ -29,7 +29,7 @@ const stats = [
   { value: 603, label: "API Endpoints" },
   { value: 97, label: "MCP Tools", suffix: "+" },
   { value: 107, label: "CLI Commands" },
-  { value: 1001, label: "Tests" },
+  { value: 1183, label: "Tests" },
 ];
 
 export default function Architecture() {
@@ -37,7 +37,7 @@ export default function Architecture() {
     <div>
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">Architecture</h1>
-        <p className="text-sm text-muted-foreground mt-1">End-to-end system diagram — from content ingestion to on-chain execution.</p>
+        <p className="text-sm text-muted-foreground mt-1">End-to-end system diagram — from USD intent to MXN pesos via SPEI.</p>
       </div>
 
       {/* Stats */}
@@ -58,7 +58,7 @@ export default function Architecture() {
       {/* Pipeline */}
       <div className="mb-10">
         <ScrollReveal>
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">Data Pipeline</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">8-Stage Pipeline</h2>
         </ScrollReveal>
         <div className="flex flex-wrap items-center gap-2">
           {pipelineSteps.map((step, i) => (

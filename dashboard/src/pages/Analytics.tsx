@@ -24,7 +24,7 @@ const medalColors = ["#FFD700", "#C0C0C0", "#CD7F32"];
 
 export default function Analytics() {
   const stats = [
-    { label: "Tips Sent", value: demoAgentStatus.stats.tipsSent.value },
+    { label: "Transfers Sent", value: demoAgentStatus.stats.tipsSent.value },
     { label: "Total Managed", value: 12847, prefix: "$" },
     { label: "Health Score", value: demoAgentStatus.pulse.healthScore, suffix: "%" },
     { label: "Security Events", value: 6 },
@@ -71,7 +71,7 @@ export default function Analytics() {
             className="absolute inset-0 rounded-xl pointer-events-none"
             style={{ boxShadow: "inset 0 0 40px rgba(255,78,0,0.03)" }}
           />
-          <h3 className="text-sm font-semibold mb-4 relative z-10">Tips per Day</h3>
+          <h3 className="text-sm font-semibold mb-4 relative z-10">Transfers per Day</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={Array.isArray(demoTipsPerDay) ? demoTipsPerDay : []}>
               <defs>
@@ -125,7 +125,7 @@ export default function Analytics() {
       <div className="grid lg:grid-cols-2 gap-4">
         <div className="rounded-xl border border-border bg-card">
           <div className="px-5 py-3 border-b border-border">
-            <h3 className="text-sm font-semibold">Creator Leaderboard</h3>
+            <h3 className="text-sm font-semibold">Recipient Leaderboard</h3>
           </div>
           <div className="divide-y divide-border">
             {topCreators.map((c, i) => (
@@ -144,7 +144,7 @@ export default function Analytics() {
                       style={{ width: `${(c.tips / maxTips) * 100}%`, background: "#FF4E00" }}
                     />
                   </div>
-                  <span className="text-xs tabular-nums text-muted-foreground w-12 text-right">{c.tips} tips</span>
+                  <span className="text-xs tabular-nums text-muted-foreground w-12 text-right">{c.tips} sent</span>
                 </div>
               </div>
             ))}

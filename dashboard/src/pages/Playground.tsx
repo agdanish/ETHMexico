@@ -17,7 +17,7 @@ export default function Playground() {
   const escrowSecret = "a3f8c2e1d4b7...9f0e";
 
   // Chat state
-  const [chatInput, setChatInput] = useState("What's the best chain for micro-tips under $5?");
+  const [chatInput, setChatInput] = useState("What's the best L2 for micro remittances under $50?");
   const [chatResponse, setChatResponse] = useState("");
   const [chatLoading, setChatLoading] = useState(false);
 
@@ -27,11 +27,11 @@ export default function Playground() {
   const [reasoningConfidence, setReasoningConfidence] = useState(0);
 
   const reasoningSteps = [
-    { text: "Analyzing wallet state across 9 chains...", confidence: 18 },
-    { text: "Evaluating creator engagement: @sarah_creates +12%", confidence: 42 },
-    { text: "Multi-agent vote: 2/3 approve tip action", confidence: 68 },
+    { text: "Analyzing USDC balances across Arbitrum + Base...", confidence: 18 },
+    { text: "Evaluating beneficiary: María García, SPEI verified +12%", confidence: 42 },
+    { text: "Multi-agent vote: 2/3 approve transfer action", confidence: 68 },
     { text: "Guardian review: APPROVED — no anomalies", confidence: 85 },
-    { text: "Executing tip: 2.5 USDT → @sarah_creates on Ethereum", confidence: 97 },
+    { text: "Executing transfer: 50 USDC → María García on Base", confidence: 97 },
   ];
 
   const handleTip = () => {
@@ -52,7 +52,7 @@ export default function Playground() {
   const handleChat = () => {
     setChatLoading(true);
     setChatResponse("");
-    const response = "For micro-tips under $5, I recommend Polygon or Tron. Both have sub-cent gas fees, fast finality (<3s), and full USDT support. Polygon averages $0.002/tx while Tron is $0.001/tx. The agent currently uses Polygon for 24% of all tips due to its speed and EVM compatibility.";
+    const response = "For micro remittances under $50, I recommend Base. It has sub-cent fees (~$0.01–0.02 USDC), fast finality (<3s), and full USDC support. Base averages $0.02/tx vs Arbitrum $0.04/tx. The agent currently routes 62% of small transfers via Base due to its speed and low cost.";
     let i = 0;
     const interval = setInterval(() => {
       if (i >= response.length) { clearInterval(interval); setChatLoading(false); return; }
@@ -78,36 +78,36 @@ export default function Playground() {
     <div>
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">Playground</h1>
-        <p className="text-sm text-muted-foreground mt-1">Interactive sandbox — click any card to see AeroFyta in action.</p>
+        <p className="text-sm text-muted-foreground mt-1">Interactive sandbox — click any card to see Colibrí in action.</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
         {/* Try a Tip */}
         <Card className="border-border/50 bg-card/50">
           <CardHeader className="pb-3">
-            <CardTitle className="text-base flex items-center gap-2"><Send className="h-4 w-4 text-primary" />Try a Tip</CardTitle>
-            <CardDescription>Send a tip to a creator on Ethereum</CardDescription>
+            <CardTitle className="text-base flex items-center gap-2"><Send className="h-4 w-4 text-primary" />Try a Transfer</CardTitle>
+            <CardDescription>Send a remittance to a beneficiary on Base</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <label className="text-[11px] text-muted-foreground uppercase tracking-wider">Recipient</label>
-                <Input value="@sarah_creates" readOnly className="bg-secondary/30 border-border/40 mt-1 text-sm h-9" />
+                <Input value="María García" readOnly className="bg-secondary/30 border-border/40 mt-1 text-sm h-9" />
               </div>
               <div>
                 <label className="text-[11px] text-muted-foreground uppercase tracking-wider">Amount</label>
-                <Input value="2.50 USDT" readOnly className="bg-secondary/30 border-border/40 mt-1 text-sm h-9" />
+                <Input value="50.00 USDC" readOnly className="bg-secondary/30 border-border/40 mt-1 text-sm h-9" />
               </div>
             </div>
-            <div className="text-[11px] text-muted-foreground">Chain: Ethereum · Gas: ~0.0012 ETH</div>
+            <div className="text-[11px] text-muted-foreground">Chain: Base · Fee: ~0.02 USDC · ~90s settlement</div>
             {tipSent ? (
               <div className="flex items-center gap-2 text-sm text-success">
                 <Check className="h-4 w-4" />
-                <span>Tip sent! TX: 0xabc...def</span>
+                <span>Transfer sent! TX: 0xabc...def</span>
               </div>
             ) : (
               <Button onClick={handleTip} disabled={tipLoading} className="w-full" size="sm">
-                {tipLoading ? <><Loader2 className="h-4 w-4 animate-spin" />Sending...</> : "Send Tip →"}
+                {tipLoading ? <><Loader2 className="h-4 w-4 animate-spin" />Sending...</> : "Send Transfer →"}
               </Button>
             )}
           </CardContent>
@@ -123,7 +123,7 @@ export default function Playground() {
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <label className="text-[11px] text-muted-foreground uppercase tracking-wider">Amount</label>
-                <Input value="50 USDT" readOnly className="bg-secondary/30 border-border/40 mt-1 text-sm h-9" />
+                <Input value="50 USDC" readOnly className="bg-secondary/30 border-border/40 mt-1 text-sm h-9" />
               </div>
               <div>
                 <label className="text-[11px] text-muted-foreground uppercase tracking-wider">Timelock</label>
@@ -148,7 +148,7 @@ export default function Playground() {
             {escrowPhase === "claimed" && (
               <div className="flex items-center gap-2 text-sm text-success">
                 <Check className="h-4 w-4" />
-                <span>Escrow claimed! 50 USDT released.</span>
+                <span>Escrow claimed! 50 USDC released.</span>
               </div>
             )}
           </CardContent>
@@ -158,7 +158,7 @@ export default function Playground() {
         <Card className="border-border/50 bg-card/50">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center gap-2"><MessageSquare className="h-4 w-4 text-primary" />Ask the Agent</CardTitle>
-            <CardDescription>Chat with the AeroFyta agent</CardDescription>
+            <CardDescription>Chat with the Colibrí agent</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <Input
@@ -185,7 +185,7 @@ export default function Playground() {
             <CardDescription>Watch multi-agent consensus in real time</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
-            <Input value="Analyze portfolio and recommend next tip" readOnly className="bg-secondary/30 border-border/40 text-sm h-9" />
+            <Input value="Analyze USDC balance and recommend next remittance route" readOnly className="bg-secondary/30 border-border/40 text-sm h-9" />
             <Button onClick={handleReasoning} disabled={reasoningActive} className="w-full" size="sm">
               {reasoningActive ? <><Loader2 className="h-4 w-4 animate-spin" />Running...</> : <><Play className="h-4 w-4" />Start Reasoning</>}
             </Button>

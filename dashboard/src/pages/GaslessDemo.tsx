@@ -26,15 +26,8 @@ interface ChainGasless {
 }
 
 const CHAINS: ChainGasless[] = [
-  { chain: "ethereum", name: "Ethereum", standard: "ERC-4337", supported: true, normalGasCostUsd: 1.25, blockTime: 12, color: "#627EEA" },
-  { chain: "polygon", name: "Polygon", standard: "ERC-4337", supported: true, normalGasCostUsd: 0.0043, blockTime: 2, color: "#8247E5" },
   { chain: "arbitrum", name: "Arbitrum", standard: "ERC-4337", supported: true, normalGasCostUsd: 0.0025, blockTime: 0.3, color: "#28A0F0" },
-  { chain: "optimism", name: "Optimism", standard: "ERC-4337", supported: true, normalGasCostUsd: 0.001, blockTime: 2, color: "#FF0420" },
-  { chain: "avalanche", name: "Avalanche", standard: "ERC-4337", supported: true, normalGasCostUsd: 0.105, blockTime: 2, color: "#E84142" },
-  { chain: "bsc", name: "BNB Chain", standard: "ERC-4337", supported: true, normalGasCostUsd: 0.265, blockTime: 3, color: "#F0B90B" },
-  { chain: "ton", name: "TON", standard: "Native Gasless", supported: true, normalGasCostUsd: 0.013, blockTime: 5, color: "#0098EA" },
-  { chain: "tron", name: "Tron", standard: "Energy Delegation", supported: true, normalGasCostUsd: 0.0015, blockTime: 3, color: "#FF0013" },
-  { chain: "solana", name: "Solana", standard: "Fee Payer", supported: true, normalGasCostUsd: 0.003, blockTime: 0.4, color: "#14F195" },
+  { chain: "base", name: "Base", standard: "ERC-4337", supported: true, normalGasCostUsd: 0.001, blockTime: 2, color: "#0052FF" },
 ];
 
 // ── Flow steps ────────────────────────────────────────────────────
@@ -57,7 +50,7 @@ const FLOW_STEPS: FlowStep[] = [
 ];
 
 export default function GaslessDemo() {
-  const [selectedChain, setSelectedChain] = useState("ethereum");
+  const [selectedChain, setSelectedChain] = useState("arbitrum");
   const [amount, setAmount] = useState("10");
   const [simulating, setSimulating] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
@@ -97,7 +90,7 @@ export default function GaslessDemo() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">Gasless Transactions</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          ERC-4337 Account Abstraction demo — paymaster-sponsored gas across 9 chains.
+          ERC-4337 Account Abstraction demo — paymaster-sponsored gas on Arbitrum + Base.
         </p>
       </div>
 
@@ -182,7 +175,7 @@ export default function GaslessDemo() {
               </Select>
             </div>
             <div>
-              <label className="text-xs text-muted-foreground mb-1 block">Amount (USDT)</label>
+              <label className="text-xs text-muted-foreground mb-1 block">Amount (USDC)</label>
               <Input
                 type="number"
                 value={amount}
@@ -313,7 +306,7 @@ export default function GaslessDemo() {
               <tfoot>
                 <tr className="border-t border-border/30 font-medium">
                   <td colSpan={5} className="py-2.5 px-3 text-right text-muted-foreground">
-                    Total savings per 9-chain sweep:
+                    Total savings per Arbitrum + Base sweep:
                   </td>
                   <td className="py-2.5 px-3 text-right font-mono text-emerald-400 font-bold">
                     ${totalSaved.toFixed(4)}
