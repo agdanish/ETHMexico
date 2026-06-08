@@ -2,7 +2,7 @@
 
 # 🐦 Colibrí
 
-### Send money home. Your AI agent finds the cheapest route and settles in seconds.
+### Send money hnt finds the cheapest route and settles in seconds.
 
 **Colibrí is an AI remittance agent for Latin America. Type a dollar amount, pick a family member, and a 4-agent council settles USDC on an Ethereum L2 and off-ramps it to Mexican pesos via Bitso — ~90 seconds, ~$1 fee, a fraction of Western Union.**
 
